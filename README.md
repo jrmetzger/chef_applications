@@ -4,12 +4,6 @@ Installation of Application using Chef and applying STIG compliance standards
 
 ## Setup
 
-https://cinc.sh
-
-```
-bash setup.sh
-```
-
 Redhat Credentials:
 https://www.redhat.com/en
 
