@@ -1,0 +1,47 @@
+---
+driver:
+  name: vagrant
+
+verifier:
+  name: inspec
+  sudo: true
+  reporter:
+    - cli
+    - json:spec/results/%{platform}_%{suite}.json
+  inspec_tests:
+    - name: rhel9
+      git: https://github.com/mitre/redhat-enterprise-linux-9-stig-baseline.git
+
+provisioner:
+  name: chef_zero
+  product_name: cinc
+  product_version: latest
+
+platforms:
+# https://portal.cloud.hashicorp.com/vagrant/discover
+  - name: rhel-9
+    driver:
+      box: "generic/rhel9"
+      provider: qemu
+
+suites:
+  - name: default
+
+lifecycle:
+  post_create:
+    local: |
+      echo "Generate FIPS Key"
+      mkdir -m 700 -p keys
+      ssh-keygen -t ed25519 -f keys/fips_key -o -a 100 -N ""
+      #chmod g-rwx,o-rwx keys/*
+      #yq eval '.ssh_key = "keys/fips_key"' -i .kitchen/default-rhel-9.yml
+      export PUB_KEY=$(cat keys/fips_key.pub)
+    remote: |
+      echo "[INFO] Importing Public Key to SSH Authorized Keys"
+      echo "<%= ENV['PUB_KEY'] %>" >> ~/.ssh/authorized_keys
+      echo "[INFO] Attempting Red Hat subscription registration..."
+      sudo subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" || echo "[WARN] Registration failed"
+      echo "[INFO] Installing basic utilities..."
+      #yum install -y sudo hostname lsof && yum clean all || echo "[WARN] Failed to install packages"
+      #yum update
+
