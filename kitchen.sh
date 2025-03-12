@@ -14,5 +14,5 @@ brew list --cask | grep -q cinc-workstation || { echo "Cinc Workstation not foun
 command -v vagrant &> /dev/null || { echo "Vagrant not found, installing..."; brew install --cask vagrant; }
 command -v yq &> /dev/null || { echo "YQ not found, installing..."; brew install yq; }
 vagrant plugin list | grep -q vagrant-qemu || { echo "Vagrant-QEMU plugin not found, installing..."; vagrant plugin install vagrant-qemu; }
-[ ! -f "cookbook/Gemfile.lock" ] && (cd cookbook && sudo bundle install)
+test -f "cookbook/Gemfile.lock" || { echo "Gemfile Lock not found, installing..."; (cd cookbook && bundle install); }
 (cd cookbook && bundle exec kitchen $@)
