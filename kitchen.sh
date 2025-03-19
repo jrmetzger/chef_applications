@@ -15,4 +15,25 @@ command -v vagrant &> /dev/null || { echo "Vagrant not found, installing..."; br
 command -v yq &> /dev/null || { echo "YQ not found, installing..."; brew install yq; }
 vagrant plugin list | grep -q vagrant-qemu || { echo "Vagrant-QEMU plugin not found, installing..."; vagrant plugin install vagrant-qemu; }
 test -f "cookbook/Gemfile.lock" || { echo "Gemfile Lock not found, installing..."; (cd cookbook && bundle install); }
-(cd cookbook && bundle exec kitchen $@)
+
+run_kitchen() {
+  (cd cookbook && bundle exec kitchen "$@")
+}
+
+run_cookstyle() {
+   (cd cookbook && bundle exec cookstyle -a)
+}
+
+if [ "$1" == "cv" ]; then
+  command='converge verify'
+elif [ "$1" == 'dv' ]; then
+  command='destroy verify'
+else
+  command="$@"
+fi
+
+run_cookstyle
+echo "Running: $comamnd"
+for action in $command; do
+  run_kitchen "$action"
+done

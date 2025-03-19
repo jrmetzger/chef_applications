@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 name 'cookbook'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
+maintainer 'Jon Metzger'
+maintainer_email 'n/a'
 license 'All Rights Reserved'
 description 'Installs/Configures applications'
 version '0.1.0'

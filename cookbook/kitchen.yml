@@ -42,6 +42,6 @@ lifecycle:
       echo "[INFO] Attempting Red Hat subscription registration..."
       sudo subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" || echo "[WARN] Registration failed"
       echo "[INFO] Installing basic utilities..."
-      #yum install -y sudo hostname lsof && yum clean all || echo "[WARN] Failed to install packages"
-      #yum update
+      yum install -y sudo hostname lsof && yum clean all || echo "[WARN] Failed to install packages"
+      yum update
 

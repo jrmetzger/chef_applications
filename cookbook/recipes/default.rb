@@ -11,7 +11,15 @@
 #  not_if 'test $(cat /proc/sys/crypto/fips_enabled) -eq 1'  # Skip if already in FIPS mode
 # end
 
-template '/etc/audit/rules.d/99-stig.rules' do
+node['cookbook']['controls']['audit'].each do |_name, control|
+  # package control['package'] if control['package']
+end
+
+file '/etc/audit/rules.d/audit.rules' do
+  action :delete
+end
+template 'Implement Audit Controls' do
+  path '/etc/audit/rules.d/99-stig.rules'
   source 'audit.rules.erb'
   mode '0644'
   owner 'root'
@@ -20,5 +28,11 @@ template '/etc/audit/rules.d/99-stig.rules' do
   variables(rules: node['cookbook']['controls']['audit'])
 end
 execute 'Reload Auditctl' do
-  command 'auditctl -R /etc/audit/rules.d/99-stig.rules'
+  command 'augenrules --load'
+  # command 'auditctl -R /etc/audit/rules.d/99-stig.rules'
+  # reboot
+  action :nothing
 end
+
+# sudo augenrules --load
+# sudo systemctl restart auditd
