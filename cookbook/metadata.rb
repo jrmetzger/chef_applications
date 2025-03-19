@@ -7,3 +7,6 @@ license 'All Rights Reserved'
 description 'Installs/Configures applications'
 version '0.1.0'
 chef_version '>= 16.0'
+
+depends 'line', '~> 4.5'
+depends 'docker', '~> 11.9'
