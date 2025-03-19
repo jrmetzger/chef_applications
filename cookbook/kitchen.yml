@@ -23,6 +23,7 @@ platforms:
     driver:
       box: "generic/rhel9"
       provider: qemu
+  # TODO: Heimdall ec2...
 
 suites:
   - name: default
