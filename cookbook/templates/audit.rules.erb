@@ -18,14 +18,15 @@
 <% next unless rule['managed'] %>
 <% next if rule['packages'] %>
 <% if rule['rule'] %>
+
 # <%= name %>  - <%= rule['title'] %>
 <%= rule['rule'] %>
 <% end %>
 <% if rule['rules'] %>
+
 # <%= name %> - <%= rule['title'] %>
 <% rule['rules'].each do |subrule| %>
 <%= subrule %>
 <% end %>
 <% end %>
-
 <% end %>

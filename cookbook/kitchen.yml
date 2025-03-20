@@ -19,10 +19,12 @@ provisioner:
 
 platforms:
 # https://portal.cloud.hashicorp.com/vagrant/discover
-  - name: rhel-9
+  - name: rhel9
     driver:
+    # 32 arch
       box: "generic/rhel9"
       provider: qemu
+      architecture: arm64
   # TODO: Heimdall ec2...
 
 suites:
@@ -31,7 +33,7 @@ suites:
 lifecycle:
   post_create:
   - local: |
-      echo "Generate FIPS Key"
+      echo "[INFO] Generating FIPS Key"
       mkdir -m 700 -p keys
       ssh-keygen -t ed25519 -f keys/fips_key -o -a 100 -N ""
       #chmod g-rwx,o-rwx keys/*
@@ -41,8 +43,9 @@ lifecycle:
       echo "[INFO] Importing Public Key to SSH Authorized Keys"
       echo "<%= ENV['PUB_KEY'] %>" >> ~/.ssh/authorized_keys
       echo "[INFO] Attempting Red Hat subscription registration..."
-      sudo subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[WARN] Registration failed"
+      sudo -i subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[WARN] Registration failed"
       echo "[INFO] Installing basic utilities..."
-      yum install -y sudo hostname lsof && yum clean all || echo "[WARN] Failed to install packages"
-      yum update
+      # sudo -i yum install -y sudo hostname lsof && yum clean all || echo "[WARN] Failed to install packages"
+      sudo -i yum -y update
+      #dnf -y update --quiet --progressbar=plain #tty
 
