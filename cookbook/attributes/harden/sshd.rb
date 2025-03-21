@@ -31,4 +31,54 @@ default['cookbook']['controls']['sshd'].tap do |control|
     configuration['title'] = 'SV-257986: RHEL 9 must enable the Pluggable Authentication Module (PAM) interface for SSHD'
     configuration['value'] = 'yes'
   end
+  control['Compression'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = ' SV-258002: RHEL 9 SSH daemon must not allow compression or must only allow compression after successful authentication.'
+    configuration['value'] = 'delayed' # Default, or no
+  end
+  control['GSSAPIAuthentication'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258003: RHEL 9 SSH daemon must not allow GSSAPI authentication.'
+    configuration['value'] = 'no' # Unless using Kerberos
+  end
+  control['KerberosAuthentication'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258004: RHEL 9 SSH daemon must not allow Kerberos authentication.'
+    configuration['value'] = 'no' # Unless using Kerberos
+  end
+  control['IgnoreRhosts'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258005: RHEL 9 SSH daemon must not allow rhosts authentication.'
+    configuration['value'] = 'yes'
+  end
+  control['X11Forwarding'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258006: RHEL 9 SSH daemon must not allow known hosts authentication.'
+    configuration['value'] = 'yes'
+  end
+  control['X11Forwarding'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258007: RHEL 9 SSH daemon must disable remote X connections for interactive users.'
+    configuration['value'] = 'yes'
+  end
+  control['StrictModes'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258008: RHEL 9 SSH daemon must perform strict mode checking of home directory configuration files.'
+    configuration['value'] = 'yes'
+  end
+  control['PrintLastLog'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258009: RHEL 9 SSH daemon must display the date and time of the last successful account logon upon an SSH logon.'
+    configuration['value'] = 'yes'
+  end
+  control['UsePrivilegeSeparation'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258010: RHEL 9 SSH daemon must be configured to use privilege separation.'
+    configuration['value'] = 'yes' # DEPRECATED, new entry. 'sandbox' works too
+  end
+  control['X11UseLocalhost'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258011: RHEL 9 SSH daemon must prevent remote hosts from connecting to the proxy display.'
+    configuration['value'] = 'yes'
+  end
 end
