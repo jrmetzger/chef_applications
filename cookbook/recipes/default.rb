@@ -6,5 +6,5 @@
 #
 # Copyright:: 2025, The Authors, All Rights Reserved.
 
-# include_recipe 'cookbook::_harden'
-include_recipe 'cookbook::heimdall' # amd only!
+include_recipe 'cookbook::_harden'
+include_recipe 'cookbook::heimdall'
