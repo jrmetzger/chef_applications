@@ -85,9 +85,9 @@ default['cookbook']['controls']['audit'].tap do |control|
     configuration['managed'] = true
     configuration['title'] = 'SV-258179: RHEL 9 must audit all uses of the setxattr, fsetxattr, lsetxattr, removexattr, fremovexattr, and lremovexattr system calls.'
     configuration['rules'] = []
-    supported_arches.each do |_arch|
-      ['-F auid>=1000 -F auid!=unset', 'F auid=0'].each do |auid|
-        # configuration['rules'] << "-a always,exit -F arch=b#{arch} -S setxattr,fsetxattr,lsetxattr,removexattr,fremovexattr,lremovexattr #{auid} -k perm_mod"
+    supported_arches.each do |arch|
+      ['auid>=1000 -F auid!=unset', 'auid=0'].each do |auid|
+        configuration['rules'] << "-a always,exit -F arch=b#{arch} -S setxattr,fsetxattr,lsetxattr,removexattr,fremovexattr,lremovexattr -F #{auid} -k perm_mod"
       end
     end
   end

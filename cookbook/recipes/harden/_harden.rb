@@ -15,4 +15,7 @@ end
 
 include_recipe 'cookbook::audit'
 include_recipe 'cookbook::grub'
+include_recipe 'cookbook::logindefs'
+include_recipe 'cookbook::security'
+include_recipe 'cookbook::sshd'
 include_recipe 'cookbook::sysctl'

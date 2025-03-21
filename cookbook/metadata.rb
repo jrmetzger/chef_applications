@@ -10,3 +10,4 @@ chef_version '>= 16.0'
 
 depends 'line', '~> 4.5'
 depends 'docker', '~> 11.9'
+depends 'limits', '~> 2.3'

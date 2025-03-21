@@ -68,4 +68,3 @@ lifecycle:
         # vagrant snapshot save ${KITCHEN_INSTANCE_NAME}-latest
         # vagrant snapshot restore ${KITCHEN_INSTANCE_NAME}-latest
       #fi
-
