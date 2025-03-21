@@ -7,6 +7,7 @@
 # Copyright:: 2025, The Authors, All Rights Reserved.
 
 node['cookbook']['controls']['sysctl'].each do |_name, control|
+  next unless control['managed']
   control['config'].each do |key, value|
     sysctl control['title'] do
       key key

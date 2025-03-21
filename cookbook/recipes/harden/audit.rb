@@ -12,6 +12,8 @@
 # end
 
 node['cookbook']['controls']['audit'].each do |_name, control|
+  next unless control['managed']
+
   # Packages
   package control['package'] if control['package']
 

@@ -8,6 +8,7 @@ if [ -z "$REDHAT_USERNAME" ] || [ -z "$REDHAT_PASSWORD" ]; then
   exit 1
 fi
 
+# Chef
 command -v ruby &> /dev/null || { echo "Ruby not found, installing..."; brew install ruby; }
 command -v qemu-img &> /dev/null || { echo "QEMU not found, installing..."; brew install qemu; }
 brew list --cask | grep -q cinc-workstation || { echo "Cinc Workstation not found, installing..."; brew install --cask cinc-workstation; }
@@ -15,6 +16,18 @@ command -v vagrant &> /dev/null || { echo "Vagrant not found, installing..."; br
 command -v yq &> /dev/null || { echo "YQ not found, installing..."; brew install yq; }
 vagrant plugin list | grep -q vagrant-qemu || { echo "Vagrant-QEMU plugin not found, installing..."; vagrant plugin install vagrant-qemu; }
 test -f "cookbook/Gemfile.lock" || { echo "Gemfile Lock not found, installing..."; (cd cookbook && bundle install); }
+
+# Heimdall
+#brew install npm
+#npm install -g @mitre/heimdall-lite
+#heimdall-lite &
+#echo Upload 'spec/results/rhel-9_default.json' to 'localhost:8000'
+
+# curl -# -s -F data=@spec/results/rhel-9_default.json -F "filename=rhel-9_default" -F "public=true" -F "evaluationTags=8438b61,mitre/redhat-enterprise-linux-8-stig-baseline,DISA Hardened EC2 Testing Matrix,'Supplemental Automation Content v1r12'" -H "Authorization: Api-Key test" "http://localhost:8000/evaluations"
+
+
+#lsof -i :$PORT
+#kill -9 $PID
 
 run_kitchen() {
   (cd cookbook && bundle exec kitchen "$@")

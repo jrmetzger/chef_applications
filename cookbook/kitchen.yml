@@ -19,18 +19,30 @@ provisioner:
 
 platforms:
 # https://portal.cloud.hashicorp.com/vagrant/discover
-  - name: rhel9
+  - name: rhel-9
     driver:
     # 32 arch
       box: "generic/rhel9"
       provider: qemu
       architecture: arm64
-  # TODO: Heimdall ec2...
+    # TODO: Heimdall ec2...
+    driver_config:
+      network:
+      - [
+          "forwarded_port", {
+            guest: 12345, # May Need to Change This
+            host: 12345 # DO NOT CHANGE THIS. MUST MATCH WHAT IS IN ATTRIBUTES
+          }
+        ]
 
 suites:
   - name: default
 
 lifecycle:
+  post_destroy:
+  - local: |
+      echo "[INFO] Closing Port 12345"
+      kill -9 $(lsof -i :12345 -t)
   post_create:
   - local: |
       echo "[INFO] Generating FIPS Key"
@@ -44,8 +56,16 @@ lifecycle:
       echo "<%= ENV['PUB_KEY'] %>" >> ~/.ssh/authorized_keys
       echo "[INFO] Attempting Red Hat subscription registration..."
       sudo -i subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[WARN] Registration failed"
-      echo "[INFO] Installing basic utilities..."
-      # sudo -i yum install -y sudo hostname lsof && yum clean all || echo "[WARN] Failed to install packages"
-      sudo -i yum -y update
+      echo "[INFO] Updating Packages..."
+      sudo -i yum -y update || echo "[WARN] Failed to update packages"
       #dnf -y update --quiet --progressbar=plain #tty
+  pre_converge:
+  - local: |
+      #mkdir -p local_boxes
+      #if [ ! -f local_boxes/${KITCHEN_INSTANCE_NAME}.box ]; then
+        #cd .kitchen/kitchen-vagrant/default-rhel-9 && vagrant package --output local_boxes/${KITCHEN_INSTANCE_NAME}.box
+        #vagrant box add ${KITCHEN_INSTANCE_NAME}-latest local_boxes/${KITCHEN_INSTANCE_NAME}.box
+        # vagrant snapshot save ${KITCHEN_INSTANCE_NAME}-latest
+        # vagrant snapshot restore ${KITCHEN_INSTANCE_NAME}-latest
+      #fi
 

@@ -6,7 +6,17 @@
 #
 # Copyright:: 2025, The Authors, All Rights Reserved.
 
-node['cookbook']['controls']['grub'].each do |_name, control|
+node['cookbook']['controls']['grub'].each do |name, control|
+  next unless control['managed']
+  execute control['title'] do
+    command [
+      "fips-mode-setup --#{control['mode']}",
+      'ln -sf /usr/share/crypto-policies/FIPS/nss.txt /etc/crypto-policies/back-ends/nss.txt',
+    ]
+    only_if { name == 'fips' }
+    not_if 'update-crypto-policies --show | grep FIPS'
+  end
+
   control['arg'].each do |key, value|
     entry = "#{key}=#{value}"
     execute control['title'] do
