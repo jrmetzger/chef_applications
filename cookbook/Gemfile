@@ -2,16 +2,17 @@
 
 source 'https://rubygems.org'
 
-gem 'cookstyle'
-gem 'highline'
-gem 'inspec'
-# gem 'inspec-bin'
-gem 'chef-cli'
-gem 'inspec-core'
-gem 'kitchen-inspec'
-gem 'kitchen-sync'
-gem 'kitchen-vagrant'
-gem 'rake'
-gem 'rubocop'
-gem 'rubocop-rake'
+# Required
 gem 'test-kitchen'
+gem 'kitchen-ec2'
+gem 'kitchen-inspec'
+gem 'chef-cli'
+
+# Good
+gem 'cookstyle'           # Chef-style RuboCop wrapper
+gem 'rake'                # Task runner, often used in CI pipelines
+gem 'inspec'              # If you want full InSpec CLI usage
+gem 'rubocop'             # Only if you're customizing RuboCop directly (cookstyle includes it)
+gem 'rubocop-rake'        # Needed only if you want custom Rakefile linting
+gem 'kitchen-sync'        # Useful for syncing files to test instances, but not always necessary
+gem 'kitchen-vagrant'     # Only if you're doing local Vagrant testing

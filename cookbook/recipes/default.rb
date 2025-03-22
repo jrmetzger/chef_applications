@@ -8,3 +8,4 @@
 
 include_recipe 'cookbook::_harden'
 include_recipe 'cookbook::heimdall'
+include_recipe 'cookbook::habitat'

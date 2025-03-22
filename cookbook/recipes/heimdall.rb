@@ -6,25 +6,14 @@
 #
 # Copyright:: 2025, The Authors, All Rights Reserved.
 
-# Ensure firewalld is installed and running
-# Ensure required packages are installed
-package %w(curl git firewalld)
+# Install Firewall
+include_recipe 'firewall'
 
-service 'firewalld' do
-  action [:enable, :start]
-end
-
-# Open port 5005/tcp permanently
-execute 'Open Heimdall Port' do
-  command "firewall-cmd --permanent --add-port=#{node['cookbook']['heimdall']['port']}/tcp"
-  not_if "firewall-cmd --list-ports | grep #{node['cookbook']['heimdall']['port']}/tcp"
-  notifies :run, 'execute[Reload Firewall]', :immediately
-end
-
-# Reload firewalld to apply changes
-execute 'Reload Firewall' do
-  command 'firewall-cmd --reload'
-  action :nothing
+# Setup Firewall Rule
+firewall_rule 'Open Heimdall Port' do
+  port node['cookbook']['heimdall']['port']
+  protocol :tcp
+  command :allow
 end
 
 # Install Node.js and npm via EPEL or NodeSource
@@ -38,6 +27,8 @@ package 'Install NodeJS' do
   package_name 'nodejs'
   action :install
 end
+
+# Heimdall Lite
 
 # Install heimdall-lite globally if not installed
 execute 'Install Heimdall Lite' do
@@ -68,3 +59,30 @@ service 'Enable and Start Heimdall Lite' do
   service_name 'heimdall-lite'
   action [:enable, :start]
 end
+
+# Open Heimdall in Browser
+public_ip = `curl -fsS http://169.254.169.254/latest/meta-data/public-ipv4`
+log "Open In Browser: $ open http://#{public_ip}:#{node['cookbook']['heimdall']['port']}"
+
+# Heimdall Server
+
+# git '~/heimdall2' do
+#  repository 'https://github.com/mitre/heimdall2'
+#  revision 'master'
+#  action :sync
+# end
+#
+# execute 'Setup Docker Env' do
+#  command './setup-docker-env.sh'
+#  cwd '~/heimdall2'
+# end
+#
+# package %w(docker)
+#
+# execute 'Download Docker-Compose' do
+#  command 'curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose'
+# end
+#
+# execute 'Start Docker Container' do
+#  command 'docker-compose up'
+# end

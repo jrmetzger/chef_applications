@@ -1,6 +1,23 @@
 ---
-driver:
-  name: vagrant
+# https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#Home:
+suites:
+  - name: default
+    transport:
+      ssh_key: keys/jon_test.pem
+      username: ec2-user
+    driver:
+      name: ec2
+      region: us-east-1
+      instance_type: t3.micro
+      associate_public_ip: true
+      # https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#KeyPairs:
+      aws_ssh_key_id: jon_test
+      # https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#SecurityGroups:
+      security_group_ids: ['sg-07a2d1eb0e54c34c5']
+      # https://us-east-1.console.aws.amazon.com/vpcconsole/home?region=us-east-1#subnets:
+      subnet_id: subnet-09b5e80a62cfe2253
+      # https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#AMICatalog:
+      image_id: ami-0b112ae24c8e415a5
 
 verifier:
   name: inspec
@@ -18,53 +35,15 @@ provisioner:
   product_version: latest
 
 platforms:
-# https://portal.cloud.hashicorp.com/vagrant/discover
   - name: rhel-9
-    driver:
-    # 32 arch
-      box: "generic/rhel9"
-      provider: qemu
-      architecture: arm64
-    # TODO: Heimdall ec2...
-    driver_config:
-      network:
-      - [
-          "forwarded_port", {
-            guest: 12345, # May Need to Change This
-            host: 12345 # DO NOT CHANGE THIS. MUST MATCH WHAT IS IN ATTRIBUTES
-          }
-        ]
-
-suites:
-  - name: default
 
 lifecycle:
-  post_destroy:
+  pre_create:
   - local: |
-      echo "[INFO] Closing Port 12345"
-      kill -9 $(lsof -i :12345 -t)
-  post_create:
-  - local: |
-      echo "[INFO] Generating FIPS Key"
-      mkdir -m 700 -p keys
-      ssh-keygen -t ed25519 -f keys/fips_key -o -a 100 -N ""
-      #chmod g-rwx,o-rwx keys/*
-      #yq eval '.ssh_key = "keys/fips_key"' -i .kitchen/default-rhel-9.yml
-      export PUB_KEY=$(cat keys/fips_key.pub)
-  - remote: |
-      echo "[INFO] Importing Public Key to SSH Authorized Keys"
-      echo "<%= ENV['PUB_KEY'] %>" >> ~/.ssh/authorized_keys
-      echo "[INFO] Attempting Red Hat subscription registration..."
-      sudo -i subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[WARN] Registration failed"
-      echo "[INFO] Updating Packages..."
-      sudo -i yum -y update || echo "[WARN] Failed to update packages"
-      #dnf -y update --quiet --progressbar=plain #tty
-  pre_converge:
-  - local: |
-      #mkdir -p local_boxes
-      #if [ ! -f local_boxes/${KITCHEN_INSTANCE_NAME}.box ]; then
-        #cd .kitchen/kitchen-vagrant/default-rhel-9 && vagrant package --output local_boxes/${KITCHEN_INSTANCE_NAME}.box
-        #vagrant box add ${KITCHEN_INSTANCE_NAME}-latest local_boxes/${KITCHEN_INSTANCE_NAME}.box
-        # vagrant snapshot save ${KITCHEN_INSTANCE_NAME}-latest
-        # vagrant snapshot restore ${KITCHEN_INSTANCE_NAME}-latest
-      #fi
+      if ! aws ec2 describe-security-groups --region us-east-1 --group-ids sg-07a2d1eb0e54c34c5 --query "SecurityGroups[0].IpPermissions" --output=text | grep -q 12345; then
+        echo [INFO] Opening AWS Port 12345
+        aws ec2 authorize-security-group-ingress --region us-east-1 --group-id sg-07a2d1eb0e54c34c5 --protocol tcp --port 12345 --cidr 0.0.0.0/0
+      fi
+  #post_converge:
+  #- local: |
+  #    curl -# -s -F data=@spec/results/rhel-9_default.json -F "filename=rhel-9_default.json" -F "public=true" -F "evaluationTags=8438b61,mitre/redhat-enterprise-linux-8-stig-baseline,#DISA Hardened EC2 Testing Matrix,'Supplemental Automation Content v1r12'" -H "Authorization: Api-Key 96d836e4f661fdae4aed5da854af5cc44df77d31401e8554e8b52ea45575cdf05a" "https://heimdall-demo.mitre.org/evaluations"
