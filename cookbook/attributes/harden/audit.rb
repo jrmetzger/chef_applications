@@ -6,7 +6,7 @@ default['cookbook']['controls']['audit'].tap do |control|
     configuration['managed'] = true
     configuration['title'] = 'SV-258145: RHEL 9 must be configured to offload audit records onto a different system from the system being audited via syslog.'
     configuration['path'] = '/etc/audit/plugins.d/syslog.conf'
-    configuration['config'] = { 'active': 'yes' }
+    configuration['value'] = { 'active': 'yes' }
   end
   control['disk_error_action'].tap do |configuration|
     configuration['managed'] = true

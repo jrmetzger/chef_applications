@@ -9,14 +9,22 @@
 node['cookbook']['controls']['sshd'].each do |name, control|
   next unless control['managed']
 
-  line = "#{name} #{control['value']}"
-  replace_or_add control['title'] do
-    path '/etc/ssh/sshd_config'
-    pattern /(^|#)#{name}/
-    line line
-    notifies :restart, 'service[sshd]', :delayed
-  end
-  service 'sshd' do
-    action :nothing
+  case name
+  when 'CLI_Login_Banner'
+    file control['title'] do
+      content control['content']
+    end
+
+  else
+    line = "#{name} #{control['value']}"
+    replace_or_add control['title'] do
+      path '/etc/ssh/sshd_config'
+      pattern /(^|#)#{name}/
+      line line
+      notifies :restart, 'service[sshd]', :delayed
+    end
+    service 'sshd' do
+      action :nothing
+    end
   end
 end

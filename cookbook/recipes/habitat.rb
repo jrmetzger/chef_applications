@@ -24,6 +24,7 @@ end
 habitat_install 'hab' do
   license 'accept'
   action :install
+  not_if 'which hab'
 end
 
 # Start the Habitat Supervisor service

@@ -71,7 +71,7 @@ if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
 fi
 
 run_kitchen() {
-  (cd cookbook && bundle exec kitchen "$@" -l debug)
+  (cd cookbook && bundle exec kitchen "$@") # -l debug)
   #(cd cookbook && kitchen "$@")
 }
 
@@ -80,13 +80,31 @@ run_cookstyle() {
   #(cd cookbook && cookstyle -a)
 }
 
-if [ "$1" == "cv" ]; then
-  command='converge verify'
-elif [ "$1" == 'dv' ]; then
-  command='destroy verify'
-else
-  command="$@"
-fi
+case "$1" in
+  c)
+    command="converge"
+    ;;
+  cv)
+    command="converge verify"
+    ;;
+  dv)
+    command="destroy verify"
+    ;;
+  *)
+    command="$*"
+    ;;
+esac
+
+
+#if [ "$1" == "c" ]; then
+#  command='converge'
+#if [ "$1" == "cv" ]; then
+#  command='converge verify'
+#elif [ "$1" == 'dv' ]; then
+#  command='destroy verify'
+#else
+#  command="$@"
+#fi
 
 run_cookstyle
 echo "Running: $comamnd"

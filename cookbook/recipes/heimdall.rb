@@ -62,7 +62,13 @@ end
 
 # Open Heimdall in Browser
 public_ip = `curl -fsS http://169.254.169.254/latest/meta-data/public-ipv4`
-log "Open In Browser: $ open http://#{public_ip}:#{node['cookbook']['heimdall']['port']}"
+file 'Script to Open Heimdall Lite' do
+  path '/tmp/heimdall-lite.sh'
+  content <<-EOF
+#!/bin/bash
+open http://#{public_ip}:#{node['cookbook']['heimdall']['port']}
+  EOF
+end
 
 # Heimdall Server
 

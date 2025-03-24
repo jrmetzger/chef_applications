@@ -1,6 +1,26 @@
 # frozen_string_literal: false
 
 default['cookbook']['controls']['security'].tap do |control|
+  control['deny'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = ' SV-258054: RHEL 9 must automatically lock an account when three unsuccessful logon attempts occur.'
+    configuration['value'] = '3'
+  end
+  control['even_deny_root'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258055: RHEL 9 must automatically lock the root account until the root account is released by an administrator when three unsuccessful logon attempts occur during a 15-minute time period.'
+    configuration['value'] = ''
+  end
+  control['fail_interval'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258056: RHEL 9 must automatically lock an account when three unsuccessful logon attempts occur during a 15-minute time period.'
+    configuration['value'] = '900'
+  end
+  control['unlock_time'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258056: RHEL 9 must automatically lock an account when three unsuccessful logon attempts occur during a 15-minute time period.'
+    configuration['value'] = '900'
+  end
   control['maxlogins'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-258069: RHEL 9 must limit the number of concurrent sessions to ten for all accounts and/or account types.'
@@ -10,6 +30,11 @@ default['cookbook']['controls']['security'].tap do |control|
     configuration['managed'] = true
     configuration['title'] = 'SV-258070: RHEL 9 must log username information when unsuccessful logon attempts occur.'
     configuration['value'] = ''
+  end
+  control['dir'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258080: RHEL 9 must configure SELinux context type to allow the use of a nondefault faillock tally directory.'
+    configuration['value'] = '/var/log/faillock'
   end
   control['enforce_for_root'].tap do |configuration|
     configuration['managed'] = true
