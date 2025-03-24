@@ -37,8 +37,6 @@ verifier:
   - SV-257811 #RHEL 9 must restrict usage of ptrace to descendant processes. (3 failed)
   - SV-257812 #RHEL 9 must disable core dump backtraces.
   - SV-257814 #RHEL 9 must disable core dumps for all users. (1 failed)
-  - SV-257815 #RHEL 9 must disable acquiring, saving, and processing core dumps. (2 failed)
-  - SV-257816 #RHEL 9 must disable the use of user namespaces. (2 failed)
   - SV-257818 #The kdump service on RHEL 9 must be disabled. (3 failed)
   - SV-257821 #RHEL 9 must check the GPG signature of locally installed software packages before installation.
   - SV-257828 #RHEL 9 must not have the nfs-utils package installed.
