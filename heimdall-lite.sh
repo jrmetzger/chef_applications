@@ -1,0 +1,1 @@
+./cookbook/spec/results/heimdall-lite.sh

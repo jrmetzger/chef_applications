@@ -40,6 +40,37 @@ You’ll now be shown:
 Access Key ID
 Secret Access Key
 
+6. Set Environment Variables
+
+```
+$env:AWS_ACCESS_KEY_ID='AWS_ACCESS_KEY_ID'
+$env:AWS_SECRET_ACCESS_KEY='AWS_SECRET_ACCESS_KEY'
+```
+
+* https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#KeyPairs:
+
+```
+$env:AWS_SSH_KEY_NAME='AWS_SSH_KEY_NAME'
+```
+
+* https://us-east-1.console.aws.amazon.com/vpcconsole/home?region=us-east-1#subnets:
+
+```
+$env:SUBNET_ID='SUBNET_ID'
+```
+
+* https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#AMICatalog
+
+```
+$env:IMAGE_ID='IMAGE_ID'
+$env:INSTANCE_TYPE='INSTANCE_TYPE'
+```
+
+* https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#SecurityGroups:
+```
+$env:SECURITY_GROUP_ID='SECURITY_GROUP_ID'
+```
+
 ## Run
 
 ```

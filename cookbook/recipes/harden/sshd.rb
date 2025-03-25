@@ -12,6 +12,7 @@ node['cookbook']['controls']['sshd'].each do |name, control|
   case name
   when 'CLI_Login_Banner'
     file control['title'] do
+      path 'etc/issue'
       content control['content']
     end
 

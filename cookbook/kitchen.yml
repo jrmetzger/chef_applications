@@ -3,21 +3,21 @@
 suites:
   - name: default
     transport:
-      ssh_key: keys/jon_test.pem
+      ssh_key: keys/<%= ENV['AWS_SSH_KEY_NAME'] %>.pem # keys/jon_test.pem
       username: ec2-user
     driver:
       name: ec2
       region: us-east-1
-      instance_type: t3.micro
+      instance_type: <%= ENV['INSTANCE_TYPE'] %> #t3.micro
       associate_public_ip: true
       # https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#KeyPairs:
-      aws_ssh_key_id: jon_test
+      aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_NAME'] %> #jon_test
       # https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#SecurityGroups:
-      security_group_ids: ['sg-07a2d1eb0e54c34c5']
+      security_group_ids: ["<%= ENV['SECURITY_GROUP_ID'] %>"] #['sg-07a2d1eb0e54c34c5']
       # https://us-east-1.console.aws.amazon.com/vpcconsole/home?region=us-east-1#subnets:
-      subnet_id: subnet-09b5e80a62cfe2253
+      subnet_id: <%= ENV['SUBNET_ID'] %> #subnet-09b5e80a62cfe2253
       # https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#AMICatalog:
-      image_id: ami-0b112ae24c8e415a5
+      image_id: <%= ENV['IMAGE_ID'] %> #ami-0b112ae24c8e415a5
 
 verifier:
   name: inspec
@@ -39,11 +39,6 @@ verifier:
   - SV-257814 #RHEL 9 must disable core dumps for all users. (1 failed)
   - SV-257818 #The kdump service on RHEL 9 must be disabled. (3 failed)
   - SV-257821 #RHEL 9 must check the GPG signature of locally installed software packages before installation.
-  - SV-257828 #RHEL 9 must not have the nfs-utils package installed.
-  - SV-257832 #RHEL 9 must not have the gssproxy package installed.
-  - SV-257834 #RHEL 9 must not have the tuned package installed.
-  - SV-257841 #RHEL 9 must have the rng-tools package installed.
-  - SV-257842 #RHEL 9 must have the s-nail package installed.
   - SV-257843 #A separate RHEL 9 file system must be used for user home directories (such as /home or an equivalent). (1 failed)
   - SV-257844 #RHEL 9 must use a separate file system for /tmp. (2 failed)
   - SV-257845 #RHEL 9 must use a separate file system for /var. (2 failed)
@@ -87,7 +82,6 @@ verifier:
   - SV-257947 #RHEL 9 must disable network management of the chrony daemon.
   - SV-257948 #RHEL 9 systems using Domain Name Servers (DNS) resolution must have at least two name servers configured. (1 failed)
   - SV-257949 #RHEL 9 must configure a DNS processing mode set be Network Manager.
-  - SV-257954 #RHEL 9 libreswan package must be installed.
   - SV-257957 #RHEL 9 must be configured to use TCP syncookies. (1 failed)
   - SV-257958 #RHEL 9 must ignore Internet Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP) redirect messages. (2 failed)
   - SV-257959 #RHEL 9 must not forward Internet Protocol version 4 (IPv4) source-routed packets. (2 failed)
@@ -96,18 +90,7 @@ verifier:
   - SV-257962 #RHEL 9 must use reverse path filtering on all IPv4 interfaces. (3 failed)
   - SV-257963 #RHEL 9 must prevent IPv4 Internet Control Message Protocol (ICMP) redirect messages from being accepted. (2 failed)
   - SV-257965 #RHEL 9 must use a reverse-path filter for IPv4 network traffic when possible by default. (1 failed)
-  - SV-257966 #RHEL 9 must not respond to Internet Control Message Protocol (ICMP) echoes sent to a broadcast address. (1 failed)
-  - SV-257967 #RHEL 9 must limit the number of bogus Internet Control Message Protocol (ICMP) response errors logs. (1 failed)
-  - SV-257968 #RHEL 9 must not send Internet Control Message Protocol (ICMP) redirects. (2 failed)
-  - SV-257969 #RHEL 9 must not allow interfaces to perform Internet Control Message Protocol (ICMP) redirects by default. (2 failed)
-  - SV-257970 #RHEL 9 must not enable IPv4 packet forwarding unless the system is a router. (1 failed)
-  - SV-257971 #RHEL 9 must not accept router advertisements on all IPv6 interfaces. (2 failed)
-  - SV-257972 #RHEL 9 must ignore IPv6 Internet Control Message Protocol (ICMP) redirect messages. (2 failed)
-  - SV-257973 #RHEL 9 must not forward IPv6 source-routed packets. (1 failed)
-  - SV-257974 #RHEL 9 must not enable IPv6 packet forwarding unless the system is a router. (1 failed)
   - SV-257975 #RHEL 9 must not accept router advertisements on all IPv6 interfaces by default. (2 failed)
-  - SV-257976 #RHEL 9 must prevent IPv6 Internet Control Message Protocol (ICMP) redirect messages from being accepted. (2 failed)
-  - SV-257977 #RHEL 9 must not forward IPv6 source-routed packets by default. (1 failed)
   - SV-257978 #All RHEL 9 networked systems must have SSH installed.
   - SV-257981 #RHEL 9 must display the Standard Mandatory DOD Notice and Consent Banner before granting local or remote access to the system via a SSH logon.
   - SV-257987 #RHEL 9 SSH daemon must be configured to use system-wide crypto policies.
@@ -116,11 +99,8 @@ verifier:
   - SV-257991 #RHEL 9 SSH server must be configured to use only Message Authentication Codes (MACs) employing FIPS 140-3 validated cryptographic hash algorithms.
   - SV-257996 #RHEL 9 must be configured so that all network connections associated with SSH traffic are terminated after 10 minutes of becoming unresponsive.
   - SV-258034 #RHEL 9 must be configured to disable USB mass storage. (2 failed)
-  - SV-258035 #RHEL 9 must have the USBGuard package installed.
-  - SV-258036 #RHEL 9 must have the USBGuard package enabled. (2 failed)
   - SV-258038 #RHEL 9 must block unauthorized peripherals before establishing a connection. (2 failed)
   - SV-258039 #RHEL 9 Bluetooth must be disabled. (2 failed)
-  - SV-258046 #RHEL 9 system accounts must not have an interactive login shell.
   - SV-258049 #RHEL 9 must disable account identifiers (individuals, groups, roles, and devices) after 35 days of inactivity. (2 failed)
   - SV-258057 #RHEL 9 must maintain an account lock until the locked account is released by an administrator.
   - SV-258058 #RHEL 9 must not have unauthorized accounts.
@@ -138,8 +118,6 @@ verifier:
   - SV-258080 #RHEL 9 must configure SELinux context type to allow the use of a nondefault faillock tally directory. (3 failed)
   - SV-258084 #RHEL 9 must require reauthentication when using the "sudo" command.
   - SV-258085 #RHEL 9 must use the invoking user's password for privilege escalation when using "sudo". (3 failed)
-  - SV-258089 #RHEL 9 fapolicy module must be installed.
-  - SV-258090 #RHEL 9 fapolicy module must be enabled. (2 failed)
   - SV-258091 #RHEL 9 must ensure the password complexity module in the system-auth file is configured for three retries or less.
   - SV-258092 #RHEL 9 must be configured in the password-auth file to prohibit password reuse for a minimum of five generations.
   - SV-258093 #RHEL 9 must be configured in the system-auth file to prohibit password reuse for a minimum of five generations.
@@ -177,7 +155,6 @@ verifier:
   - SV-258226 #RHEL 9 must generate audit records for all account creations, modifications, disabling, and termination events that affect /var/log/tallylog.
   - SV-258229 #RHEL 9 audit system must protect auditing rules from unauthorized change.
   - SV-258230 #RHEL 9 must enable FIPS mode.
-  - SV-258232 #RHEL 9 IP tunnels must use FIPS 140-2/140-3 approved cryptographic algorithms.
   - SV-258236 #RHEL 9 crypto policy must not be overridden.
   - SV-258237 #RHEL 9 must use mechanisms meeting the requirements of applicable federal laws, executive orders, directives, policies, regulations, standards, and guidance for authentication to a cryptographic module.
   - SV-258241 #RHEL 9 must implement a system-wide encryption policy.
@@ -193,14 +170,22 @@ platforms:
 lifecycle:
   pre_create:
   - local: |
+      rm -f spec/results/heimdall-lite.sh
       if ! aws ec2 describe-security-groups --region us-east-1 --group-ids sg-07a2d1eb0e54c34c5 --query "SecurityGroups[0].IpPermissions" --output=text | grep -q 12345; then
         echo [INFO] Opening AWS Port 12345
         aws ec2 authorize-security-group-ingress --region us-east-1 --group-id sg-07a2d1eb0e54c34c5 --protocol tcp --port 12345 --cidr 0.0.0.0/0
       fi
-  post_verify:
+  post_create:
+  - remote: |
+      echo "[INFO] Attempting Red Hat subscription registration..."
+      sudo -i subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[WARN] Registration failed"
+      #echo "[INFO] Updating Packages..."
+      #sudo -i yum -y update || echo "[WARN] Failed to update packages"
+  post_converge:
   - local: |
-      echo [INFO] Opening Heimdall Lite
-      kitchen exec -c 'less -F /tmp/heimdall-lite.sh' > spec/results/heimdall-lite.sh #| tail -n +2 | bash 2>/dev/null
+      echo [INFO] Writing Heimdall Lite Script
+      kitchen exec -c '[ -f /tmp/heimdall-lite.sh ] && less -FX /tmp/heimdall-lite.sh || echo "echo DNE"' > spec/results/heimdall-lite.sh
+      # kitchen exec -c '[ -f /tmp/heimdall-lite.sh ] && less -FX /tmp/heimdall-lite.sh || echo "echo DNE"' > spec/results/heimdall-lite.sh | tail -n +2 | bash 2>/dev/null
 
   #post_converge:
   #- local: |

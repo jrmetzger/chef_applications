@@ -51,9 +51,69 @@ default['cookbook']['controls']['sysctl'].tap do |control|
     configuration['title'] = 'SV-257811: RHEL 9 must restrict usage of ptrace to descendant processes.'
     configuration['value'] = '1'
   end
-  control['user.max_user_namespaces '].tap do |configuration|
+  control['user.max_user_namespaces'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-257816: RHEL 9 must disable the use of user namespaces.'
+    configuration['value'] = '0'
+  end
+  control['net.ipv4.icmp_echo_ignore_broadcasts'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257966: RHEL 9 must not respond to Internet Control Message Protocol (ICMP) echoes sent to a broadcast address.'
+    configuration['value'] = '1'
+  end
+  control['net.ipv4.icmp_ignore_bogus_error_responses'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257967: RHEL 9 must limit the number of bogus Internet Control Message Protocol (ICMP) response errors logs.'
+    configuration['value'] = '1'
+  end
+  control['net.ipv4.conf.all.send_redirects'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257968: RHEL 9 must not send Internet Control Message Protocol (ICMP) redirects.'
+    configuration['value'] = '0'
+  end
+  control['net.ipv4.conf.default.send_redirects'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257969: RHEL 9 must not allow interfaces to perform Internet Control Message Protocol (ICMP) redirects by default.'
+    configuration['value'] = '0'
+  end
+  control['net.ipv4.conf.all.forwarding'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257970: RHEL 9 must not enable IPv4 packet forwarding unless the system is a router.'
+    configuration['value'] = '0'
+  end
+  control['net.ipv6.conf.all.accept_ra'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257971: RHEL 9 must not accept router advertisements on all IPv6 interfaces.'
+    configuration['value'] = '0'
+  end
+  control['net.ipv6.conf.all.accept_redirects'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257972: RHEL 9 must ignore IPv6 Internet Control Message Protocol (ICMP) redirect messages.'
+    configuration['value'] = '0'
+  end
+  control['net.ipv6.conf.all.accept_source_route'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257973: RHEL 9 must not forward IPv6 source-routed packets.'
+    configuration['value'] = '0'
+  end
+  control['net.ipv6.conf.all.forwarding'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257974: RHEL 9 must not enable IPv6 packet forwarding unless the system is a router.'
+    configuration['value'] = '0'
+  end
+  control['net.ipv6.conf.default.accept_ra'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257975: RHEL 9 must not accept router advertisements on all IPv6 interfaces by default.'
+    configuration['value'] = '1'
+  end
+  control['net.ipv6.conf.default.accept_redirects'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257976: RHEL 9 must prevent IPv6 Internet Control Message Protocol (ICMP) redirect messages from being accepted.'
+    configuration['value'] = '0'
+  end
+  control['net.ipv6.conf.default.accept_source_route'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257977: RHEL 9 must not forward IPv6 source-routed packets by default.'
     configuration['value'] = '0'
   end
 end

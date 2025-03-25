@@ -18,13 +18,19 @@ node['cookbook']['controls']['systemd'].each do |name, control|
             when 'Coredump'
               'coredump'
             end
-    filter_lines control['title'] do
-      path "/etc/systemd/#{fname}.conf"
-      filters([
-        { stanza: [stanza, { "#{key}": control['value'] } ] },
-      ])
-    end
+    # filter_lines control['title'] do
+    #  path "/etc/systemd/#{fname}.conf"
+    #  filters([
+    #    { stanza: [stanza, { "#{key}": control['value'] } ] },
+    #  ])
+    # end
 
+    line = "#{key}=#{control['value']}"
+    replace_or_add control['title'] do
+      path "/etc/systemd/#{fname}.conf"
+      pattern /(^|#)#{key}/
+      line line
+    end
   else
     control['actions'].each do |action|
       service "#{control['title']} - #{action}" do

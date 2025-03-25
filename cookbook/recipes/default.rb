@@ -6,6 +6,6 @@
 #
 # Copyright:: 2025, The Authors, All Rights Reserved.
 
-include_recipe 'cookbook::_harden'
-include_recipe 'cookbook::heimdall'
-include_recipe 'cookbook::habitat'
+node['cookbook']['applications'].each do |app|
+  include_recipe "cookbook::#{app}"
+end

@@ -15,10 +15,6 @@
 
 # https://bldr.habitat.sh/#/pkgs/core
 
-selinux_state 'permissive' do
-  action :permissive
-end
-
 # Ensure Habitat is installed
 # https://docs.chef.io/resources/habitat_install/
 habitat_install 'hab' do

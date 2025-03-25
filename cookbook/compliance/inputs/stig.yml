@@ -1,0 +1,4 @@
+---
+ # SV-257780
+linux_threat_prevention_package: clamav
+linux_threat_prevention_service: mfetpd

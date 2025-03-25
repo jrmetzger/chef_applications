@@ -13,11 +13,16 @@ node['cookbook']['controls'].each do |typ, control|
   end
 end
 
+selinux_state 'permissive' do
+  action :permissive
+end
+
 include_recipe 'cookbook::audit'
 include_recipe 'cookbook::grub'
 include_recipe 'cookbook::logindefs'
 include_recipe 'cookbook::modprobe'
 # include_recipe 'cookbook::mount'
+include_recipe 'cookbook::packages'
 include_recipe 'cookbook::security'
 include_recipe 'cookbook::sshd'
 include_recipe 'cookbook::sysctl'
