@@ -6,7 +6,7 @@
 #
 # Copyright:: 2025, The Authors, All Rights Reserved.
 
-node['cookbook']['controls']['sshd'].each do |name, control|
+node['cookbook']['harden']['controls']['sshd'].each do |name, control|
   next unless control['managed']
 
   case name

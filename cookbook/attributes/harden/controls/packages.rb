@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-default['cookbook']['controls']['packages'].tap do |control|
+default['cookbook']['harden']['controls']['packages'].tap do |control|
   control['nfs-utils'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-257828: RHEL 9 must not have the nfs-utils package installed.'
@@ -39,6 +39,10 @@ default['cookbook']['controls']['packages'].tap do |control|
   control['usbguard'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-258035: RHEL 9 must have the USBGuard package installed.'
+  end
+  control['fapolicyd'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258089: RHEL 9 fapolicy module must be installed.'
   end
   control['fapolicyd'].tap do |configuration|
     configuration['managed'] = true

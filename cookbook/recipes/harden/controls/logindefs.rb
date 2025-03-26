@@ -6,7 +6,7 @@
 #
 # Copyright:: 2025, The Authors, All Rights Reserved.
 
-node['cookbook']['controls']['logindefs'].each do |name, control|
+node['cookbook']['harden']['controls']['logindefs'].each do |name, control|
   next unless control['managed']
 
   line = control['value'].empty? ? name : "#{name} #{control['value']}"

@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-default['cookbook']['controls']['logindefs'].tap do |control|
+default['cookbook']['harden']['controls']['logindefs'].tap do |control|
   control['SHA_CRYPT_MAX_ROUNDS'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-258119: RHEL 9 shadow password suite must be configured to use a sufficient number of hashing rounds.'

@@ -8,7 +8,7 @@
 
 mount_points = {}
 
-node['cookbook']['controls']['mount'].each do |name, control|
+node['cookbook']['harden']['controls']['mount'].each do |name, control|
   next unless control['managed']
 
   # Split name and options

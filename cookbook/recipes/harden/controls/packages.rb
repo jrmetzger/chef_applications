@@ -16,16 +16,16 @@
 #  source '/tmp/epel-release-latest-8.noarch.rpm'
 # end
 
-node['cookbook']['controls']['packages'].each do |name, control|
+node['cookbook']['harden']['controls']['packages'].each do |name, control|
   next unless control['managed']
 
   service_name = nil
   package_name = nil
-  action = :install
+  action_name = :install
 
   case name
   when 'main.localpkg_gpgcheck'
-    stanza, key = name.split('.')
+    _stanza, key = name.split('.')
     line = "#{key}=#{control['value']}"
     replace_or_add control['title'] do
       path '/etc/dnf/dnf.conf'
@@ -54,6 +54,7 @@ node['cookbook']['controls']['packages'].each do |name, control|
     # notifies :enable, "service[#{control['title']}]", :immediately if service_name
   end
 
+  log service_name if service_name
   # service control['title'] do
   #  service_name service_name
   #  action [:enable, :start]

@@ -11,22 +11,20 @@
 #  not_if 'test $(cat /proc/sys/crypto/fips_enabled) -eq 1'  # Skip if already in FIPS mode
 # end
 
-node['cookbook']['controls']['audit'].each do |_name, control|
+node['cookbook']['harden']['controls']['audit'].each do |name, control|
   next unless control['managed']
 
   # Packages
   package control['package'] if control['package']
 
   # Configuration
-  next unless control['config']
-  control['config'].each do |key, value|
-    pattern = "^#{key} = .*"
-    line = "#{key} = #{value}"
-    replace_or_add control['title'] do
-      path control['path']
-      pattern pattern
-      line line
-    end
+  next unless control['value']
+  pattern = "^#{name} = .*"
+  line = "#{name} = #{control['value']}"
+  replace_or_add control['title'] do
+    path control['path']
+    pattern pattern
+    line line
   end
 end
 
@@ -41,7 +39,7 @@ template 'Implement Audit Controls' do
   owner 'root'
   group 'root'
   notifies :run, 'execute[Reload Auditctl]', :immediately
-  variables(rules: node['cookbook']['controls']['audit'])
+  variables(rules: node['cookbook']['harden']['controls']['audit'])
 end
 execute 'Reload Auditctl' do
   command 'augenrules --load'

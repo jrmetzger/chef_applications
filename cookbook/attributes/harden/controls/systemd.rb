@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-default['cookbook']['controls']['systemd'].tap do |control|
+default['cookbook']['harden']['controls']['systemd'].tap do |control|
   control['Manager.CtrlAltDelBurstAction'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-257784: The systemd Ctrl-Alt-Delete burst key sequence in RHEL 9 must be disabled.'

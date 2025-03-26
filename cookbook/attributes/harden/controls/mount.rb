@@ -1,7 +1,7 @@
 # frozen_string_literal: false
 
 # TODO: device and fstype merge?
-default['cookbook']['controls']['mount'].tap do |control|
+default['cookbook']['harden']['controls']['mount'].tap do |control|
   control['/dev/shm-nodev'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-257863: RHEL 9 must mount /dev/shm with the nodev option.'

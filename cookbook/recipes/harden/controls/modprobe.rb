@@ -6,7 +6,7 @@
 #
 # Copyright:: 2025, The Authors, All Rights Reserved.
 
-node['cookbook']['controls']['modprobe'].each do |name, control|
+node['cookbook']['harden']['controls']['modprobe'].each do |name, control|
   next unless control['managed']
 
   # NOTE: Can be in /etc/modprobe.d/99-chef-#{name}

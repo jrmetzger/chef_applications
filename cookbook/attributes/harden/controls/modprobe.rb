@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-default['cookbook']['controls']['modprobe'].tap do |control|
+default['cookbook']['harden']['controls']['modprobe'].tap do |control|
   control['atm'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-257804: RHEL 9 must be configured to disable the Asynchronous Transfer Mode kernel module.'

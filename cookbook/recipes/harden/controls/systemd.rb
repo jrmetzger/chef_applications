@@ -6,7 +6,7 @@
 #
 # Copyright:: 2025, The Authors, All Rights Reserved.
 
-node['cookbook']['controls']['systemd'].each do |name, control|
+node['cookbook']['harden']['controls']['systemd'].each do |name, control|
   next unless control['managed']
   stanza, key = name.split('.')
 

@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-default['cookbook']['controls']['sysctl'].tap do |control|
+default['cookbook']['harden']['controls']['sysctl'].tap do |control|
   control['kernel.dmesg_restrict'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-257797: RHEL 9 must restrict access to the kernel message buffer.'
@@ -54,6 +54,16 @@ default['cookbook']['controls']['sysctl'].tap do |control|
   control['user.max_user_namespaces'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-257816: RHEL 9 must disable the use of user namespaces.'
+    configuration['value'] = '0'
+  end
+  control['net.ipv4.conf.all.rp_filter'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257962: RHEL 9 must use reverse path filtering on all IPv4 interfaces.'
+    configuration['value'] = '1'
+  end
+  control['net.ipv4.conf.default.accept_redirects'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257963: RHEL 9 must prevent IPv4 Internet Control Message Protocol (ICMP) redirect messages from being accepted.'
     configuration['value'] = '0'
   end
   control['net.ipv4.icmp_echo_ignore_broadcasts'].tap do |configuration|

@@ -1,0 +1,35 @@
+I, [2025-03-25T22:30:23.525833 #28920]  INFO -- default-rhel-9: -----> Verifying <default-rhel-9>...
+E, [2025-03-25T22:30:23.977509 #28920] ERROR -- default-rhel-9: Verify failed on instance <default-rhel-9>.
+E, [2025-03-25T22:30:23.977622 #28920] ERROR -- default-rhel-9: ------Exception-------
+E, [2025-03-25T22:30:23.977633 #28920] ERROR -- default-rhel-9: Class: NotImplementedError
+E, [2025-03-25T22:30:23.977641 #28920] ERROR -- default-rhel-9: Message: 'enhanced-outcomes' is not a valid reporter type.
+E, [2025-03-25T22:30:23.977647 #28920] ERROR -- default-rhel-9: ----------------------
+E, [2025-03-25T22:30:23.977653 #28920] ERROR -- default-rhel-9: ------Backtrace-------
+E, [2025-03-25T22:30:23.977659 #28920] ERROR -- default-rhel-9: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-5.22.65/lib/inspec/config.rb:377:in `block in validate_reporters!'
+E, [2025-03-25T22:30:23.977665 #28920] ERROR -- default-rhel-9: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-5.22.65/lib/inspec/config.rb:376:in `each'
+E, [2025-03-25T22:30:23.977671 #28920] ERROR -- default-rhel-9: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-5.22.65/lib/inspec/config.rb:376:in `validate_reporters!'
+E, [2025-03-25T22:30:23.977677 #28920] ERROR -- default-rhel-9: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-5.22.65/lib/inspec/config.rb:530:in `finalize_parse_reporters'
+E, [2025-03-25T22:30:23.977682 #28920] ERROR -- default-rhel-9: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-5.22.65/lib/inspec/config.rb:480:in `finalize_options'
+E, [2025-03-25T22:30:23.977688 #28920] ERROR -- default-rhel-9: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/inspec-core-5.22.65/lib/inspec/config.rb:65:in `initialize'
+E, [2025-03-25T22:30:23.977694 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/kitchen-inspec-2.6.2/lib/kitchen/verifier/inspec.rb:91:in `new'
+E, [2025-03-25T22:30:23.977699 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/kitchen-inspec-2.6.2/lib/kitchen/verifier/inspec.rb:91:in `call'
+E, [2025-03-25T22:30:23.977705 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/instance.rb:469:in `block in verify_action'
+E, [2025-03-25T22:30:23.977710 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/instance.rb:560:in `block in synchronize_or_call'
+E, [2025-03-25T22:30:23.977716 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/instance.rb:558:in `synchronize'
+E, [2025-03-25T22:30:23.977721 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/instance.rb:558:in `synchronize_or_call'
+E, [2025-03-25T22:30:23.977727 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/instance.rb:524:in `block in action'
+E, [2025-03-25T22:30:23.977732 #28920] ERROR -- default-rhel-9: /opt/cinc-workstation/embedded/lib/ruby/3.1.0/benchmark.rb:296:in `measure'
+E, [2025-03-25T22:30:23.977738 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/instance.rb:523:in `action'
+E, [2025-03-25T22:30:23.977743 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/instance.rb:461:in `verify_action'
+E, [2025-03-25T22:30:23.977749 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/instance.rb:392:in `block (2 levels) in transition_to'
+E, [2025-03-25T22:30:23.977754 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/lifecycle_hooks.rb:47:in `run_with_hooks'
+E, [2025-03-25T22:30:23.977760 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/instance.rb:391:in `block in transition_to'
+E, [2025-03-25T22:30:23.977772 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/instance.rb:390:in `each'
+E, [2025-03-25T22:30:23.977777 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/instance.rb:390:in `transition_to'
+E, [2025-03-25T22:30:23.977781 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/instance.rb:161:in `verify'
+E, [2025-03-25T22:30:23.977788 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/command.rb:195:in `public_send'
+E, [2025-03-25T22:30:23.977792 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/command.rb:195:in `run_action_in_thread'
+E, [2025-03-25T22:30:23.977797 #28920] ERROR -- default-rhel-9: /Users/jonathanmetzger/.chef/gem/ruby/3.1.0/gems/test-kitchen-3.7.0/lib/kitchen/command.rb:166:in `block (2 levels) in run_action'
+E, [2025-03-25T22:30:23.977802 #28920] ERROR -- default-rhel-9: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/logging-2.4.0/lib/logging/diagnostic_context.rb:474:in `block in create_with_logging_context'
+E, [2025-03-25T22:30:23.977806 #28920] ERROR -- default-rhel-9: ----End Backtrace-----
+I, [2025-03-25T22:30:23.986883 #28920]  INFO -- default-rhel-9: [INFO] Preserving Verify Logs

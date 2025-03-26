@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-default['cookbook']['controls']['security'].tap do |control|
+default['cookbook']['harden']['controls']['security'].tap do |control|
   control['deny'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = ' SV-258054: RHEL 9 must automatically lock an account when three unsuccessful logon attempts occur.'
@@ -18,8 +18,8 @@ default['cookbook']['controls']['security'].tap do |control|
   end
   control['unlock_time'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-258056: RHEL 9 must automatically lock an account when three unsuccessful logon attempts occur during a 15-minute time period.'
-    configuration['value'] = '900'
+    configuration['title'] = 'SV-258057: RHEL 9 must maintain an account lock until the locked account is released by an administrator.'
+    configuration['value'] = '0'
   end
   control['maxlogins'].tap do |configuration|
     configuration['managed'] = true
