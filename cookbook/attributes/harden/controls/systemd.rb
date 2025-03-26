@@ -32,7 +32,7 @@ default['cookbook']['harden']['controls']['systemd'].tap do |control|
     configuration['actions'] = %w(mask)
   end
   control['kdump'].tap do |configuration|
-    configuration['managed'] = true
+    configuration['managed'] = false
     configuration['title'] = 'SV-257818: The kdump service on RHEL 9 must be disabled.'
     configuration['actions'] = %w(disable)
   end
