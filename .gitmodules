@@ -1,9 +1,9 @@
 [submodule "cookbook/compliance/profiles/redhat-enterprise-linux-9-stig-baseline"]
 	path = cookbook/compliance/profiles/redhat-enterprise-linux-9-stig-baseline
 	url = https://github.com/mitre/redhat-enterprise-linux-9-stig-baseline.git
-[submodule "cookbook/compliance/profiles/amazon-linux-2023-stig-ready-baseline"]
-	path = cookbook/compliance/profiles/amazon-linux-2023-stig-ready-baseline
-	url = https://github.com/mitre/amazon-linux-2023-stig-ready-baseline.git
 [submodule "cookbook/compliance/profiles/canonical-ubuntu-22.04-lts-stig-baseline"]
 	path = cookbook/compliance/profiles/canonical-ubuntu-22.04-lts-stig-baseline
 	url = https://github.com/mitre/canonical-ubuntu-22.04-lts-stig-baseline.git
+[submodule "cookbook/compliance/profiles/amazon-linux-2-stig-ready-baseline"]
+	path = cookbook/compliance/profiles/amazon-linux-2-stig-ready-baseline
+	url = https://github.com/mitre/amazon-linux-2-stig-ready-baseline

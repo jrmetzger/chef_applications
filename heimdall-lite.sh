@@ -1,3 +1,3 @@
------> Execute command on default-rhel-9.
+-----> Execute command on default-amazon-2023.
        [?1h=#!/bin/bash
-       open http://54.84.27.11:12345
+       open http://:12345

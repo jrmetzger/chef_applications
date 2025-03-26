@@ -1,0 +1,7 @@
+I, [2025-03-25T23:13:28.738819 #40324]  INFO -- default-amazon-2023: -----> Setting up <default-amazon-2023>...
+I, [2025-03-25T23:13:28.739151 #40324]  INFO -- default-amazon-2023: Finished setting up <default-amazon-2023> (0m0.00s).
+I, [2025-03-25T23:13:28.739188 #40324]  INFO -- default-amazon-2023: -----> Verifying <default-amazon-2023>...
+I, [2025-03-25T23:13:31.714805 #40324]  INFO -- default-amazon-2023: Loaded tests from {:path=>".Users.jonathanmetzger.Library.Mobile Documents.com~apple~CloudDocs.Documents.Coding.chef_applications.cookbook.test.integration.default"} 
+I, [2025-03-25T23:13:31.714901 #40324]  INFO -- default-amazon-2023: Loaded redhat-enterprise-linux-8-stig-baseline 
+I, [2025-03-25T23:13:32.696910 #40324]  INFO -- default-amazon-2023: Finished verifying <default-amazon-2023> (0m3.96s).
+I, [2025-03-25T23:13:32.719093 #40324]  INFO -- default-amazon-2023: [INFO] Preserving Verify Logs

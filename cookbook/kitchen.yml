@@ -23,7 +23,6 @@ verifier:
     - cli
     - json:spec/results/%{platform}_%{suite}.json
     - html:spec/results/%{platform}_%{suite}.html
-    - junit:spec/results/%{platform}_%{suite}.junit
 
 transport:
   ssh_key: keys/<%= ENV['AWS_SSH_KEY_NAME'] %>.pem
@@ -179,6 +178,10 @@ platforms:
           sudo -i subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[WARN] Registration failed"
           #echo "[INFO] Updating Packages..."
           #sudo -i yum -y update || echo "[WARN] Failed to update packages"
+      post_converge:
+      - local: |
+          echo [INFO] Writing Heimdall Lite Script
+          kitchen exec ${KITCHEN_INSTANCE_NAME} -c '[ -f /tmp/heimdall-lite.sh ] && less -FX /tmp/heimdall-lite.sh || echo "echo DNE"' > ../heimdall-lite.sh
   - name: ubuntu-22
     driver:
       image_id: <%= ENV['IMAGE_ID_UBUNTU22'] %>
@@ -205,8 +208,6 @@ lifecycle:
       echo [INFO] Preserving Converge Logs
       mkdir -p logs/converge
       cp .kitchen/logs/${KITCHEN_INSTANCE_NAME}.log logs/converge
-      echo [INFO] Writing Heimdall Lite Script
-      kitchen exec ${KITCHEN_INSTANCE_NAME} -c '[ -f /tmp/heimdall-lite.sh ] && less -FX /tmp/heimdall-lite.sh || echo "echo DNE"' > ../heimdall-lite.sh
   finally_verify:
   - local: |
       echo [INFO] Preserving Verify Logs
