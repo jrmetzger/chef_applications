@@ -11,6 +11,10 @@ execute 'update-grub' do
   action :nothing
 end
 
+reboot 'Restart System' do
+  action :nothing
+end
+
 node['cookbook']['harden']['controls']['grub'].each do |name, control|
   next unless control['managed']
 
@@ -24,6 +28,7 @@ node['cookbook']['harden']['controls']['grub'].each do |name, control|
       ]
       only_if { name == 'fips' }
       not_if 'update-crypto-policies --show | grep FIPS'
+      # notifies :request_reboot, 'reboot[Restart System]', :immediately
     end
 
   when 'boot_loader_superuser_name'
@@ -35,6 +40,7 @@ node['cookbook']['harden']['controls']['grub'].each do |name, control|
        ])
       notifies :run, 'execute[update-grub]', :delayed
     end
+    next
 
   when 'boot_loader_superuser_password'
     file control['title'] do
@@ -42,19 +48,19 @@ node['cookbook']['harden']['controls']['grub'].each do |name, control|
       content "GRUB2_PASSWORD=#{control['value']}"
       notifies :run, 'execute[update-grub]', :delayed
     end
-  else
+    next
+  end
 
-    entry = "#{name}=#{control['value']}"
-    execute control['title'] do
-      command "grubby --update-kernel=ALL --args=#{entry}"
-      not_if "grubby --info=ALL | grep #{entry}"
-    end
-    add_to_list control['title'] do
-      path '/etc/default/grub'
-      pattern 'GRUB_CMDLINE_LINUX="'
-      delim [',']
-      entry entry
-      ends_with '"'
-    end
+  entry = "#{name}=#{control['value']}"
+  execute control['title'] do
+    command "grubby --update-kernel=ALL --args=#{entry}"
+    not_if "grubby --info=ALL | grep #{entry}"
+  end
+  add_to_list control['title'] do
+    path '/etc/default/grub'
+    pattern 'GRUB_CMDLINE_LINUX="'
+    delim [',']
+    entry entry
+    ends_with '"'
   end
 end

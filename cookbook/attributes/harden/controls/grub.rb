@@ -46,7 +46,7 @@ default['cookbook']['harden']['controls']['grub'].tap do |control|
     configuration['value'] = '8192'
   end
   control['fips'].tap do |configuration|
-    configuration['managed'] = false # figure out keys first
+    configuration['managed'] = true
     configuration['title'] = 'SV-258241: RHEL 9 must implement a system-wide encryption policy.'
     configuration['value'] = '1'
     configuration['mode'] = 'enable'

@@ -25,7 +25,9 @@ verifier:
     - html:spec/results/%{suite}-%{platform}/%{suite}-%{platform}_inspec.html
 
 transport:
-  ssh_key: ../keys/<%= ENV['AWS_SSH_KEY_NAME'] %>.pem
+  ssh_key:
+  - ../keys/<%= ENV['AWS_SSH_KEY_NAME'] %>.pem # Amazon PEM
+  - ../keys/fips_key # FIPS Key
   username: ec2-user
 
 # https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#AMICatalog:
@@ -186,18 +188,40 @@ lifecycle:
         rm -f ../scripts/heimdall-lite.sh
         echo '[INFO] Refreshing Logs'
         rm -rf spec/results/${KITCHEN_INSTANCE_NAME}
+
+        # Allow Port 12345 for AWS
         if ! aws ec2 describe-security-groups --region us-east-1 --group-ids sg-07a2d1eb0e54c34c5 --query "SecurityGroups[0].IpPermissions" --output=text | grep -q 12345; then
           echo "[INFO] Opening AWS Port 12345"
           aws ec2 authorize-security-group-ingress --region us-east-1 --group-id sg-07a2d1eb0e54c34c5 --protocol tcp --port 12345 --cidr 0.0.0.0/0
         fi
   pre_converge:
-    - remote: |
-        if grep -qiE 'redhat|rhel' /etc/os-release; then
-          echo "[INFO] Attempting Red Hat subscription registration..."
-          sudo -i subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[WARN] Registration failed"
-          #echo "[INFO] Updating Packages..."
-          #sudo -i yum -y update || echo "[WARN] Failed to update packages"
-        fi
+  - local: |
+      # Generating FIPS Keys
+      KEY_PATH="../keys/fips_key"
+      PUB_KEY_PATH="${KEY_PATH}.pub"
+
+      # Check if the SSH key exists; if not, generate a new one
+      if [ ! -f "$KEY_PATH" ]; then
+        echo "[INFO] SSH key does not exist. Generating new SSH key."
+        ssh-keygen -t rsa -f "$KEY_PATH" -b 2048 -o -a 100 -N ""
+      fi
+
+      echo "[INFO] Importing Public Key to SSH Authorized Keys"
+      kitchen exec ${KITCHEN_INSTANCE_NAME} -c "
+        if ! grep -qxF '$(cat $PUB_KEY_PATH)' ~/.ssh/authorized_keys; then
+          echo '[INFO] Public key not found, adding it.'
+          echo '$(cat $PUB_KEY_PATH)' >> ~/.ssh/authorized_keys
+        else
+          echo '[INFO] Public key already present in authorized_keys.'
+        fi"
+      echo "[INFO] SSH key generated and public key loaded."
+  - remote: |
+      if grep -qiE 'redhat|rhel' /etc/os-release; then
+        echo "[INFO] Attempting Red Hat subscription registration..."
+        sudo -i subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[WARN] Registration failed"
+        #echo "[INFO] Updating Packages..."
+        #sudo -i yum -y update || echo "[WARN] Failed to update packages"
+      fi
   finally_converge:
     - local: |
         # Preserving Converge Logs
