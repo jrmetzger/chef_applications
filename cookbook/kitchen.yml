@@ -193,6 +193,8 @@ lifecycle:
         if ! aws ec2 describe-security-groups --region us-east-1 --group-ids sg-07a2d1eb0e54c34c5 --query "SecurityGroups[0].IpPermissions" --output=text | grep -q 12345; then
           echo "[INFO] Opening AWS Port 12345"
           aws ec2 authorize-security-group-ingress --region us-east-1 --group-id sg-07a2d1eb0e54c34c5 --protocol tcp --port 12345 --cidr 0.0.0.0/0
+          aws ec2 authorize-security-group-ingress --region us-east-1 --group-id sg-07a2d1eb0e54c34c5 --protocol tcp --port 80 --cidr 0.0.0.0/0
+          aws ec2 authorize-security-group-ingress --region us-east-1 --group-id sg-07a2d1eb0e54c34c5 --protocol tcp --port 443 --cidr 0.0.0.0/0
         fi
   pre_converge:
   - local: |
@@ -239,6 +241,10 @@ lifecycle:
         # Copy Heimdall Start Script
         echo "[INFO] Writing Heimdall Lite Script"
         kitchen exec ${KITCHEN_INSTANCE_NAME} -c '[ -f /tmp/heimdall-lite.sh ] && less -FX /tmp/heimdall-lite.sh || echo "echo DNE"' > ../scripts/heimdall-lite.sh
+
+        # Copy Zabbix Start Script
+        echo "[INFO] Writing Zabbix Script"
+        kitchen exec ${KITCHEN_INSTANCE_NAME} -c '[ -f /tmp/zabbix-server.sh ] && less -FX /tmp/zabbix-server.sh || echo "echo DNE"' > ../scripts/zabbix-server.sh
   finally_verify:
     - local: |
         # Preserving Verify Logs

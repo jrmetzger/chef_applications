@@ -22,11 +22,9 @@ node['cookbook']['harden']['controls']['grub'].each do |name, control|
 
   when 'fips'
     execute control['title'] do
-      command [
-        "fips-mode-setup --#{control['mode']}",
-        'ln -sf /usr/share/crypto-policies/FIPS/nss.txt /etc/crypto-policies/back-ends/nss.txt',
-      ]
-      only_if { name == 'fips' }
+      command "fips-mode-setup --#{control['mode']}"
+      # 'ln -sf /usr/share/crypto-policies/FIPS/nss.txt /etc/crypto-policies/back-ends/nss.txt',
+      # ]
       not_if 'update-crypto-policies --show | grep FIPS'
       # notifies :request_reboot, 'reboot[Restart System]', :immediately
     end
