@@ -1,3 +1,3 @@
 -----> Execute command on default-rhel-9.
        [?1h=#!/bin/bash
-       open http://54.224.74.94:12345
+       open http://54.144.62.91:12345

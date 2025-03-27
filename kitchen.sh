@@ -47,7 +47,7 @@ done
 
 # KITCHEN
 run_kitchen() {
-  (cd cookbook && bundle exec kitchen "$@") # -l debug)
+  (cd cookbook && bundle exec kitchen "$@" --concurrency=2) # -l debug)
 }
 
 run_cookstyle() {

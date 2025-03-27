@@ -22,7 +22,3 @@ Berksfile.lock
 Policyfile.lock.json
 
 .idea/
-
-keys/**
-spec/**
-

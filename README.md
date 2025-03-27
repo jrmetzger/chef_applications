@@ -2,6 +2,12 @@
 
 Installation of Application using Chef and applying STIG compliance standards
 
+## Supports
+
+Amazon Linux 2023
+Redhat Enterprise 9
+Ubuntu 22.04
+
 ## Setup
 
 ### Vagrant Redhat Credentials:
@@ -74,12 +80,50 @@ $env:SECURITY_GROUP_ID='SECURITY_GROUP_ID'
 ## Run
 
 ```
-./kitchen.sh list
-./kitchen.sh converge
-./kitchen.sh verify
-./kitchen.sh destroy
+$ ./kitchen.sh create rhel9
+$ ./kitchen.sh converge rhel9
+$ ./kitchen.sh verify rhel9
+$ ./kitchen.sh destroy rhel9
 ```
 
-### AWS Instances
+```
+$ ./kitchen.sh help
+Commands:
+  kitchen console                                 # Test Kitchen Console!
+  kitchen converge [INSTANCE|REGEXP|all]          # Change instance state to converge. Use a provisioner to configure one or more instances
+  kitchen create [INSTANCE|REGEXP|all]            # Change instance state to create. Start one or more instances
+  kitchen destroy [INSTANCE|REGEXP|all]           # Change instance state to destroy. Delete all information for one or more instances
+  kitchen diagnose [INSTANCE|REGEXP|all]          # Show computed diagnostic configuration
+  kitchen doctor INSTANCE|REGEXP                  # Check for common system problems
+  kitchen exec INSTANCE|REGEXP -c REMOTE_COMMAND  # Execute command on one or more instance
+  kitchen help [COMMAND]                          # Describe available commands or one specific command
+  kitchen init                                    # Adds some configuration to your cookbook so Kitchen can rock
+  kitchen list [INSTANCE|REGEXP|all]              # Lists one or more instances
+  kitchen login INSTANCE|REGEXP                   # Log in to one instance
+  kitchen package INSTANCE|REGEXP                 # package an instance
+  kitchen setup [INSTANCE|REGEXP|all]             # Change instance state to setup. Prepare to run automated tests. Install busser and related gems on one or more instances
+  kitchen test [INSTANCE|REGEXP|all]              # Test (destroy, create, converge, setup, verify and destroy) one or more instances
+  kitchen verify [INSTANCE|REGEXP|all]            # Change instance state to verify. Run automated tests on one or more instances
+  kitchen version                                 # Print Test Kitchen's version information
+```
+
+Destroy, Converge and Verify (test)
+```
+$ ./kitchen dv INSTANCE|REGEXP
+```
+
+Converge and Verify
+```
+$ ./kitchen cv INSTANCE|REGEXP
+```
+
+#### Vagrant
+
+vagrant help
+
+#### AWS Instances
 
 https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#Instances:
+
+Maintainer: Jon Metzger
+Contact: n/a

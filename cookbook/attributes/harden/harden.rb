@@ -1,3 +1,6 @@
+
+default['cookbook']['harden']['standard'] = 'stig'
+
 default['cookbook']['harden']['control_groups'].tap do |control_groups|
   control_groups['aide'] = true
   control_groups['audit'] = true

@@ -1,1 +1,4 @@
-scripts/cache/*
+keys/*
+spec/*
+cookbook/spec/results
+.DS_Store

@@ -21,11 +21,11 @@ verifier:
   sudo: true
   reporter:
     - cli
-    - json:spec/results/%{platform}_%{suite}.json
-    - html:spec/results/%{platform}_%{suite}.html
+    - json:spec/results/%{suite}-%{platform}/%{suite}-%{platform}_inspec.json
+    - html:spec/results/%{suite}-%{platform}/%{suite}-%{platform}_inspec.html
 
 transport:
-  ssh_key: keys/<%= ENV['AWS_SSH_KEY_NAME'] %>.pem
+  ssh_key: ../keys/<%= ENV['AWS_SSH_KEY_NAME'] %>.pem
   username: ec2-user
 
 # https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#AMICatalog:
@@ -39,13 +39,6 @@ platforms:
         git: https://github.com/mitre/amazon-linux-2-stig-ready-baseline # Rhel7
         # git: https://github.com/mitre/amazon-linux-2023-stig-ready-baseline.git # Rhel8
       controls:
-    lifecycle:
-      pre_create:
-      - local: |
-          if ! aws ec2 describe-security-groups --region us-east-1 --group-ids sg-07a2d1eb0e54c34c5 --query "SecurityGroups[0].IpPermissions" --output=text | grep -q 12345; then
-            echo [INFO] Opening AWS Port 12345
-            aws ec2 authorize-security-group-ingress --region us-east-1 --group-id sg-07a2d1eb0e54c34c5 --protocol tcp --port 12345 --cidr 0.0.0.0/0
-          fi
   - name: rhel-9
     driver:
       image_id: <%= ENV['IMAGE_ID_REDHAT9'] %>
@@ -172,17 +165,6 @@ platforms:
       - SV-258236 #RHEL 9 crypto policy must not be overridden.
       - SV-258237 #RHEL 9 must use mechanisms meeting the requirements of applicable federal laws, executive orders, directives, policies, regulations, standards, and guidance for authentication to a cryptographic module.
       - SV-258241 #RHEL 9 must implement a system-wide encryption policy.
-    lifecycle:
-      post_create:
-      - remote: |
-          echo "[INFO] Attempting Red Hat subscription registration..."
-          sudo -i subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[WARN] Registration failed"
-          #echo "[INFO] Updating Packages..."
-          #sudo -i yum -y update || echo "[WARN] Failed to update packages"
-      post_converge:
-      - local: |
-          echo [INFO] Writing Heimdall Lite Script
-          kitchen exec ${KITCHEN_INSTANCE_NAME} -c '[ -f /tmp/heimdall-lite.sh ] && less -FX /tmp/heimdall-lite.sh || echo "echo DNE"' > ../heimdall-lite.sh
   - name: ubuntu-22
     driver:
       image_id: <%= ENV['IMAGE_ID_UBUNTU22'] %>
@@ -196,29 +178,80 @@ platforms:
 suites:
   - name: default
 
-# https://kitchen.ci/docs/reference/lifecycle-hooks/
 lifecycle:
   pre_create:
-  - local: |
-      rm -f spec/results/heimdall-lite.sh
-  post_create:
-  - remote: |
-      echo [INFO] Operating System: $(sed -n 's/^PRETTY_NAME="\([^"]*\)"/\1/p' /etc/os-release)
-  finally_converge:
-  - local: |
-      kitchen exec ${KITCHEN_INSTANCE_NAME} -c "sudo cat /tmp/kitchen/nodes/${KITCHEN_INSTANCE_NAME}.json" > /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
-      echo "}" >> /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
-      sed '1d' /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json | jq > ../scripts/cache/${KITCHEN_INSTANCE_NAME}_attributes.json
-      rm -f /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
-      echo [INFO] Preserving Converge Logs
-      mkdir -p logs/converge
-      cp .kitchen/logs/${KITCHEN_INSTANCE_NAME}.log logs/converge
-  finally_verify:
-  - local: |
-      echo [INFO] Preserving Verify Logs
-      mkdir -p logs/verify
-      cp .kitchen/logs/${KITCHEN_INSTANCE_NAME}.log logs/verify
+    - local: |
+        # Removing the heimdall-lite.sh file if exists
+        echo '[INFO] Removing Existing Heimdall Lite File'
+        rm -f ../scripts/heimdall-lite.sh
+        echo '[INFO] Refreshing Logs'
+        rm -rf spec/results/${KITCHEN_INSTANCE_NAME}
+        if ! aws ec2 describe-security-groups --region us-east-1 --group-ids sg-07a2d1eb0e54c34c5 --query "SecurityGroups[0].IpPermissions" --output=text | grep -q 12345; then
+          echo "[INFO] Opening AWS Port 12345"
+          aws ec2 authorize-security-group-ingress --region us-east-1 --group-id sg-07a2d1eb0e54c34c5 --protocol tcp --port 12345 --cidr 0.0.0.0/0
+        fi
+  pre_converge:
+    - remote: |
+        if grep -qiE 'redhat|rhel' /etc/os-release; then
+          echo "[INFO] Attempting Red Hat subscription registration..."
+          sudo -i subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[WARN] Registration failed"
+          #echo "[INFO] Updating Packages..."
+          #sudo -i yum -y update || echo "[WARN] Failed to update packages"
+        fi
+  post_converge:
+    - local: |
+        # Copy Heimdall Start Script
+        echo "[INFO] Writing Heimdall Lite Script"
+        kitchen exec ${KITCHEN_INSTANCE_NAME} -c '[ -f /tmp/heimdall-lite.sh ] && less -FX /tmp/heimdall-lite.sh || echo "echo DNE"' > ../scripts/heimdall-lite.sh
 
+        # Preserving Node attributes
+        echo "[INFO] Preserving Attributes"
+        kitchen exec ${KITCHEN_INSTANCE_NAME} -c "sudo cat /tmp/kitchen/nodes/${KITCHEN_INSTANCE_NAME}.json" > /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
+        echo "}" >> /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
+        sed '1d' /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json | jq > ../scripts/cache/${KITCHEN_INSTANCE_NAME}_attributes.json
+        rm -f /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
+        echo [INFO] Preserving Converge Logs
+        mkdir -p logs/converge
+        cp .kitchen/logs/${KITCHEN_INSTANCE_NAME}.log logs/converge
+  finally_converge:
+    - local: |
+        # Preserving Converge Logs
+        echo "[INFO] Preserving Converge Logs"
+        mkdir -p spec/results/${KITCHEN_INSTANCE_NAME}
+        cp .kitchen/logs/${KITCHEN_INSTANCE_NAME}.log spec/results/${KITCHEN_INSTANCE_NAME}/${KITCHEN_INSTANCE_NAME}_converge.log
+  finally_verify:
+    - local: |
+        # Preserving Verify Logs
+        echo "[INFO] Preserving Verify Logs"
+        mkdir -p spec/results/${KITCHEN_INSTANCE_NAME}
+        cp .kitchen/logs/${KITCHEN_INSTANCE_NAME}.log spec/results/${KITCHEN_INSTANCE_NAME}/${KITCHEN_INSTANCE_NAME}_verify.log
+
+
+# https://kitchen.ci/docs/reference/lifecycle-hooks/
+# lifecycle:
+#   pre_create:
+#   - local: |
+#       rm -f spec/results/${KITCHEN_INSTANCE_NAME}/heimdall-lite.sh
+#   post_create:
+#   - remote: |
+#       echo [INFO] Operating System: $(sed -n 's/^PRETTY_NAME="\([^"]*\)"/\1/p' /etc/os-release)
+#   finally_converge:
+#   - local: |
+#       echo [INFO] Preserving Attributes
+#       kitchen exec ${KITCHEN_INSTANCE_NAME} -c "sudo cat /tmp/kitchen/nodes/${KITCHEN_INSTANCE_NAME}.json" > /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
+#       echo "}" >> /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
+#       sed '1d' /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json | jq > ../cookbook/spec/results/${KITCHEN_INSTANCE_NAME}/${KITCHEN_INSTANCE_NAME}_attributes.json
+#       rm -f /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
+#
+#       echo [INFO] Preserving Converge Logs
+#       mkdir -p spec/results/${KITCHEN_INSTANCE_NAME}
+#       cp .kitchen/logs/${KITCHEN_INSTANCE_NAME}.log spec/results/${KITCHEN_INSTANCE_NAME}/${KITCHEN_INSTANCE_NAME}_converge.log
+#   finally_verify:
+#   - local: |
+#       echo [INFO] Preserving Verify Logs
+#       mkdir -p spec/results/${KITCHEN_INSTANCE_NAME}
+#       cp .kitchen/logs/${KITCHEN_INSTANCE_NAME}.log spec/results/${KITCHEN_INSTANCE_NAME}/${KITCHEN_INSTANCE_NAME}_verify.log
+#
   #post_converge:
   #- local: |
-  #    curl -# -s -F data=@spec/results/rhel-9_default.json -F "filename=rhel-9_default.json" -F "public=true" -F "evaluationTags=8438b61,mitre/redhat-enterprise-linux-8-stig-baseline,#DISA Hardened EC2 Testing Matrix,'Supplemental Automation Content v1r12'" -H "Authorization: Api-Key 96d836e4f661fdae4aed5da854af5cc44df77d31401e8554e8b52ea45575cdf05a" "https://heimdall-demo.mitre.org/evaluations"
+  #    curl -# -s -F data=@spec/results/${KITCHEN_INSTANCE_NAME}/rhel-9_default.json -F "filename=rhel-9_default.json" -F "public=true" -F "evaluationTags=8438b61,mitre/redhat-enterprise-linux-8-stig-baseline,#DISA Hardened EC2 Testing Matrix,'Supplemental Automation Content v1r12'" -H "Authorization: Api-Key 96d836e4f661fdae4aed5da854af5cc44df77d31401e8554e8b52ea45575cdf05a" "https://heimdall-demo.mitre.org/evaluations"

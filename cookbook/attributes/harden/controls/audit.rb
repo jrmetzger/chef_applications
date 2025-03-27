@@ -4,7 +4,10 @@ supported_arches = %w(32) # 64)
 default['cookbook']['harden']['controls']['audit'].tap do |control|
   control['active'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-258145: RHEL 9 must be configured to offload audit records onto a different system from the system being audited via syslog.'
+    configuration['title'] = {
+      'redhat-9': 'SV-258145: RHEL 9 must be configured to offload audit records onto a different system from the system being audited via syslog.',
+      'amazonlinux-2023': 'SV-258145: RHEL 9 must be configured to offload audit records onto a different system from the system being audited via syslog.',
+    }
     configuration['path'] = '/etc/audit/plugins.d/syslog.conf'
     configuration['value'] = 'yes'
   end

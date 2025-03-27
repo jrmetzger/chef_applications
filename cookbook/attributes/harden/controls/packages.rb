@@ -41,7 +41,7 @@ default['cookbook']['harden']['controls']['packages'].tap do |control|
     configuration['title'] = 'SV-258035: RHEL 9 must have the USBGuard package installed.'
   end
   control['fapolicyd'].tap do |configuration|
-    configuration['managed'] = true
+    configuration['managed'] = false
     configuration['title'] = 'Linux fapolicy module must be installed.'
   end
 end
