@@ -1,4 +1,6 @@
 keys/*
 spec/*
+scripts/heimdall-lite.sh
+scripts/zabbix-server.sh
 cookbook/spec/results
 .DS_Store
