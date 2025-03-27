@@ -18,8 +18,6 @@ end
 
 log "-----> Applying #{node['cookbook']['harden']['standard']} Standards"
 node['cookbook']['harden']['controls'].each do |group, control|
-  puts group
-  puts node['cookbook']['harden']['control_groups']
   next unless node['cookbook']['harden']['control_groups'][group]
   log "-> Applying Group Controls: #{group}"
   control.each do |name, configuration|

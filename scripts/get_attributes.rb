@@ -44,6 +44,7 @@ suites.each do |suite|
   file_path = "#{script_dir}/../cookbook/spec/results/default-#{suite}/default-#{suite}_attributes.json" # Replace with your actual file path
   next unless File.exist?(file_path)
 
+  puts "Searching OS #{suite}"
   valid_suites << suite
   file_content = File.read(file_path)
   ruby_hash = JSON.parse(file_content)

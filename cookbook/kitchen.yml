@@ -198,27 +198,23 @@ lifecycle:
           #echo "[INFO] Updating Packages..."
           #sudo -i yum -y update || echo "[WARN] Failed to update packages"
         fi
-  post_converge:
-    - local: |
-        # Copy Heimdall Start Script
-        echo "[INFO] Writing Heimdall Lite Script"
-        kitchen exec ${KITCHEN_INSTANCE_NAME} -c '[ -f /tmp/heimdall-lite.sh ] && less -FX /tmp/heimdall-lite.sh || echo "echo DNE"' > ../scripts/heimdall-lite.sh
-
-        # Preserving Node attributes
-        echo "[INFO] Preserving Attributes"
-        kitchen exec ${KITCHEN_INSTANCE_NAME} -c "sudo cat /tmp/kitchen/nodes/${KITCHEN_INSTANCE_NAME}.json" > /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
-        echo "}" >> /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
-        sed '1d' /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json | jq > ../scripts/cache/${KITCHEN_INSTANCE_NAME}_attributes.json
-        rm -f /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
-        echo [INFO] Preserving Converge Logs
-        mkdir -p logs/converge
-        cp .kitchen/logs/${KITCHEN_INSTANCE_NAME}.log logs/converge
   finally_converge:
     - local: |
         # Preserving Converge Logs
         echo "[INFO] Preserving Converge Logs"
         mkdir -p spec/results/${KITCHEN_INSTANCE_NAME}
         cp .kitchen/logs/${KITCHEN_INSTANCE_NAME}.log spec/results/${KITCHEN_INSTANCE_NAME}/${KITCHEN_INSTANCE_NAME}_converge.log
+
+        # Preserving Node attributes
+        echo "[INFO] Preserving Attributes"
+        kitchen exec ${KITCHEN_INSTANCE_NAME} -c "sudo cat /tmp/kitchen/nodes/${KITCHEN_INSTANCE_NAME}.json" > /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
+        echo "}" >> /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
+        sed '1d' /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json | jq > spec/results/${KITCHEN_INSTANCE_NAME}/${KITCHEN_INSTANCE_NAME}_attributes.json
+        rm -f /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
+
+        # Copy Heimdall Start Script
+        echo "[INFO] Writing Heimdall Lite Script"
+        kitchen exec ${KITCHEN_INSTANCE_NAME} -c '[ -f /tmp/heimdall-lite.sh ] && less -FX /tmp/heimdall-lite.sh || echo "echo DNE"' > ../scripts/heimdall-lite.sh
   finally_verify:
     - local: |
         # Preserving Verify Logs
