@@ -17,7 +17,7 @@ node['cookbook']['harden']['controls']['sssd'].each do |name, control|
 
   case name
   when 'pki_authentication'
-    template configuration['title'] do
+    template control['title'] do
       path '/etc/sssd/sssd.conf'
       source 'sssd.conf.erb'
     end

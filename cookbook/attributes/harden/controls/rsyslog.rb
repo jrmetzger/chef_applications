@@ -2,7 +2,7 @@
 
 default['cookbook']['harden']['controls']['rsyslog'].tap do |control|
   control['rsyslog-gnutls'].tap do |configuration|
-    configuration['managed'] = false
+    configuration['managed'] = true
     configuration['title'] = 'SV-258141: RHEL 9 must have the packages required for encrypting offloaded audit logs installed.'
   end
   control['monitored'].tap do |configuration|
@@ -15,12 +15,11 @@ default['cookbook']['harden']['controls']['rsyslog'].tap do |control|
     configuration['title'] = 'SV-258146: RHEL 9 must authenticate the remote logging server for offloading audit logs via rsyslog.'
     configuration['value'] = '1'
   end
-  control['$DefaultNetstreamDriver'].tap do |configuration|
+  control['$ActionSendStreamDriverMode'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-258147: RHEL 9 must encrypt the transfer of audit records offloaded onto a different system or media from the system being audited via rsyslog.'
-    configuration['value'] = 'gtls'
   end
-  control['$ActionSendStreamDriverAuthMod'].tap do |configuration|
+  control['$DefaultNetstreamDriver'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-258148: RHEL 9 must encrypt via the gtls driver the transfer of audit records offloaded onto a different system or media from the system being audited via rsyslog.'
     configuration['value'] = '1'

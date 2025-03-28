@@ -1,0 +1,4 @@
+---
+SV-258230:
+  justification: Reboot Required - RHEL 9 must enable FIPS mode.
+  run: false

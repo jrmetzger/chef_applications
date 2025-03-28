@@ -1,7 +1,7 @@
 
 default['cookbook']['harden']['standard'] = 'stig'
-default['cookbook']['harden']['override_control_groups'] = %w(
-)
+# default['cookbook']['harden']['override_control_groups'] = %w(
+# )
 
 default['cookbook']['harden']['mount_settings'].tap do |mount_settings|
   mount_settings['pv_name'] = '/dev/xvdf'

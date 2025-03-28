@@ -78,15 +78,15 @@ default['cookbook']['harden']['controls']['mount'].tap do |control|
     configuration['managed'] = true
     configuration['title'] = 'SV-257875: RHEL 9 must mount /var/log/audit with the nosuid option.'
   end
-  control['/var/log/tmp-nodev'].tap do |configuration|
+  control['/var/tmp-nodev'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-257876: RHEL 9 must mount /var/log/audit with the nodev option.'
   end
-  control['/var/log/tmp-noexec'].tap do |configuration|
+  control['/var/tmp-noexec'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-257877: RHEL 9 must mount /var/log/audit with the noexec option.'
   end
-  control['/var/log/tmp-nosuid'].tap do |configuration|
+  control['/var/tmp-nosuid'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-257878: RHEL 9 must mount /var/log/audit with the nosuid option.'
   end
