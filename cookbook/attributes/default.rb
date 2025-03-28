@@ -2,8 +2,8 @@
 
 default['cookbook']['applications'] = %w(
 harden
-heimdall
 )
 # habitat
+# heimdall
 # zabbix
 # )

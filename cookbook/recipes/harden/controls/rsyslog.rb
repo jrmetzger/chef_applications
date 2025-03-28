@@ -12,10 +12,16 @@ node['cookbook']['harden']['controls']['rsyslog'].each do |name, control|
   case name
   when 'rsyslog-gnutls'
     package name
-  else
+  when 'monitored', 'Forward_Audit_Records'
     append_if_no_line control['title'] do
       path '/etc/rsyslog.conf'
       line control['value']
+    end
+  else
+    replace_or_add control['title'] do
+      path '/etc/rsyslog.conf'
+      pattern /"#{name}"/
+      line "#{name} #{control['value']}"
     end
   end
 end

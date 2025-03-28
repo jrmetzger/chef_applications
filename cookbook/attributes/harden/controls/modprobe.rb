@@ -21,4 +21,12 @@ default['cookbook']['harden']['controls']['modprobe'].tap do |control|
     configuration['managed'] = true
     configuration['title'] = 'SV-257808: RHEL 9 must disable the Transparent Inter Process Communication (TIPC) kernel module.'
   end
+  control['bluetooth'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258034: RHEL 9 must be configured to disable USB mass storage.'
+  end
+  control['bluetooth'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = ' SV-258039: RHEL 9 Bluetooth must be disabled.'
+  end
 end

@@ -21,12 +21,15 @@ node['cookbook']['harden']['controls']['grub'].each do |name, control|
   case name
 
   when 'fips'
-    execute control['title'] do
+    state = control['mode'] == 'enable' ? 'FIPS' : 'DEFAULT'
+    execute "#{control['title']} - Set to #{control['mode']}" do
       command "fips-mode-setup --#{control['mode']}"
-      # 'ln -sf /usr/share/crypto-policies/FIPS/nss.txt /etc/crypto-policies/back-ends/nss.txt',
-      # ]
       not_if 'update-crypto-policies --show | grep FIPS'
       # notifies :request_reboot, 'reboot[Restart System]', :immediately
+    end
+    link "#{control['title']} - Link Policies" do
+      target_file '/etc/crypto-policies/back-ends/nss.config'
+      to "/usr/share/crypto-policies/#{state}/nss.txt"
     end
 
   when 'boot_loader_superuser_name'

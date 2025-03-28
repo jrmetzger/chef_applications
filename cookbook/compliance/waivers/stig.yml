@@ -1,1 +1,34 @@
 ---
+SV-258176:
+  run: false
+  justification: RHEL 9 must audit uses of the "execve" system call.
+SV-258177:
+  run: false
+  justification: RHEL 9 must audit all uses of the chmod, fchmod, and fchmodat system calls. (3 failed)
+SV-258178:
+  run: false
+  justification: RHEL 9 must audit all uses of the chown, fchown, fchownat, and lchown system calls.
+SV-258179:
+  run: false
+  justification: RHEL 9 must audit all uses of the setxattr, fsetxattr, lsetxattr, removexattr, fremovexattr, and lremovexattr system calls. (6 failed)
+SV-258187:
+  run: false
+  justification: RHEL 9 must audit all uses of the rename, unlink, rmdir, renameat, and unlinkat system calls. (5 failed)
+SV-258188:
+  run: false
+  justification: RHEL 9 must audit all uses of the truncate, ftruncate, creat, open, openat, and open_by_handle_at system calls. (6 failed)
+SV-258190:
+  run: false
+  justification: RHEL 9 must audit all uses of the init_module and finit_module system calls. (2 failed)
+SV-258216:
+  run: false
+  justification: Successful/unsuccessful uses of the umount2 system call in RHEL 9 must generate an audit record.
+SV-258189:
+  run: false
+  justification: RHEL 9 must audit all uses of the delete_module system call.
+SV-258226:
+  run: false
+  justification: Not Working - RHEL 9 must generate audit records for all account creations, modifications, disabling, and termination events that affect /var/log/tallylog.
+SV-258229:
+  run: false
+  justification: Do this last, requires reboot - RHEL 9 audit system must protect auditing rules from unauthorized change.

@@ -56,10 +56,10 @@ default['cookbook']['harden']['controls']['security'].tap do |control|
     configuration['title'] = 'SV-258107: RHEL 9 passwords must be created with a minimum of 15 characters.'
     configuration['value'] = '15'
   end
-  control['minlen'].tap do |configuration|
+  control['ocredit'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-258109: RHEL 9 must enforce password complexity by requiring that at least one special character be used.'
-    configuration['value'] = '15'
+    configuration['value'] = '-1'
   end
   control['dictcheck'].tap do |configuration|
     configuration['managed'] = true
@@ -90,5 +90,10 @@ default['cookbook']['harden']['controls']['security'].tap do |control|
     configuration['managed'] = true
     configuration['title'] = 'SV-258115: RHEL 9 must require the change of at least four character classes when passwords are changed.'
     configuration['value'] = '4'
+  end
+  control['selinux'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258079: RHEL 9 must enable the SELinux targeted policy.'
+    configuration['action'] = :enforcing # :permissive
   end
 end

@@ -50,6 +50,12 @@ EOF
     configuration['title'] = 'SV-257992: RHEL 9 must not allow a noncertificate trusted host SSH logon to the system.'
     configuration['value'] = 'no'
   end
+  control['MACs'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257990: RHEL 9 SSH client must be configured to use only Message Authentication Codes (MACs) employing FIPS 140-3 validated cryptographic hash algorithms.'
+    configuration['value'] = 'hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha2-256,hmac-sha2-512'
+    configuration['path'] = '/etc/crypto-policies/back-ends/openssh.config'
+  end
   control['PermitUserEnvironment'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-257993: RHEL 9 must not allow users to override SSH environment variables.'

@@ -17,9 +17,10 @@ node['cookbook']['harden']['controls']['sshd'].each do |name, control|
     end
 
   else
+    path = control.include?('path') ? control['path'] : '/etc/ssh/sshd_config'
     line = "#{name} #{control['value']}"
     replace_or_add control['title'] do
-      path '/etc/ssh/sshd_config'
+      path path
       pattern /(^|#)#{name}/
       line line
       notifies :restart, 'service[sshd]', :delayed

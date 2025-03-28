@@ -7,6 +7,8 @@ gem 'test-kitchen'
 gem 'kitchen-ec2'
 gem 'kitchen-inspec'
 gem 'chef-cli'
+# gem 'chef-ruby-lvm-attrib'
+# gem 'chef-ruby-lvm'
 
 # Good
 gem 'cookstyle'           # Chef-style RuboCop wrapper

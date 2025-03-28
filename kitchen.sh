@@ -2,21 +2,35 @@
 
 # Prerequisites
 
+# https://cinc.sh/start/client/
 if [ ! -d /opt/cinc ]; then
-  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash
+  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -v 18 | sudo bash
 else
-  echo "CINC already exists, skipping installation."
+  echo "CINC Client already exists, skipping installation."
 fi
+
+# https://cinc.sh/start/auditor/
 if [ ! -d /opt/cinc-auditor ]; then
   curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-auditor -v 6
 else
   echo "CINC Auditor already exists, skipping installation."
 fi
+
+# https://cinc.sh/start/workstation/
 if [ ! -d /opt/cinc-workstation ]; then
-  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -v 18 | sudo bash
+  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-workstation -v 24
 else
   echo "CINC Workstation already exists, skipping installation."
 fi
+
+# https://cinc.sh/start/server/
+# NOT SUPPORT ON MAC
+#if [ ! -d /opt/cinc-server ]; then
+#  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-server #-v 15
+#else
+#  echo "CINC Server already exists, skipping installation."
+#fi
+
 # brew list --cask | grep -q awscli || { echo "AWS Cli not found, installing..."; brew install awscli; }
 
 # GEMS
@@ -39,6 +53,7 @@ REQUIRED_VARS=(
 "IMAGE_ID_UBUNTU22"
 "INSTANCE_TYPE"
 "SECURITY_GROUP_ID"
+"REGION"
   )
 for var in "${REQUIRED_VARS[@]}"; do
   [ -z "${!var}" ] && echo "ERROR: $var is not set." && missing=true

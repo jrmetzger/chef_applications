@@ -77,6 +77,27 @@ $env:INSTANCE_TYPE='INSTANCE_TYPE'
 $env:SECURITY_GROUP_ID='SECURITY_GROUP_ID'
 ```
 
+### AWS Mount
+
+Step 1: Create a New EBS Volume
+
+Go to the AWS Console → Navigate to EC2.
+On the left panel, select Volumes (under "Elastic Block Store").
+Click Create Volume:
+Volume Type: gp3 (Recommended) or gp2.
+Size: Choose the appropriate size (e.g., 10GB).
+Availability Zone: Select the same AZ as your EC2 instance!
+Encryption: Optional (recommended for security).
+Click Create Volume.
+
+Step 2: Attach the Volume to Your Instance
+
+In the Volumes page, select your newly created volume.
+Click Actions → Attach Volume.
+Choose your EC2 instance.
+Note the device name assigned (e.g., /dev/xvdf or /dev/nvme1n1).
+Click Attach.
+
 ## Run
 
 ```

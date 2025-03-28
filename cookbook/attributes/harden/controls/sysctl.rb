@@ -56,6 +56,16 @@ default['cookbook']['harden']['controls']['sysctl'].tap do |control|
     configuration['title'] = 'SV-257816: RHEL 9 must disable the use of user namespaces.'
     configuration['value'] = '0'
   end
+  control['net.ipv4.conf.all.log_martians'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257960: RHEL 9 must log IPv4 packets with impossible addresses.'
+    configuration['value'] = '1'
+  end
+  control['net.ipv4.conf.default.log_martians'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257961: RHEL 9 must log IPv4 packets with impossible addresses by default.'
+    configuration['value'] = '1'
+  end
   control['net.ipv4.conf.all.rp_filter'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-257962: RHEL 9 must use reverse path filtering on all IPv4 interfaces.'
@@ -65,6 +75,11 @@ default['cookbook']['harden']['controls']['sysctl'].tap do |control|
     configuration['managed'] = true
     configuration['title'] = 'SV-257963: RHEL 9 must prevent IPv4 Internet Control Message Protocol (ICMP) redirect messages from being accepted.'
     configuration['value'] = '0'
+  end
+  control['net.ipv4.conf.default.rp_filter'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257965: RHEL 9 must use a reverse-path filter for IPv4 network traffic when possible by default.'
+    configuration['value'] = '1'
   end
   control['net.ipv4.icmp_echo_ignore_broadcasts'].tap do |configuration|
     configuration['managed'] = true

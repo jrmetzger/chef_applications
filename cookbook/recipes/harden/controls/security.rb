@@ -18,20 +18,30 @@ node['cookbook']['harden']['controls']['security'].each do |name, control|
       item name
       value control['value']
     end
-  else
-    path = case name
-           when 'deny', 'even_deny_root', 'fail_interval', 'unlock_time', 'audit', 'dir'
-             '/etc/security/faillock.conf'
-           else
-             '/etc/security/pwquality.conf'
-           end
-
-    line = control['value'].empty? ? name : "#{name} = #{control['value']}"
-    replace_or_add control['title'] do
-      path path
-      pattern /(^|# )#{name}/
-      line line
-      replace_only true
+    next
+  when 'selinux'
+    selinux_state 'Set SELinux to enforcing' do
+      action control['action']
     end
+    next
+
+  when 'dir'
+    directory '/var/log/faillock'
+    execute 'semanage fcontext -a -t faillog_t "/var/log/faillock(/.*)?"'
+  end
+
+  path = case name
+         when 'deny', 'even_deny_root', 'fail_interval', 'unlock_time', 'audit', 'dir'
+           '/etc/security/faillock.conf'
+         else
+           '/etc/security/pwquality.conf'
+         end
+
+  line = control['value'].empty? ? name : "#{name} = #{control['value']}"
+  replace_or_add control['title'] do
+    path path
+    pattern /(^|# )#{name}/
+    line line
+    replace_only true
   end
 end
