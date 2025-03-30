@@ -3,4 +3,5 @@ cookbook/spec/*
 scripts/heimdall-lite.sh
 scripts/zabbix-server.sh
 cookbook/spec/results
+cookbook/compliance/profiles/*json
 .DS_Store
