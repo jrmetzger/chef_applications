@@ -14,49 +14,41 @@ default['cookbook']['harden']['controls']['audit'].tap do |control|
   control['disk_error_action'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-258153: RHEL 9 audit system must take appropriate action when an error writing to the audit storage volume occurs.'
-    configuration['path'] = '/etc/audit/auditd.conf'
     configuration['value'] = 'SINGLE'
   end
   control['disk_full_action'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-258154: RHEL 9 audit system must take appropriate action when the audit storage volume is full.'
-    configuration['path'] = '/etc/audit/auditd.conf'
     configuration['value'] = 'SINGLE'
   end
   control['space_left'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-258155: RHEL 9 must allocate audit record storage capacity to store at least one weeks worth of audit records.'
-    configuration['path'] = '/etc/audit/auditd.conf'
     configuration['value'] = '25%'
   end
   control['space_left_action'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-258157: RHEL 9 must notify the system administrator (SA) and information system security officer (ISSO) (at a minimum) when allocated audit record storage volume 75 percent utilization.'
-    configuration['path'] = '/etc/audit/auditd.conf'
     configuration['value'] = 'email'
   end
   control['admin_space_left'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-258158: RHEL 9 must take action when allocated audit record storage volume reaches 95 percent of the audit record storage capacity.'
-    configuration['path'] = '/etc/audit/auditd.conf'
     configuration['value'] = '5%'
   end
   control['admin_space_left_action'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-258159: RHEL 9 must take action when allocated audit record storage volume reaches 95 percent of the repository maximum audit record storage capacity.'
-    configuration['path'] = '/etc/audit/auditd.conf'
     configuration['value'] = 'SINGLE'
   end
   control['name_format'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-258161: RHEL 9 must label all offloaded audit logs before sending them to the central log server'
-    configuration['path'] = '/etc/audit/auditd.conf'
     configuration['value'] = 'hostname'
   end
   control['freq'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-258168: RHEL 9 must periodically flush audit records to disk to prevent the loss of audit records.'
-    configuration['path'] = '/etc/audit/auditd.conf'
     configuration['value'] = '100'
   end
   control['audispd-plugins'].tap do |configuration|

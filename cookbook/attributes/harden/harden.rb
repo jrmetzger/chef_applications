@@ -17,6 +17,7 @@ default['cookbook']['harden']['control_groups'].tap do |control_groups|
   control_groups['modprobe'] = true
   control_groups['mount'] = true
   control_groups['packages'] = true
+  control_groups['pamd'] = true
   control_groups['rsyslog'] = true
   control_groups['security'] = true
   control_groups['selinux'] = true

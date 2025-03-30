@@ -1,0 +1,1526 @@
+  ✔  SV-257777: RHEL 9 must be a vendor-supported release.
+     ✔  The release "9.5" is still within the support window
+  ✔  SV-257778: RHEL 9 vendor packaged system security patches and updates must be installed and up to date.
+     ✔  List of out-of-date packages is expected to be empty
+  ×  SV-257779: RHEL 9 must display the Standard Mandatory DOD Notice and Consent Banner before granting local or remote access to the system via a command line user logon. (1 failed)
+     ✔  File /etc/issue is expected to exist
+     ×  The CLI Login Banner  is set to the standard banner and has the correct text
+     Banner does not match expected text
+  ×  SV-257780: RHEL 9 must implement the Endpoint Security for Linux Threat Prevention tool. (2 failed)
+     ×  System Package clamav is expected to be installed
+     expected that `System Package clamav` is installed
+     ×  Processes mfetpd is expected to exist
+     expected Processes mfetpd to exist
+  ✔  SV-257781: The graphical display manager must not be the default target on RHEL 9 unless approved.
+     ✔  multi-user.target is expected to cmp == "multi-user.target"
+  ↺  SV-257782: RHEL 9 must enable the hardware random number generator entropy gatherer service.
+     ↺  For RHEL 9 running with kernel FIPS mode enabled, this requirement is Not Applicable.
+  ✔  SV-257783: RHEL 9 systemd-journald service must be enabled.
+     ✔  Service systemd-journald is expected to be enabled
+     ✔  Service systemd-journald is expected to be running
+  ×  SV-257784: The systemd Ctrl-Alt-Delete burst key sequence in RHEL 9 must be disabled.
+     ×  Parse Config File /etc/systemd/system.conf Manager is expected to include {"CtrlAltDelBurstAction" => "none"}
+     expected {} to include {"CtrlAltDelBurstAction" => "none"}
+  ✔  SV-257785: The x86 Ctrl-Alt-Delete key sequence must be disabled on RHEL 9.
+     ✔  Service ctrl-alt-del.target params.LoadState is expected to eq "masked"
+  ✔  SV-257786: RHEL 9 debug-shell systemd service must be disabled.
+     ✔  Service debug-shell.service params.LoadState is expected to eq "masked"
+  ✔  SV-257787: RHEL 9 must require a boot loader superuser password.
+     ✔  File /etc/grub2.cfg is expected to exist
+     ✔  File /boot/grub2/user.cfg is expected to exist
+     ✔  The GRUB bootloader superuser password should be set in the GRUB config file ('/etc/grub2.cfg')
+     ✔  The GRUB bootloader superuser password should be encrypted in the user config file ('/boot/grub2/user.cfg')
+  ✔  SV-257788: RHEL 9 must disable the ability of systemd to spawn an interactive boot process.
+     ✔  Parse Config  args is expected not to include "systemd.confirm_spawn"
+  ×  SV-257789: RHEL 9 must require a unique superusers name upon booting into single-user and maintenance modes. (1 failed)
+     ✔  File /etc/grub2.cfg is expected to exist
+     ✔  The GRUB superuser should be set in the GRUB config file ('File /etc/grub2.cfg')
+     ×  The GRUB superuser should not contain easily guessable usernames
+     Superuser account is set to easily guessable username 'root'
+  ✔  SV-257790: RHEL 9 /boot/grub2/grub.cfg file must be group-owned by root.
+     ✔  File /etc/grub2.cfg is expected to exist
+     ✔  File /etc/grub2.cfg group is expected to cmp == "root"
+  ✔  SV-257791: RHEL 9 /boot/grub2/grub.cfg file must be owned by root.
+     ✔  File /etc/grub2.cfg is expected to exist
+     ✔  File /etc/grub2.cfg is expected to be owned by "root"
+  ✔  SV-257792: RHEL 9 must disable virtual system calls.
+     ✔  GRUB config should disable vsyscall
+  ✔  SV-257793: RHEL 9 must clear the page allocator to prevent use-after-free attacks.
+     ✔  GRUB config should enable page poisoning
+  ✔  SV-257794: RHEL 9 must clear SLUB/SLAB objects to prevent use-after-free attacks.
+     ✔  GRUB config should enable page poisoning
+  ✔  SV-257795: RHEL 9 must enable mitigations against processor-based vulnerabilities.
+     ✔  GRUB config should enable page poisoning
+  ✔  SV-257796: RHEL 9 must enable auditing of processes that start prior to the audit daemon.
+     ✔  GRUB config should enable page poisoning
+  ✔  SV-257797: RHEL 9 must restrict access to the kernel message buffer.
+     ✔  Kernel Parameter kernel.dmesg_restrict value is expected to eq 1
+     ✔  Kernel config files should configure 'kernel.dmesg_restrict'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257798: RHEL 9 must prevent kernel profiling by nonprivileged users.
+     ✔  Kernel Parameter kernel.perf_event_paranoid value is expected to eq 2
+     ✔  Kernel config files should configure 'kernel.perf_event_paranoid'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257799: RHEL 9 must prevent the loading of a new kernel for later execution.
+     ✔  Kernel Parameter kernel.kexec_load_disabled value is expected to eq 1
+     ✔  Kernel config files should configure 'kernel.kexec_load_disabled'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257800: RHEL 9 must restrict exposed kernel pointer addresses access.
+     ✔  Kernel Parameter kernel.kptr_restrict value is expected to eq 1
+     ✔  Kernel config files should configure 'kernel.kptr_restrict'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257801: RHEL 9 must enable kernel parameters to enforce discretionary access control on hardlinks.
+     ✔  Kernel Parameter fs.protected_hardlinks value is expected to eq 1
+     ✔  Kernel config files should configure 'fs.protected_hardlinks'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257802: RHEL 9 must enable kernel parameters to enforce discretionary access control on symlinks.
+     ✔  Kernel Parameter fs.protected_symlinks value is expected to eq 1
+     ✔  Kernel config files should configure 'fs.protected_symlinks'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ×  SV-257803: RHEL 9 must disable the kernel.core_pattern. (3 failed)
+     ×  Kernel Parameter kernel.core_pattern value is expected to eq 1
+     
+     expected: 1
+          got: "|/bin/false"
+     
+     (compared using ==)
+
+     ×  Kernel config files should configure 'kernel.core_pattern'
+     No config file was found that correctly sets this action
+     ×  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+     Incorrect or conflicting setting(s) found:
+        - kernel.core_pattern=|/usr/lib/systemd/systemd-coredump %P %u %g %s %t %c %h
+        - kernel.core_pattern = |/bin/false
+  ✔  SV-257804: RHEL 9 must be configured to disable the Asynchronous Transfer Mode kernel module.
+     ✔  Kernel Module atm is expected to be disabled
+     ✔  Kernel Module atm is expected to be blacklisted
+  ✔  SV-257805: RHEL 9 must be configured to disable the Controller Area Network kernel module.
+     ✔  Kernel Module can is expected to be disabled
+     ✔  Kernel Module can is expected to be blacklisted
+  ✔  SV-257806: RHEL 9 must be configured to disable the FireWire kernel module.
+     ✔  Kernel Module firewire_core is expected to be disabled
+     ✔  Kernel Module firewire_core is expected to be blacklisted
+  ✔  SV-257807: RHEL 9 must disable the Stream Control Transmission Protocol (SCTP) kernel module.
+     ✔  Kernel Module sctp is expected to be disabled
+     ✔  Kernel Module sctp is expected to be blacklisted
+  ✔  SV-257808: RHEL 9 must disable the Transparent Inter Process Communication (TIPC) kernel module.
+     ✔  Kernel Module tipc is expected to be disabled
+     ✔  Kernel Module tipc is expected to be blacklisted
+  ✔  SV-257809: RHEL 9 must implement address space layout randomization (ASLR) to protect its memory from unauthorized code execution.
+     ✔  Kernel Parameter kernel.randomize_va_space value is expected to eq 2
+     ✔  Kernel config files should configure 'kernel.randomize_va_space'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257810: RHEL 9 must disable access to network bpf system call from nonprivileged processes.
+     ✔  Kernel Parameter kernel.unprivileged_bpf_disabled value is expected to eq 1
+     ✔  Kernel config files should configure 'kernel.unprivileged_bpf_disabled'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ×  SV-257811: RHEL 9 must restrict usage of ptrace to descendant processes. (1 failed)
+     ✔  Kernel Parameter kernel.yama.ptrace_scope value is expected to eq 1
+     ✔  Kernel config files should configure 'kernel.yama.ptrace_scope'
+     ×  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+     Incorrect or conflicting setting(s) found:
+        - kernel.yama.ptrace_scope = 0
+  ✔  SV-257812: RHEL 9 must disable core dump backtraces.
+     ✔  Parse Config File /etc/systemd/coredump.conf Coredump.ProcessSizeMax is expected to cmp == "0"
+  ✔  SV-257813: RHEL 9 must disable storing core dumps.
+     ✔  Parse Config File /etc/systemd/coredump.conf Coredump.Storage is expected to cmp == "none"
+  ×  SV-257814: RHEL 9 must disable core dumps for all users. (1 failed)
+     ×  Limits files should disallow core dumps by default
+     No correct global ('*') setting found
+     ✔  Limits files should not have any conflicting settings
+  ✔  SV-257815: RHEL 9 must disable acquiring, saving, and processing core dumps.
+     ✔  Service systemd-coredump.socket params.LoadState is expected to eq "masked"
+  ✔  SV-257816: RHEL 9 must disable the use of user namespaces.
+     ✔  Kernel Parameter user.max_user_namespaces value is expected to eq 0
+     ✔  Kernel config files should configure 'user.max_user_namespaces'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257817: RHEL 9 must implement nonexecutable data to protect its memory from unauthorized code execution.
+     ✔  The no-execution bit flag should be set in kernel messages
+     ✔  The no-execution bit flag should be active
+  ×  SV-257818: The kdump service on RHEL 9 must be disabled. (3 failed)
+     ×  Service kdump is expected not to be running
+     expected Service kdump not to be running
+     ×  Service kdump params.LoadState is expected to cmp == "masked"
+     
+     expected: masked
+          got: loaded
+     
+     (compared using `cmp` matcher)
+
+     ×  Service kdump params.UnitFileState is expected to cmp == "masked"
+     
+     expected: masked
+          got: enabled
+     
+     (compared using `cmp` matcher)
+
+  ✔  SV-257819: RHEL 9 must ensure cryptographic verification of vendor software packages.
+     ✔  File /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release is expected to exist
+     ✔  Command: `rpm -q --queryformat "%{SUMMARY}\n" gpg-pubkey | grep -i "red hat"` stdout is expected to include "release key 2"
+     ✔  Command: `gpg -q --keyid-format short --with-fingerprint /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release` stdout is expected to include "567E 347A D004 4ADE 55BA  8A5F 199E 2F91 FD43 1D51"
+     ✔  Command: `rpm -q --queryformat "%{SUMMARY}\n" gpg-pubkey | grep -i "red hat"` stdout is expected to include "auxiliary key"
+     ✔  Command: `gpg -q --keyid-format short --with-fingerprint /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release` stdout is expected to include "7E46 2425 8C40 6535 D56D  6F13 5054 E4A4 5A63 40B3"
+  ✔  SV-257820: RHEL 9 must check the GPG signature of software packages originating from external software repositories before installation.
+     ✔  DNF configuration should enforce GPG signature checking gpgcheck is expected to cmp == 1
+  ✔  SV-257821: RHEL 9 must check the GPG signature of locally installed software packages before installation.
+     ✔  Parse Config File /etc/dnf/dnf.conf main.localpkg_gpgcheck is expected to match /True|1|yes/i
+  ✔  SV-257822: RHEL 9 must have GPG signature verification enabled for all software repositories.
+     ✔  All repositories should be configured to verify digital signatures
+  ✔  SV-257823: RHEL 9 must be configured so that the cryptographic hashes of system files match vendor values.
+     ✔  All system file hashes should match vendor hashes
+  ✔  SV-257824: RHEL 9 must remove all software components after updated versions have been installed.
+     ✔  Parse Config File /etc/dnf/dnf.conf main.clean_requirements_on_remove is expected to match /1|True|yes/i
+  ✔  SV-257825: RHEL 9 subscription-manager package must be installed.
+     ✔  System Package subscription-manager is expected to be installed
+  ✔  SV-257826: RHEL 9 must not have a File Transfer Protocol (FTP) server package installed.
+     ✔  System Package vsftpd is expected not to be installed
+  ✔  SV-257827: RHEL 9 must not have the sendmail package installed.
+     ✔  System Package sendmail is expected not to be installed
+  ✔  SV-257828: RHEL 9 must not have the nfs-utils package installed.
+     ✔  System Package nfs-utils is expected not to be installed
+  ✔  SV-257829: RHEL 9 must not have the ypserv package installed.
+     ✔  System Package ypserv is expected not to be installed
+  ✔  SV-257830: RHEL 9 must not have the rsh-server package installed.
+     ✔  System Package rsh-server is expected not to be installed
+  ✔  SV-257831: RHEL 9 must not have the telnet-server package installed.
+     ✔  System Package telnet-server is expected not to be installed
+  ✔  SV-257832: RHEL 9 must not have the gssproxy package installed.
+     ✔  System Package gssproxy is expected not to be installed
+  ✔  SV-257833: RHEL 9 must not have the iprutils package installed.
+     ✔  System Package iprutils is expected not to be installed
+  ✔  SV-257834: RHEL 9 must not have the tuned package installed.
+     ✔  System Package tuned is expected not to be installed
+  ✔  SV-257835: RHEL 9 must not have a Trivial File Transfer Protocol (TFTP) server package installed.
+     ✔  System Package tftp-server is expected not to be installed
+  ✔  SV-257836: RHEL 9 must not have the quagga package installed.
+     ✔  System Package quagga is expected not to be installed
+  ✔  SV-257837: A graphical display manager must not be installed on RHEL 9 unless approved.
+     ✔  System Package xorg-x11-server-common is expected not to be installed
+     ✔  System Package xorg-x11-server-Xorg is expected not to be installed
+     ✔  System Package xorg-x11-server-utils is expected not to be installed
+     ✔  System Package xorg-x11-server-Xwayland is expected not to be installed
+  ↺  SV-257838: RHEL 9 must have the openssl-pkcs11 package installed.
+     ↺  The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable.
+  ✔  SV-257839: RHEL 9 must have the gnutls-utils package installed.
+     ✔  System Package gnutls-utils is expected to be installed
+  ✔  SV-257840: RHEL 9 must have the nss-tools package installed.
+     ✔  System Package nss-tools is expected to be installed
+  ✔  SV-257841: RHEL 9 must have the rng-tools package installed.
+     ✔  System Package rng-tools is expected to be installed
+  ✔  SV-257842: RHEL 9 must have the s-nail package installed.
+     ✔  System Package s-nail is expected to be installed
+  ×  SV-257843: A separate RHEL 9 file system must be used for user home directories (such as /home or an equivalent). (1 failed)
+     ✔  The '/home' mount point is not on the same partition as the root partition
+     ×  The '/home' mount point has its own partition
+     expected `[].empty?` to be falsey, got true
+  ✔  SV-257844: RHEL 9 must use a separate file system for /tmp.
+     ✔  Mount /tmp is expected to be mounted
+     ✔  File System Table File (fstab) with mount_point == "/tmp" is expected to exist
+  ✔  SV-257845: RHEL 9 must use a separate file system for /var.
+     ✔  Mount /var is expected to be mounted
+     ✔  File System Table File (fstab) with mount_point == "/var" is expected to exist
+  ✔  SV-257846: RHEL 9 must use a separate file system for /var/log.
+     ✔  Mount /var/log is expected to be mounted
+     ✔  File System Table File (fstab) with mount_point == "/var/log" is expected to exist
+  ✔  SV-257847: RHEL 9 must use a separate file system for the system audit data path.
+     ✔  Mount /var/log/audit is expected to be mounted
+     ✔  File System Table File (fstab) with mount_point == "/var/log/audit" is expected to exist
+  ✔  SV-257848: RHEL 9 must use a separate file system for /var/tmp.
+     ✔  Mount /var/tmp is expected to be mounted
+     ✔  File System Table File (fstab) with mount_point == "/var/tmp" is expected to exist
+  ↺  SV-257849: RHEL 9 file system automount function must be disabled unless required.
+     ↺  The autofs service is not installed, this control is Not Applicable.
+  ×  SV-257850: RHEL 9 must prevent device files from being interpreted on file systems that contain user home directories. (1 failed)
+     ✔  All interactive user home directories should not be mounted under root ('/')
+     ×  All interactive user home directories should be configured in /etc/fstab
+     Unconfigured home directories:
+        - /home
+  ×  SV-257851: RHEL 9 must prevent files with the setuid and setgid bit set from being executed on file systems that contain user home directories. (1 failed)
+     ✔  All interactive user home directories should not be mounted under root ('/')
+     ×  All interactive user home directories should be configured in /etc/fstab
+     Unconfigured home directories:
+        - /home
+  ×  SV-257852: RHEL 9 must prevent code from being executed on file systems that contain user home directories. (1 failed)
+     ✔  All interactive user home directories should not be mounted under root ('/')
+     ×  All interactive user home directories should be configured in /etc/fstab
+     Unconfigured home directories:
+        - /home
+  ↺  SV-257853: RHEL 9 must be configured so that the Network File System (NFS) is configured to use RPCSEC_GSS.
+     ↺  No NFS mounts are configured; this control is Not Applicable
+  ✔  SV-257854: RHEL 9 must prevent special devices on file systems that are imported via Network File System (NFS).
+     ✔  No NFS is mounted
+  ✔  SV-257855: RHEL 9  must prevent code from being executed on file systems that are imported via Network File System (NFS).
+     ✔  No NFS is mounted
+  ✔  SV-257856: RHEL 9 must prevent files with the setuid and setgid bit set from being executed on file systems that are imported via Network File System (NFS).
+     ✔  No NFS is mounted
+  ×  SV-257857: RHEL 9 must prevent code from being executed on file systems that are used with removable media.
+     ×  Any mounted removeable media should have 'noexec' set
+     NOTE: Some mounted devices are not indicated to be non-removable media (you may need to update the 'non_removable_media_fs' input to check if these are truly subject to this requirement)
+     
+     Removeable media without 'noexec' set:
+        - {"device_name"=>"UUID=1444769e-a49b-4940-ad2d-e020f2e0b64f", "mount_point"=>"/boot", "file_system_type"=>"xfs", "mount_options"=>["defaults"], "dump_options"=>0, "file_system_options"=>0}
+        - {"device_name"=>"UUID=7B77-95E7", "mount_point"=>"/boot/efi", "file_system_type"=>"vfat", "mount_options"=>["defaults", "uid=0", "gid=0", "umask=077", "shortname=winnt"], "dump_options"=>0, "file_system_options"=>2}
+        - {"device_name"=>"/dev/mapper/rhel-var", "mount_point"=>"/var", "file_system_type"=>"xfs", "mount_options"=>["defaults", "nodev"], "dump_options"=>0, "file_system_options"=>0}
+  ×  SV-257858: RHEL 9 must prevent special devices on file systems that are used with removable media.
+     ×  Any mounted removeable media should have 'nodev' set
+     NOTE: Some mounted devices are not indicated to be non-removable media (you may need to update the 'non_removable_media_fs' input to check if these are truly subject to this requirement)
+     
+     Removeable media without 'nodev' set:
+        - {"device_name"=>"UUID=1444769e-a49b-4940-ad2d-e020f2e0b64f", "mount_point"=>"/boot", "file_system_type"=>"xfs", "mount_options"=>["defaults"], "dump_options"=>0, "file_system_options"=>0}
+        - {"device_name"=>"UUID=7B77-95E7", "mount_point"=>"/boot/efi", "file_system_type"=>"vfat", "mount_options"=>["defaults", "uid=0", "gid=0", "umask=077", "shortname=winnt"], "dump_options"=>0, "file_system_options"=>2}
+  ×  SV-257859: RHEL 9 must prevent files with the setuid and setgid bit set from being executed on file systems that are used with removable media.
+     ×  Any mounted removeable media should have 'nosuid' set
+     NOTE: Some mounted devices are not indicated to be non-removable media (you may need to update the 'non_removable_media_fs' input to check if these are truly subject to this requirement)
+     
+     Removeable media without 'nosuid' set:
+        - {"device_name"=>"UUID=1444769e-a49b-4940-ad2d-e020f2e0b64f", "mount_point"=>"/boot", "file_system_type"=>"xfs", "mount_options"=>["defaults"], "dump_options"=>0, "file_system_options"=>0}
+        - {"device_name"=>"UUID=7B77-95E7", "mount_point"=>"/boot/efi", "file_system_type"=>"vfat", "mount_options"=>["defaults", "uid=0", "gid=0", "umask=077", "shortname=winnt"], "dump_options"=>0, "file_system_options"=>2}
+        - {"device_name"=>"/dev/mapper/rhel-var", "mount_point"=>"/var", "file_system_type"=>"xfs", "mount_options"=>["defaults", "nodev"], "dump_options"=>0, "file_system_options"=>0}
+  ×  SV-257860: RHEL 9 must mount /boot with the nodev option. (1 failed)
+     ✔  Mount /boot is expected to be mounted
+     ×  Mount /boot options is expected to include "nodev"
+     expected ["rw", "relatime", "seclabel", "attr2", "inode64", "logbufs=8", "logbsize=32k", "noquota"] to include "nodev"
+  ×  SV-257861: RHEL 9 must prevent files with the setuid and setgid bit set from being executed on the /boot directory. (1 failed)
+     ✔  Mount /boot is expected to be mounted
+     ×  Mount /boot options is expected to include "nosuid"
+     expected ["rw", "relatime", "seclabel", "attr2", "inode64", "logbufs=8", "logbsize=32k", "noquota"] to include "nosuid"
+  ↺  SV-257862: RHEL 9 must prevent files with the setuid and setgid bit set from being executed on the /boot/efi directory.
+     ↺  The System is running a BIOS, this control is Not Applicable.
+  ✔  SV-257863: RHEL 9 must mount /dev/shm with the nodev option.
+     ✔  Mount /dev/shm options is expected to include "nodev"
+     ✔  File System Table File (fstab) with mount_point == "/dev/shm" mount_options.flatten is expected to include "nodev"
+  ✔  SV-257864: RHEL 9 must mount /dev/shm with the noexec option.
+     ✔  Mount /dev/shm options is expected to include "noexec"
+     ✔  File System Table File (fstab) with mount_point == "/dev/shm" mount_options.flatten is expected to include "noexec"
+  ✔  SV-257865: RHEL 9 must mount /dev/shm with the nosuid option.
+     ✔  Mount /dev/shm options is expected to include "nosuid"
+     ✔  File System Table File (fstab) with mount_point == "/dev/shm" mount_options.flatten is expected to include "nosuid"
+  ×  SV-257866: RHEL 9 must mount /tmp with the nodev option. (2 failed)
+     ×  Mount /tmp options is expected not to include "nodev"
+     expected ["rw", "nodev", "relatime", "seclabel", "attr2", "inode64", "logbufs=8", "logbsize=32k", "noquota"] not to include "nodev"
+     ×  File System Table File (fstab) with mount_point == "/tmp" mount_options.flatten is expected not to include "nodev"
+     expected ["defaults", "nodev", "suid"] not to include "nodev"
+  ✔  SV-257867: RHEL 9 must mount /tmp with the noexec option.
+     ✔  Mount /tmp options is expected not to include "noexec"
+     ✔  File System Table File (fstab) with mount_point == "/tmp" mount_options.flatten is expected not to include "noexec"
+  ✔  SV-257868: RHEL 9 must mount /tmp with the nosuid option.
+     ✔  Mount /tmp options is expected not to include "nosuid"
+     ✔  File System Table File (fstab) with mount_point == "/tmp" mount_options.flatten is expected not to include "nosuid"
+  ×  SV-257869: RHEL 9 must mount /var with the nodev option. (2 failed)
+     ×  Mount /var options is expected not to include "nodev"
+     expected ["rw", "nodev", "relatime", "seclabel", "attr2", "inode64", "logbufs=8", "logbsize=32k", "noquota"] not to include "nodev"
+     ×  File System Table File (fstab) with mount_point == "/var" mount_options.flatten is expected not to include "nodev"
+     expected ["defaults", "nodev"] not to include "nodev"
+  ✔  SV-257870: RHEL 9 must mount /var/log with the nodev option.
+     ✔  Mount /var/log options is expected to include "nodev"
+     ✔  File System Table File (fstab) with mount_point == "/var/log" mount_options.flatten is expected to include "nodev"
+  ✔  SV-257871: RHEL 9 must mount /var/log with the noexec option.
+     ✔  Mount /var/log options is expected to include "noexec"
+     ✔  File System Table File (fstab) with mount_point == "/var/log" mount_options.flatten is expected to include "noexec"
+  ✔  SV-257872: RHEL 9 must mount /var/log with the nosuid option.
+     ✔  Mount /var/log options is expected to include "nosuid"
+     ✔  File System Table File (fstab) with mount_point == "/var/log" mount_options.flatten is expected to include "nosuid"
+  ✔  SV-257873: RHEL 9 must mount /var/log/audit with the nodev option.
+     ✔  Mount /var/log/audit options is expected to include "nodev"
+     ✔  File System Table File (fstab) with mount_point == "/var/log/audit" mount_options.flatten is expected to include "nodev"
+  ✔  SV-257874: RHEL 9 must mount /var/log/audit with the noexec option.
+     ✔  Mount /var/log/audit options is expected to include "noexec"
+     ✔  File System Table File (fstab) with mount_point == "/var/log/audit" mount_options.flatten is expected to include "noexec"
+  ✔  SV-257875: RHEL 9 must mount /var/log/audit with the nosuid option.
+     ✔  Mount /var/log/audit options is expected to include "nosuid"
+     ✔  File System Table File (fstab) with mount_point == "/var/log/audit" mount_options.flatten is expected to include "nosuid"
+  ✔  SV-257876: RHEL 9 must mount /var/tmp with the nodev option.
+     ✔  Mount /var/tmp options is expected to include "nodev"
+     ✔  File System Table File (fstab) with mount_point == "/var/tmp" mount_options.flatten is expected to include "nodev"
+  ✔  SV-257877: RHEL 9 must mount /var/tmp with the noexec option.
+     ✔  Mount /var/tmp options is expected to include "noexec"
+     ✔  File System Table File (fstab) with mount_point == "/var/tmp" mount_options.flatten is expected to include "noexec"
+  ✔  SV-257878: RHEL 9 must mount /var/tmp with the nosuid option.
+     ✔  Mount /var/tmp options is expected to include "nosuid"
+     ✔  File System Table File (fstab) with mount_point == "/var/tmp" mount_options.flatten is expected to include "nosuid"
+  ×  SV-257879: RHEL 9 local disk partitions must implement cryptographic mechanisms to prevent unauthorized disclosure or modification of all information that requires at rest protection. (10 failed)
+     ×  /dev/xvda4: LABEL="root" UUID="6589f0b6-b54f-4a2a-b065-0e1b5cd1b803" TYPE="xfs" PARTUUID="6264d520-3fb9-423f-8ab8-7a0a8e3d3562" is expected to match /\bcrypto_LUKS\b/
+     expected "/dev/xvda4: LABEL=\"root\" UUID=\"6589f0b6-b54f-4a2a-b065-0e1b5cd1b803\" TYPE=\"xfs\" PARTUUID=\"6264d520-3fb9-423f-8ab8-7a0a8e3d3562\"" to match /\bcrypto_LUKS\b/
+     ×  /dev/xvda2: SEC_TYPE="msdos" UUID="7B77-95E7" TYPE="vfat" PARTUUID="68b2905b-df3e-4fb3-80fa-49d1e773aa33" is expected to match /\bcrypto_LUKS\b/
+     expected "/dev/xvda2: SEC_TYPE=\"msdos\" UUID=\"7B77-95E7\" TYPE=\"vfat\" PARTUUID=\"68b2905b-df3e-4fb3-80fa-49d1e773aa33\"" to match /\bcrypto_LUKS\b/
+     ×  /dev/xvda3: LABEL="boot" UUID="1444769e-a49b-4940-ad2d-e020f2e0b64f" TYPE="xfs" PARTUUID="cb07c243-bc44-4717-853e-28852021225b" is expected to match /\bcrypto_LUKS\b/
+     expected "/dev/xvda3: LABEL=\"boot\" UUID=\"1444769e-a49b-4940-ad2d-e020f2e0b64f\" TYPE=\"xfs\" PARTUUID=\"cb07c243-bc44-4717-853e-28852021225b\"" to match /\bcrypto_LUKS\b/
+     ×  /dev/mapper/rhel-var: UUID="5699e6dd-bf4c-4b5c-a5a6-167e4353f12a" TYPE="xfs" is expected to match /\bcrypto_LUKS\b/
+     expected "/dev/mapper/rhel-var: UUID=\"5699e6dd-bf4c-4b5c-a5a6-167e4353f12a\" TYPE=\"xfs\"" to match /\bcrypto_LUKS\b/
+     ×  /dev/mapper/rhel-var_tmp: UUID="3de9d8ed-1530-44ba-acac-0a776bf66415" TYPE="xfs" is expected to match /\bcrypto_LUKS\b/
+     expected "/dev/mapper/rhel-var_tmp: UUID=\"3de9d8ed-1530-44ba-acac-0a776bf66415\" TYPE=\"xfs\"" to match /\bcrypto_LUKS\b/
+     ×  /dev/xvdf: UUID="utFbMx-dXtN-ASXr-SSwj-95qr-cfJx-0uKLe3" TYPE="LVM2_member" is expected to match /\bcrypto_LUKS\b/
+     expected "/dev/xvdf: UUID=\"utFbMx-dXtN-ASXr-SSwj-95qr-cfJx-0uKLe3\" TYPE=\"LVM2_member\"" to match /\bcrypto_LUKS\b/
+     ×  /dev/mapper/rhel-var_log: UUID="822340e5-0f78-455d-ab92-627e7fc2432d" TYPE="xfs" is expected to match /\bcrypto_LUKS\b/
+     expected "/dev/mapper/rhel-var_log: UUID=\"822340e5-0f78-455d-ab92-627e7fc2432d\" TYPE=\"xfs\"" to match /\bcrypto_LUKS\b/
+     ×  /dev/mapper/rhel-tmp: UUID="c02726b7-77d7-4afc-a99f-7a03b9c63a3e" TYPE="xfs" is expected to match /\bcrypto_LUKS\b/
+     expected "/dev/mapper/rhel-tmp: UUID=\"c02726b7-77d7-4afc-a99f-7a03b9c63a3e\" TYPE=\"xfs\"" to match /\bcrypto_LUKS\b/
+     ×  /dev/mapper/rhel-var_log_audit: UUID="69947750-1d65-46f4-a9a9-a2c704790476" TYPE="xfs" is expected to match /\bcrypto_LUKS\b/
+     expected "/dev/mapper/rhel-var_log_audit: UUID=\"69947750-1d65-46f4-a9a9-a2c704790476\" TYPE=\"xfs\"" to match /\bcrypto_LUKS\b/
+     ×  /dev/xvda1: PARTUUID="fac7f1fb-3e8d-4137-a512-961de09a5549" is expected to match /\bcrypto_LUKS\b/
+     expected "/dev/xvda1: PARTUUID=\"fac7f1fb-3e8d-4137-a512-961de09a5549\"" to match /\bcrypto_LUKS\b/
+  ×  SV-257880: RHEL 9 must disable mounting of cramfs. (2 failed)
+     ×  Kernel Module cramfs is expected to be disabled
+     expected `Kernel Module cramfs.disabled?` to be truthy, got false
+     ×  Kernel Module cramfs is expected to be blacklisted
+     expected `Kernel Module cramfs.blacklisted?` to be truthy, got false
+  ×  SV-257881: RHEL 9 must prevent special devices on non-root local partitions.
+     ×  All mounted devices outside of '/dev' directory should be mounted with the 'nodev' option
+     Failing devices:
+        - /dev/xvda3 on /boot type xfs (rw,relatime,seclabel,attr2,inode64,logbufs=8,logbsize=32k,noquota)
+     
+        - /dev/xvda2 on /boot/efi type vfat (rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=ascii,shortname=winnt,errors=remount-ro)
+     
+        - /dev/xvda2 on /efi type vfat (rw,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=ascii,shortname=winnt,errors=remount-ro)
+
+  ✔  SV-257882: RHEL 9 system commands must have mode 755 or less permissive.
+     ✔  System commands should have mode '0755' or less permissive
+  ✔  SV-257883: RHEL 9 library directories must have mode 755 or less permissive.
+     ✔  System libraries should not have modes set higher than 0755
+  ✔  SV-257884: RHEL 9 library files must have mode 755 or less permissive.
+     ✔  System libraries should have mode '0755' or less permissive
+  ✔  SV-257885: RHEL 9 /var/log directory must have mode 0755 or less permissive.
+     ✔  Directory /var/log is expected to exist
+     ✔  Directory /var/log is expected not to be more permissive than "0755"
+  ✔  SV-257886: RHEL 9 /var/log/messages file must have mode 0640 or less permissive.
+     ✔  File /var/log/messages is expected not to be more permissive than "0640"
+  ↺  SV-257887: RHEL 9 audit tools must have a mode of 0755 or less permissive. (1 skipped)
+     ↺  audit_tool_mode
+     ✔  Audit executables should be no more permissive than '#<RSpec::Core::Example "audit_tool_mode">'
+  ×  SV-257888: RHEL 9 cron configuration directories must have a mode of 0700 or less permissive.
+     ×  All cron directories have a mode of '0700' or less permissive
+     Failing directories:
+        - /etc/cron.d
+        - /etc/cron.daily
+        - /etc/cron.hourly
+        - /etc/cron.monthly
+        - /etc/cron.weekly
+  ×  SV-257889: All RHEL 9 local initialization files must have mode 0740 or less permissive.
+     ×  All RHEL 9 local initialization files must have mode '0740' or less permissive
+     Failing files:
+        - /root/.bash_logout
+        - /root/.bash_profile
+        - /root/.bashrc
+        - /root/.cshrc
+        - /root/.tcshrc
+        - /home/ec2-user/.bash_logout
+        - /home/ec2-user/.bash_profile
+        - /home/ec2-user/.bashrc
+  ✔  SV-257890: All RHEL 9 local interactive user home directories must have mode 0750 or less permissive.
+     ✔  All non-exempt interactive user account home directories on the system should not be more permissive than '0750'
+  ✔  SV-257891: RHEL 9 /etc/group file must have mode 0644 or less permissive to prevent unauthorized access.
+     ✔  File /etc/group is expected to exist
+     ✔  File /etc/group is expected not to be more permissive than "0644"
+  ✔  SV-257892: RHEL 9 /etc/group- file must have mode 0644 or less permissive to prevent unauthorized access.
+     ✔  File /etc/group- is expected to exist
+     ✔  File /etc/group- is expected not to be more permissive than "0644"
+  ✔  SV-257893: RHEL 9 /etc/gshadow file must have mode 0000 or less permissive to prevent unauthorized access.
+     ✔  File /etc/gshadow is expected to exist
+     ✔  File /etc/gshadow is expected not to be more permissive than "0000"
+  ✔  SV-257894: RHEL 9 /etc/gshadow- file must have mode 0000 or less permissive to prevent unauthorized access.
+     ✔  File /etc/gshadow- is expected to exist
+     ✔  File /etc/gshadow- is expected not to be more permissive than "0000"
+  ✔  SV-257895: RHEL 9 /etc/passwd file must have mode 0644 or less permissive to prevent unauthorized access.
+     ✔  File /etc/passwd is expected to exist
+     ✔  File /etc/passwd is expected not to be more permissive than "0644"
+  ✔  SV-257896: RHEL 9 /etc/passwd- file must have mode 0644 or less permissive to prevent unauthorized access.
+     ✔  File /etc/passwd- is expected to exist
+     ✔  File /etc/passwd- is expected not to be more permissive than "0644"
+  ✔  SV-257897: RHEL 9 /etc/shadow- file must have mode 0000 or less permissive to prevent unauthorized access.
+     ✔  File /etc/shadow- is expected to exist
+     ✔  File /etc/shadow- is expected not to be more permissive than "0000"
+  ✔  SV-257898: RHEL 9 /etc/group file must be owned by root.
+     ✔  File /etc/group is expected to exist
+     ✔  File /etc/group is expected to be owned by "root"
+  ✔  SV-257899: RHEL 9 /etc/group file must be group-owned by root.
+     ✔  File /etc/group is expected to exist
+     ✔  File /etc/group group is expected to cmp == "root"
+  ✔  SV-257900: RHEL 9 /etc/group- file must be owned by root.
+     ✔  File /etc/group- is expected to exist
+     ✔  File /etc/group- is expected to be owned by "root"
+  ✔  SV-257901: RHEL 9 /etc/group- file must be group-owned by root.
+     ✔  File /etc/group- is expected to exist
+     ✔  File /etc/group- group is expected to cmp == "root"
+  ✔  SV-257902: RHEL 9 /etc/gshadow file must be owned by root.
+     ✔  File /etc/gshadow is expected to exist
+     ✔  File /etc/gshadow is expected to be owned by "root"
+  ✔  SV-257903: RHEL 9 /etc/gshadow file must be group-owned by root.
+     ✔  File /etc/gshadow is expected to exist
+     ✔  File /etc/gshadow group is expected to cmp == "root"
+  ✔  SV-257904: RHEL 9 /etc/gshadow- file must be owned by root.
+     ✔  File /etc/gshadow- is expected to exist
+     ✔  File /etc/gshadow- is expected to be owned by "root"
+  ✔  SV-257905: RHEL 9 /etc/gshadow- file must be group-owned by root.
+     ✔  File /etc/gshadow- is expected to exist
+     ✔  File /etc/gshadow- group is expected to cmp == "root"
+  ✔  SV-257906: RHEL 9 /etc/passwd file must be owned by root.
+     ✔  File /etc/passwd is expected to exist
+     ✔  File /etc/passwd is expected to be owned by "root"
+  ✔  SV-257907: RHEL 9 /etc/passwd file must be group-owned by root.
+     ✔  File /etc/passwd is expected to exist
+     ✔  File /etc/passwd group is expected to cmp == "root"
+  ✔  SV-257908: RHEL 9 /etc/passwd- file must be owned by root.
+     ✔  File /etc/passwd- is expected to exist
+     ✔  File /etc/passwd- is expected to be owned by "root"
+  ✔  SV-257909: RHEL 9 /etc/passwd- file must be group-owned by root.
+     ✔  File /etc/passwd- is expected to exist
+     ✔  File /etc/passwd- group is expected to cmp == "root"
+  ✔  SV-257910: RHEL 9 /etc/shadow file must be owned by root.
+     ✔  File /etc/shadow is expected to exist
+     ✔  File /etc/shadow is expected to be owned by "root"
+  ✔  SV-257911: RHEL 9 /etc/shadow file must be group-owned by root.
+     ✔  File /etc/shadow is expected to exist
+     ✔  File /etc/shadow group is expected to cmp == "root"
+  ✔  SV-257912: RHEL 9 /etc/shadow- file must be owned by root.
+     ✔  File /etc/shadow- is expected to exist
+     ✔  File /etc/shadow- is expected to be owned by "root"
+  ✔  SV-257913: RHEL 9 /etc/shadow- file must be group-owned by root.
+     ✔  File /etc/shadow- is expected to exist
+     ✔  File /etc/shadow- group is expected to cmp == "root"
+  ✔  SV-257914: RHEL 9 /var/log directory must be owned by root.
+     ✔  Directory /var/log is expected to exist
+     ✔  Directory /var/log is expected to be owned by "root"
+  ✔  SV-257915: RHEL 9 /var/log directory must be group-owned by root.
+     ✔  Directory /var/log is expected to exist
+     ✔  Directory /var/log group is expected to eq "root"
+  ✔  SV-257916: RHEL 9 /var/log/messages file must be owned by root.
+     ✔  File /var/log/messages is expected to be owned by "root"
+  ✔  SV-257917: RHEL 9 /var/log/messages file must be group-owned by root.
+     ✔  File /var/log/messages group example at /Users/jonathanmetzger/.inspec/cache/e4b12a0d72ea073b62639094e092eb24e25b2dfa2e348a52496fda9d72bf126b/controls/SV-257917.rb:34 (Got an error when generating description from matcher: TypeError: can't convert Inspec::Input::NO_VALUE_SET to Array (Inspec::Input::NO_VALUE_SET#to_ary gives Inspec::Input::NO_VALUE_SET) -- /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/rspec-expectations-3.12.3/lib/rspec/matchers/english_phrasing.rb:28:in `Array')
+  ✔  SV-257918: RHEL 9 system commands must be owned by root.
+     ✔  System commands should be owned by root
+  ×  SV-257919: RHEL 9 system commands must be group-owned by root or a system account.
+     ×  System commands should be group-owned by root
+     Files not group-owned by root:
+        - /bin/write
+        - /usr/bin/write
+        - /usr/libexec/sssd/krb5_child
+        - /usr/libexec/sssd/ldap_child
+        - /usr/libexec/sssd/proxy_child
+        - /usr/libexec/sssd/selinux_child
+        - /usr/libexec/utempter
+        - /usr/libexec/utempter/utempter
+        - /usr/libexec/openssh/ssh-keysign
+  ✔  SV-257920: RHEL 9 library files must be owned by root.
+     ✔  System libraries should be owned by root
+  ×  SV-257921: RHEL 9 library files must be group-owned by root or a system account.
+     ×  System libraries should be group-owned by root
+     Files not group-owned by root:
+        - /lib/.build-id/e3/f75d63f3ff121decc8e6618c919a0603fa237f
+        - /lib/.build-id/30/b8f4d3700d890f62bbb05b785903057590e6e9
+        - /lib/.build-id/08/c7c0c64a0689b7acef079bf773c1313ab8d646
+        - /lib/.build-id/50/ee4e16ae62e0615cfdab55b9a5ba0ecc02bea9
+        - /lib/.build-id/90/8b46838dcc91d1a67104de8acb0a3132acf90f
+        - /lib/.build-id/0e/3046fc09a30bf24ecb0501a4a0533ee08a9c9f
+        - /lib/.build-id/9d/2476363f1ed7eb7f078448d163c5c695a0b298
+        - /usr/lib/.build-id/e3/f75d63f3ff121decc8e6618c919a0603fa237f
+        - /usr/lib/.build-id/30/b8f4d3700d890f62bbb05b785903057590e6e9
+        - /usr/lib/.build-id/08/c7c0c64a0689b7acef079bf773c1313ab8d646
+        - /usr/lib/.build-id/50/ee4e16ae62e0615cfdab55b9a5ba0ecc02bea9
+        - /usr/lib/.build-id/90/8b46838dcc91d1a67104de8acb0a3132acf90f
+        - /usr/lib/.build-id/0e/3046fc09a30bf24ecb0501a4a0533ee08a9c9f
+        - /usr/lib/.build-id/9d/2476363f1ed7eb7f078448d163c5c695a0b298
+  ✔  SV-257922: RHEL 9 library directories must be owned by root.
+     ✔  System libraries should be owned by root
+  ✔  SV-257923: RHEL 9 library directories must be group-owned by root or a system account.
+     ✔  System libraries should be owned by a required system account
+  ✔  SV-257924: RHEL 9 audit tools must be owned by root.
+     ✔  Audit executables should be owned by root
+  ✔  SV-257925: RHEL 9 audit tools must be group-owned by root.
+     ✔  Audit executables should be group owned by root
+  ✔  SV-257926: RHEL 9 cron configuration files directory must be owned by root.
+     ✔  Crontabs should be owned by root
+  ✔  SV-257927: RHEL 9 cron configuration files directory must be group-owned by root.
+     ✔  Crontabs should be group owned by root
+  ✔  SV-257928: All RHEL 9 world-writable directories must be owned by root, sys, bin, or an application user.
+     ✔  Any world-writeable directories should be owned by system accounts
+  ✔  SV-257929: A sticky bit must be set on all RHEL 9 public directories.
+     ✔  List of world-writable directories on the target is expected to be empty
+  ✔  SV-257930: All RHEL 9 local files and directories must have a valid group owner.
+     ✔  All files on RHEL 8 should have a group
+  ✔  SV-257931: All RHEL 9 local files and directories must have a valid owner.
+     ✔  All files on RHEL 8 should have an owner
+  ✔  SV-257932: RHEL 9 must be configured so that all system device files are correctly labeled to prevent unauthorized modification.
+     ✔  All device files should not be incorrectly labeled as device_t
+     ✔  All device files should not be incorrectly labeled as unlabeled_t
+  ×  SV-257933: RHEL 9 /etc/crontab file must have mode 0600. (1 failed)
+     ✔  File /etc/crontab is expected to exist
+     ×  File /etc/crontab is expected not to be more permissive than "0600"
+     expected `File /etc/crontab.more_permissive_than?("0600")` to be falsey, got true
+  ✔  SV-257934: RHEL 9 /etc/shadow file must have mode 0000 to prevent unauthorized access.
+     ✔  File /etc/shadow is expected to exist
+     ✔  File /etc/shadow is expected not to be more permissive than "0000"
+  ×  SV-257935: RHEL 9 must have the firewalld package installed.
+     ×  System Package firewalld is expected to be installed
+     expected that `System Package firewalld` is installed
+  ×  SV-257936: The firewalld service on RHEL 9 must be active. (3 failed)
+     ×  System Package firewalld is expected to be installed
+     expected that `System Package firewalld` is installed
+     ×  Firewall Rules is expected to be installed
+     expected that `Firewall Rules` is installed
+     ×  Firewall Rules is expected to be running
+     expected that `Firewall Rules` is running
+  ×  SV-257937: A RHEL 9 firewall must employ a deny-all, allow-by-exception policy for allowing connections to other systems. (1 failed)
+     ×  Service firewalld is expected to be running
+     expected that `Service firewalld` is running
+     ✔  Firewall Rules zone is expected not to be empty
+     ✔  All firewall zones should be configured to drop all incoming network packets unless explicitly accepted
+  ×  SV-257938: RHEL 9 must control remote access methods. (3 failed)
+     ×  Firewall Rules ports.flatten is expected to be in
+     expected `["Error", "on", "command", "firewall-cmd", "--permanent", "--zone=Error", "on", "command", "firewall-cmd", "--get-active-zones:", "sudo:", "firewall-cmd:", "command", "not", "found", "--list-ports:", "sudo:", "firewall-cmd:", "command", "not", "found"]` to be in the list: `[]` 
+     ×  Firewall Rules protocols.flatten is expected to be in
+     expected `["Error", "on", "command", "firewall-cmd", "--permanent", "--zone=Error", "on", "command", "firewall-cmd", "--get-active-zones:", "sudo:", "firewall-cmd:", "command", "not", "found", "--list-protocols:", "sudo:", "firewall-cmd:", "command", "not", "found"]` to be in the list: `[]` 
+     ×  Firewall Rules services.flatten is expected to be in "ssh", "cockpit", and "dhcpv6-client"
+     expected `["Error", "on", "command", "firewall-cmd", "--permanent", "--zone=Error", "on", "command", "firewall-cmd", "--get-active-zones:", "sudo:", "firewall-cmd:", "command", "not", "found", "--list-services:", "sudo:", "firewall-cmd:", "command", "not", "found"]` to be in the list: `["ssh", "cockpit", "dhcpv6-client"]` 
+  ↺  SV-257939: RHEL 9 must protect against or limit the effects of denial-of-service (DoS) attacks by ensuring rate-limiting measures on impacted network interfaces are implemented.
+     ↺  Can't find file: /etc/firewalld/firewalld.conf
+  ×  SV-257940: RHEL 9 must be configured to prohibit or restrict the use of functions, ports, protocols, and/or services, as defined in the Ports, Protocols, and Services Management (PPSM) Category Assignments List (CAL) and vulnerability assessments. (4 failed)
+     ×  Firewall Rules is expected to be running
+     expected that `Firewall Rules` is running
+     ×  Firewall Rules ports is expected to cmp == [[]]
+     
+     expected: [[]]
+          got: [["Error", "on", "command", "firewall-cmd", "--permanent", "--zone=Error", "on", "command", "firewall-cmd", "--get-active-zones:", "sudo:", "firewall-cmd:", "command", "not", "found", "--list-ports:", "sudo:", "firewall-cmd:", "command", "not", "found"]]
+     
+     (compared using `cmp` matcher)
+
+     ×  Firewall Rules protocols is expected to cmp == [[]]
+     
+     expected: [[]]
+          got: [["Error", "on", "command", "firewall-cmd", "--permanent", "--zone=Error", "on", "command", "firewall-cmd", "--get-active-zones:", "sudo:", "firewall-cmd:", "command", "not", "found", "--list-protocols:", "sudo:", "firewall-cmd:", "command", "not", "found"]]
+     
+     (compared using `cmp` matcher)
+
+     ×  Firewall Rules services is expected to cmp == [["cockpit", "dhcpv6-client", "ssh"]]
+     
+     expected: [["cockpit", "dhcpv6-client", "ssh"]]
+          got: [["Error", "on", "command", "firewall-cmd", "--permanent", "--zone=Error", "on", "command", "firewall-cmd", "--get-active-zones:", "sudo:", "firewall-cmd:", "command", "not", "found", "--list-services:", "sudo:", "firewall-cmd:", "command", "not", "found"]]
+     
+     (compared using `cmp` matcher)
+
+  ✔  SV-257941: RHEL 9 network interfaces must not be in promiscuous mode.
+     ✔  Command: `ip link | grep -i promisc` stdout.strip is expected to match /^$/
+  ✔  SV-257942: RHEL 9 must enable hardening for the Berkeley Packet Filter just-in-time compiler.
+     ✔  Kernel Parameter net.core.bpf_jit_harden value is expected to eq 2
+     ✔  Kernel config files should configure 'net.core.bpf_jit_harden'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257943: RHEL 9 must have the chrony package installed.
+     ✔  System Package chrony is expected to be installed
+  ✔  SV-257944: RHEL 9 chronyd service must be enabled.
+     ✔  Service chronyd is expected to be enabled
+     ✔  Service chronyd is expected to be running
+  ×  SV-257945: RHEL 9 must securely compare internal information system clocks at least every 24 hours. (1 failed)
+     ✔  chrony.conf server is expected not to be nil
+     ×  chrony.conf should include all specified valid timeservers
+     
+     expected true
+          got false
+
+  ✔  SV-257946: RHEL 9 must disable the chrony daemon from acting as a server.
+     ✔  ntp.conf port is expected to cmp == 0
+  ✔  SV-257947: RHEL 9 must disable network management of the chrony daemon.
+     ✔  ntp.conf cmdport is expected to cmp == 0
+  ×  SV-257948: RHEL 9 systems using Domain Name Servers (DNS) resolution must have at least two name servers configured. (1 failed)
+     ✔  The system's nameservers: ["nameserver 172.31.0.2"] is expected not to equal nil
+     ×  The number of nameservers is expected to cmp >= 2
+     
+     expected it to be >= 2
+          got: 1
+     
+     (compared using `cmp` matcher)
+
+  ×  SV-257949: RHEL 9 must configure a DNS processing mode set be Network Manager.
+     ×  INI content main.dns is expected to be in "none" and "default"
+     expected `` to be in the list: `["none", "default"]`
+  ✔  SV-257950: RHEL 9 must not have unauthorized IP tunnels configured.
+     ✔  Service ipsec is expected not to be enabled
+     ✔  Service ipsec is expected not to be running
+  ↺  SV-257951: RHEL 9 must be configured to prevent unrestricted mail relaying.
+     ↺  The `postfix` package is not installed, this control is Not Applicable
+  ✔  SV-257952: If the Trivial File Transfer Protocol (TFTP) server is required, RHEL 9 TFTP daemon must be configured to operate in secure mode.
+     ✔  System Package tftp-server is expected not to be installed
+  ✔  SV-257953: RHEL 9 must forward mail from postmaster to the root account using a postfix alias.
+     ✔  Parse Config File /etc/aliases postmaster is expected to cmp == "root"
+  ✔  SV-257954: RHEL 9 libreswan package must be installed.
+     ✔  System Package libreswan is expected to be installed
+  ✔  SV-257955: There must be no shosts.equiv files on RHEL 9.
+     ✔  The RHEL8 filesystem should not have any shosts.equiv files present
+  ✔  SV-257956: There must be no .shosts files on RHEL 9.
+     ✔  The RHEL8 filesystem should not have any .shosts files present
+  ×  SV-257957: RHEL 9 must be configured to use TCP syncookies. (1 failed)
+     ✔  Kernel Parameter net.ipv4.tcp_syncookies value is expected to eq 1
+     ×  Kernel config files should configure 'net.ipv4.tcp_syncookies'
+     No config file was found that correctly sets this action
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ×  SV-257958: RHEL 9 must ignore Internet Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP) redirect messages. (1 failed)
+     ×  Kernel Parameter net.ipv4.conf.all.accept_redirects value is expected to eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+
+     ✔  Kernel config files should configure 'net.ipv4.conf.all.accept_redirects'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ×  SV-257959: RHEL 9 must not forward Internet Protocol version 4 (IPv4) source-routed packets. (2 failed)
+     ✔  Kernel Parameter net.ipv4.conf.all.accept_source_route value is expected to eq 0
+     ×  Kernel config files should configure 'net.ipv4.conf.all.accept_source_route'
+     No config file was found that correctly sets this action
+     ×  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+     Incorrect or conflicting setting(s) found:
+        - -net.ipv4.conf.all.accept_source_route
+  ✔  SV-257960: RHEL 9 must log IPv4 packets with impossible addresses.
+     ✔  Kernel Parameter net.ipv4.conf.all.log_martians value is expected to eq 1
+     ✔  Kernel config files should configure 'net.ipv4.conf.all.log_martians'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257961: RHEL 9 must log IPv4 packets with impossible addresses by default.
+     ✔  Kernel Parameter net.ipv4.conf.default.log_martians value is expected to eq 1
+     ✔  Kernel config files should configure 'net.ipv4.conf.default.log_martians'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ×  SV-257962: RHEL 9 must use reverse path filtering on all IPv4 interfaces. (1 failed)
+     ✔  Kernel Parameter net.ipv4.conf.all.rp_filter value is expected to eq 1
+     ✔  Kernel config files should configure 'net.ipv4.conf.all.rp_filter'
+     ×  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+     Incorrect or conflicting setting(s) found:
+        - -net.ipv4.conf.all.rp_filter
+        - -net.ipv4.conf.all.rp_filter
+  ✔  SV-257963: RHEL 9 must prevent IPv4 Internet Control Message Protocol (ICMP) redirect messages from being accepted.
+     ✔  Kernel Parameter net.ipv4.conf.default.accept_redirects value is expected to eq 0
+     ✔  Kernel config files should configure 'net.ipv4.conf.default.accept_redirects'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257964: RHEL 9 must not forward IPv4 source-routed packets by default.
+     ✔  Kernel Parameter net.ipv4.conf.default.accept_source_route value is expected to eq 0
+     ✔  Kernel config files should configure 'net.ipv4.conf.default.accept_source_route'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ×  SV-257965: RHEL 9 must use a reverse-path filter for IPv4 network traffic when possible by default. (1 failed)
+     ✔  Kernel Parameter net.ipv4.conf.default.rp_filter value is expected to eq 1
+     ✔  Kernel config files should configure 'net.ipv4.conf.default.rp_filter'
+     ×  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+     Incorrect or conflicting setting(s) found:
+        - net.ipv4.conf.default.rp_filter = 2
+  ✔  SV-257966: RHEL 9 must not respond to Internet Control Message Protocol (ICMP) echoes sent to a broadcast address.
+     ✔  Kernel Parameter net.ipv4.icmp_echo_ignore_broadcasts value is expected to eq 1
+     ✔  Kernel config files should configure 'net.ipv4.icmp_echo_ignore_broadcasts'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257967: RHEL 9 must limit the number of bogus Internet Control Message Protocol (ICMP) response errors logs.
+     ✔  Kernel Parameter net.ipv4.icmp_ignore_bogus_error_responses value is expected to eq 1
+     ✔  Kernel config files should configure 'net.ipv4.icmp_ignore_bogus_error_responses'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257968: RHEL 9 must not send Internet Control Message Protocol (ICMP) redirects.
+     ✔  Kernel Parameter net.ipv4.conf.all.send_redirects value is expected to eq 0
+     ✔  Kernel config files should configure 'net.ipv4.conf.all.send_redirects'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257969: RHEL 9 must not allow interfaces to perform Internet Control Message Protocol (ICMP) redirects by default.
+     ✔  Kernel Parameter net.ipv4.conf.default.send_redirects value is expected to eq 0
+     ✔  Kernel config files should configure 'net.ipv4.conf.default.send_redirects'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257970: RHEL 9 must not enable IPv4 packet forwarding unless the system is a router.
+     ✔  Kernel Parameter net.ipv4.conf.all.forwarding value is expected to eq 0
+     ✔  Kernel config files should configure 'net.ipv4.conf.all.forwarding'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257971: RHEL 9 must not accept router advertisements on all IPv6 interfaces.
+     ✔  Kernel Parameter net.ipv6.conf.all.accept_ra value is expected to eq 0
+     ✔  Kernel config files should configure 'net.ipv6.conf.all.accept_ra'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257972: RHEL 9 must ignore IPv6 Internet Control Message Protocol (ICMP) redirect messages.
+     ✔  Kernel Parameter net.ipv6.conf.all.accept_redirects value is expected to eq 0
+     ✔  Kernel config files should configure 'net.ipv6.conf.all.accept_redirects'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257973: RHEL 9 must not forward IPv6 source-routed packets.
+     ✔  Kernel Parameter net.ipv6.conf.all.accept_source_route value is expected to eq 0
+     ✔  Kernel config files should configure 'net.ipv6.conf.all.accept_source_route'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257974: RHEL 9 must not enable IPv6 packet forwarding unless the system is a router.
+     ✔  Kernel Parameter net.ipv6.conf.all.forwarding value is expected to eq 0
+     ✔  Kernel config files should configure 'net.ipv6.conf.all.forwarding'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ×  SV-257975: RHEL 9 must not accept router advertisements on all IPv6 interfaces by default. (3 failed)
+     ×  Kernel Parameter net.ipv6.conf.default.accept_ra value is expected to eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+
+     ×  Kernel config files should configure 'net.ipv6.conf.default.accept_ra'
+     No config file was found that correctly sets this action
+     ×  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+     Incorrect or conflicting setting(s) found:
+        - net.ipv6.conf.default.accept_ra = 1
+  ✔  SV-257976: RHEL 9 must prevent IPv6 Internet Control Message Protocol (ICMP) redirect messages from being accepted.
+     ✔  Kernel Parameter net.ipv6.conf.default.accept_redirects value is expected to eq 0
+     ✔  Kernel config files should configure 'net.ipv6.conf.default.accept_redirects'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ✔  SV-257977: RHEL 9 must not forward IPv6 source-routed packets by default.
+     ✔  Kernel Parameter net.ipv6.conf.default.accept_source_route value is expected to eq 0
+     ✔  Kernel config files should configure 'net.ipv6.conf.default.accept_source_route'
+     ✔  Kernel config files should not have incorrect or conflicting setting(s) in the config files
+  ×  SV-257978: All RHEL 9 networked systems must have SSH installed.
+     ×  In a container Environment the OpenSSH Server should be installed only when allowed in a container environment
+     OpenSSH Server is installed but not approved for the container environment
+  ✔  SV-257979: All RHEL 9 networked systems must have and implement SSH to protect the confidentiality and integrity of transmitted and received information, as well as information during preparation for transmission.
+     ✔  Service sshd.service is expected to be running
+  ✔  SV-257980: RHEL 9 must have the openssh-clients package installed.
+     ✔  System Package openssh-clients is expected to be installed
+  ×  SV-257981: RHEL 9 must display the Standard Mandatory DOD Notice and Consent Banner before granting local or remote access to the system via a SSH logon.
+     ×  The SSHD Banner is set to the standard banner and has the correct text
+     Banner does not match expected text
+  ✔  SV-257982: RHEL 9 must log SSH connection attempts and failures to the server.
+     ✔  SSHD Configuration LogLevel is expected to cmp == "VERBOSE"
+  ✔  SV-257983: RHEL 9 SSHD must accept public key authentication.
+     ✔  SSHD Configuration PubkeyAuthentication is expected to cmp == "yes"
+  ✔  SV-257984: RHEL 9 SSHD must not allow blank passwords.
+     ✔  SSHD Configuration PermitEmptyPasswords is expected to cmp == "no"
+  ✔  SV-257985: RHEL 9 must not permit direct logons to the root account using remote access via SSH.
+     ✔  SSHD Configuration PermitRootLogin is expected to cmp == "no"
+  ✔  SV-257986: RHEL 9 must enable the Pluggable Authentication Module (PAM) interface for SSHD.
+     ✔  SSHD Configuration UsePAM is expected to cmp == "yes"
+  ×  SV-257987: RHEL 9 SSH daemon must be configured to use system-wide crypto policies.
+     ×  In a container Environment the OpenSSH Server should be installed only when allowed in a container environment
+     OpenSSH Server is installed but not approved for the container environment
+  ×  SV-257988: RHEL 9 must implement DOD-approved encryption ciphers to protect the confidentiality of SSH client connections. (1 failed)
+     ✔  File /etc/ssh/sshd_config.d/50-redhat.conf is expected to exist
+     ×  SSHD config files should include system-wide crypto policies
+     SSHD conf files do not include /etc/crypto-policies/back-ends/opensshserver.config
+  ×  SV-257989: RHEL 9 must implement DOD-approved encryption ciphers to protect the confidentiality of SSH server connections.
+     ×  OpenSSH server configuration implement approved encryption ciphers
+     OpenSSH server cipher configuration actual value:
+        aes256-gcm@openssh.com,aes256-ctr,aes128-gcm@openssh.com,aes128-ctr
+     does not match the expected value:
+        aes256-gcm@openssh.com,chacha20-poly1305@openssh.com,aes256-ctr,aes128-gcm@openssh.com,aes128-ctr
+  ×  SV-257990: RHEL 9 SSH client must be configured to use only Message Authentication Codes (MACs) employing FIPS 140-3 validated cryptographic hash algorithms.
+     ×  OpenSSH client configuration implement approved MACs
+     OpenSSH client cipher configuration actual value:
+        hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha2-256,hmac-sha2-512
+     does not match the expected value:
+        hmac-sha2-256-etm@openssh.com,hmac-sha2-256,hmac-sha2-512-etm@openssh.com,hmac-sha2-512
+  ×  SV-257991: RHEL 9 SSH server must be configured to use only Message Authentication Codes (MACs) employing FIPS 140-3 validated cryptographic hash algorithms.
+     ×  OpenSSH server configuration implement approved MACs
+     OpenSSH server cipher configuration actual value:
+        hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha2-256,hmac-sha2-512
+     does not match the expected value:
+        hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512-etm@openssh.com,hmac-sha2-256,umac-128@openssh.com,hmac-sha2-512
+  ✔  SV-257992: RHEL 9 must not allow a noncertificate trusted host SSH logon to the system.
+     ✔  SSHD Configuration HostBasedAuthentication is expected to cmp == "no"
+  ✔  SV-257993: RHEL 9 must not allow users to override SSH environment variables.
+     ✔  SSHD Configuration PermitUserEnvironment is expected to eq "no"
+  ✔  SV-257994: RHEL 9 must force a frequent session key renegotiation for SSH connections to the server.
+     ✔  SSHD Configuration RekeyLimit is expected to cmp == "1G 1h"
+  ✔  SV-257995: RHEL 9 must be configured so that all network connections associated with SSH traffic terminate after becoming unresponsive.
+     ✔  SSH ClientAliveCountMax configuration should be set to 1
+  ×  SV-257996: RHEL 9 must be configured so that all network connections associated with SSH traffic are terminated after 10 minutes of becoming unresponsive.
+     ×  In a container Environment the OpenSSH Server should be installed only when allowed in a container environment
+     OpenSSH Server is installed but not approved for the container environment
+  ✔  SV-257997: RHEL 9 SSH server configuration file must be group-owned by root.
+     ✔  File /etc/ssh/sshd_config is expected to exist
+     ✔  File /etc/ssh/sshd_config group is expected to cmp == "root"
+  ✔  SV-257998: RHEL 9 SSH server configuration file must be owned by root.
+     ✔  File /etc/ssh/sshd_config is expected to exist
+     ✔  File /etc/ssh/sshd_config is expected to be owned by "root"
+  ✔  SV-257999: RHEL 9 SSH server configuration file must have mode 0600 or less permissive.
+     ✔  File /etc/ssh/sshd_config is expected to exist
+     ✔  File /etc/ssh/sshd_config is expected not to be more permissive than "0600"
+  ✔  SV-258000: RHEL 9 SSH private host key files must have mode 0640 or less permissive.
+     ✔  All SSH private keys on the filesystem should be less permissive than 0640
+  ✔  SV-258001: RHEL 9 SSH public host key files must have mode 0644 or less permissive.
+     ✔  All SSH public keys on the filesystem should be less permissive than 0644
+  ✔  SV-258002: RHEL 9 SSH daemon must not allow compression or must only allow compression after successful authentication.
+     ✔  SSHD Configuration Compression is expected to be in "delayed" and "no"
+  ✔  SV-258003: RHEL 9 SSH daemon must not allow GSSAPI authentication.
+     ✔  The OpenSSH Server configuration has the correct GSSAPIAuthentication configuration
+  ✔  SV-258004: RHEL 9 SSH daemon must not allow Kerberos authentication.
+     ✔  SSHD Configuration KerberosAuthentication is expected to cmp == "no"
+  ✔  SV-258005: RHEL 9 SSH daemon must not allow rhosts authentication.
+     ✔  SSHD Configuration IgnoreRhosts is expected to cmp == "yes"
+  ✔  SV-258006: RHEL 9 SSH daemon must not allow known hosts authentication.
+     ✔  SSHD Configuration IgnoreUserKnownHosts is expected to cmp == "yes"
+  ✔  SV-258007: RHEL 9 SSH daemon must disable remote X connections for interactive users.
+     ✔  SSHD Configuration X11Forwarding is expected to cmp == "no"
+  ✔  SV-258008: RHEL 9 SSH daemon must perform strict mode checking of home directory configuration files.
+     ✔  SSHD Configuration StrictModes is expected to cmp == "yes"
+  ✔  SV-258009: RHEL 9 SSH daemon must display the date and time of the last successful account logon upon an SSH logon.
+     ✔  SSHD Configuration PrintLastLog is expected to cmp == "yes"
+  ✔  SV-258010: RHEL 9 SSH daemon must be configured to use privilege separation.
+     ✔  SSHD Configuration UsePrivilegeSeparation is expected to be in "sandbox" and "yes"
+  ✔  SV-258011: RHEL 9 SSH daemon must prevent remote hosts from connecting to the proxy display.
+     ✔  SSHD Configuration X11UseLocalhost is expected to cmp == "yes"
+  ↺  SV-258012: RHEL 9 must display the Standard Mandatory DOD Notice and Consent Banner before granting local or remote access to the system via a graphical user logon.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ↺  SV-258013: RHEL 9 must prevent a user from overriding the banner-message-enable setting for the graphical user interface.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ↺  SV-258014: RHEL 9 must disable the graphical user interface automount function unless required.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ↺  SV-258015: RHEL 9 must prevent a user from overriding the disabling of the graphical user interface automount function.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ↺  SV-258016: RHEL 9 must disable the graphical user interface autorun function unless required.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ↺  SV-258017: RHEL 9 must prevent a user from overriding the disabling of the graphical user interface autorun function.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ↺  SV-258018: RHEL 9 must not allow unattended or automatic logon via the graphical user interface.
+     ↺  The system does not have GDM installed, this requirement is Not Applicable.
+  ↺  SV-258019: RHEL 9 must be able to initiate directly a session lock for all connection types using smart card when the smart card is removed.
+     ↺  The system is not using Smartcards / PIVs to fulfil the MFA
+           requirement, this control is Not Applicable.
+  ↺  SV-258020: RHEL 9 must prevent a user from overriding the disabling of the graphical user smart card removal action.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ↺  SV-258021: RHEL 9 must enable a user session lock until that user re-establishes access using established identification and authentication procedures for graphical user sessions.
+     ↺  The system does not have GNOME installed, this requirement is Not
+             Applicable.
+  ↺  SV-258022: RHEL 9 must prevent a user from overriding the screensaver lock-enabled setting for the graphical user interface.
+     ↺  The GNOME desktop is not installed, this control is Not Applicable.
+  ↺  SV-258023: RHEL 9 must automatically lock graphical user sessions after 15 minutes of inactivity.
+     ↺  The system does not have GNOME installed, this requirement is Not
+             Applicable.
+  ↺  SV-258024: RHEL 9 must prevent a user from overriding the session idle-delay setting for the graphical user interface.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ↺  SV-258025: RHEL 9 must initiate a session lock for graphical user interfaces when the screensaver is activated.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ↺  SV-258026: RHEL 9 must prevent a user from overriding the session lock-delay setting for the graphical user interface.
+     ↺  The GNOME desktop is not installed, this control is Not Applicable.
+  ↺  SV-258027: RHEL 9 must conceal, via the session lock, information previously visible on the display with a publicly viewable image.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ↺  SV-258028: RHEL 9 effective dconf policy must match the policy keyfiles.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ↺  SV-258029: RHEL 9 must disable the ability of a user to restart the system from the login screen.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ↺  SV-258030: RHEL 9 must prevent a user from overriding the disable-restart-buttons setting for the graphical user interface.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ↺  SV-258031: RHEL 9 must disable the ability of a user to accidentally press Ctrl-Alt-Del and cause a system to shut down or reboot.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ↺  SV-258032: RHEL 9 must prevent a user from overriding the Ctrl-Alt-Del sequence settings for the graphical user interface.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ↺  SV-258033: RHEL 9 must disable the user list at logon for graphical user interfaces.
+     ↺  A GUI desktop is not installed, this control is Not Applicable.
+  ×  SV-258034: RHEL 9 must be configured to disable USB mass storage. (2 failed)
+     ×  Kernel Module usb_storage is expected to be disabled
+     expected `Kernel Module usb_storage.disabled?` to be truthy, got false
+     ×  Kernel Module usb_storage is expected to be blacklisted
+     expected `Kernel Module usb_storage.blacklisted?` to be truthy, got false
+  ✔  SV-258035: RHEL 9 must have the USBGuard package installed.
+     ✔  System Package usbguard is expected to be installed. 
+        Please ensure to configure the service to ensure your devices function as expected.
+  ×  SV-258036: RHEL 9 must have the USBGuard package enabled. (2 failed)
+     ×  Service usbguard is expected to be running. 
+        Please ensure to configure the service to ensure your devices function as expected.
+     The usbguard service is not running
+     ×  Service usbguard is expected to be enabled. 
+        Please ensure to configure the service to ensure your devices function as expected.
+     The usbguard service is not enabled
+  ×  SV-258037: RHEL 9 must enable Linux audit logging for the USBGuard daemon.
+     ×  Parse Config File /etc/usbguard/usbguard-daemon.conf AuditBackend is expected to cmp == "LinuxAudit"
+     
+     expected: LinuxAudit
+          got: FileAudit
+     
+     (compared using `cmp` matcher)
+
+  ×  SV-258038: RHEL 9 must block unauthorized peripherals before establishing a connection. (2 failed)
+     ×  Command: `usbguard list-rules` stdout is expected not to be empty
+     expected `"".empty?` to be falsey, got true
+     ×  Command: `usbguard list-rules` exit_status is expected to eq 0
+     
+     expected: 0
+          got: 1
+     
+     (compared using ==)
+
+  ✔  SV-258039: RHEL 9 Bluetooth must be disabled.
+     ✔  Kernel Module bluetooth is expected to be disabled
+     ✔  Kernel Module bluetooth is expected to be blacklisted
+  ✔  SV-258040: RHEL 9 wireless network adapters must be disabled.
+     ✔  Command: `nmcli device` stdout.strip is expected not to match /wifi\s*connected/
+  ✔  SV-258041: RHEL 9 user account passwords for new users or password changes must have a 60-day maximum password lifetime restriction in /etc/login.defs.
+     ✔  /etc/login.defs does not have `PASS_MAX_DAYS` configured greater than 60 day
+  ✔  SV-258042: RHEL 9 user account passwords must have a 60-day maximum password lifetime restriction.
+     ✔  Users are not be able to retain passwords for more then 60 day(s)
+  ✔  SV-258043: All RHEL 9 local interactive user accounts must be assigned a home directory upon creation.
+     ✔  login.defs CREATE_HOME is expected to eq "yes"
+  ✔  SV-258044: RHEL 9 must set the umask value to 077 for all local interactive user accounts.
+     ✔  All non-exempt interactive users on the system should not set the UMASK more permissive than '077' in any init files
+  ✔  SV-258045: RHEL 9 duplicate User IDs (UIDs) must not exist for interactive users.
+     ✔  Count of interactive unique user IDs should match interactive user count (2): UID count is expected to eq 2
+  ✔  SV-258046: RHEL 9 system accounts must not have an interactive login shell.
+     ✔  Non-interactive system accounts should have non-interactive shells
+  ✔  SV-258047: RHEL 9 must automatically expire temporary accounts within 72 hours.
+     ✔  Temporary accounts is expected to be empty
+  ✔  SV-258048: All RHEL 9 interactive users must have a primary group that exists.
+     ✔  Interactive users should have a valid primary group
+  ✔  SV-258049: RHEL 9 must disable account identifiers (individuals, groups, roles, and devices) after 35 days of inactivity.
+     ✔  Useradd configuration when INACTIVE is set should exist
+     ✔  Useradd configuration when INACTIVE is set should not be nil
+     ✔  Useradd configuration when INACTIVE is set should have INACTIVE greater than or equal to 0
+     ✔  Useradd configuration when INACTIVE is set should have INACTIVE less than or equal to days_of_inactivity
+     ✔  Useradd configuration when INACTIVE is set should not have INACTIVE equal to -1
+  ✔  SV-258050: Executable search paths within the initialization files of all local interactive RHEL 9 users must only contain paths that resolve to the system default or the users home directory.
+     ✔  Initialization files should not include executable search paths that include directories outside the respective user's home directory
+  ✔  SV-258051: All RHEL 9 local interactive users must have a home directory assigned in the /etc/passwd file.
+     ✔  All non-exempt users have an assinded home directory that exists
+     ✔  Note: `exempt_home_users` skipped user root
+  ✔  SV-258052: All RHEL 9 local interactive user home directories defined in the /etc/passwd file must exist.
+     ✔  All non-exempt interactive user account home directories on the system should exist
+  ✔  SV-258053: All RHEL 9 local interactive user home directories must be group-owned by the home directory owner's primary group.
+     ✔  All non-exempt interactive user account home directories on the system should be group-owned by the group of the user they are associated with
+  ✔  SV-258054: RHEL 9 must automatically lock an account when three unsuccessful logon attempts occur.
+     ✔  Parse Config File /etc/security/faillock.conf deny is expected to cmp <= 3
+     ✔  Parse Config File /etc/security/faillock.conf deny is expected not to cmp == 0
+  ✔  SV-258055: RHEL 9 must automatically lock the root account until the root account is released by an administrator when three unsuccessful logon attempts occur during a 15-minute time period.
+     ✔  even_deny_root
+     # This option implies the `even_deny_root` option.
+     # the root account (the options `even_deny_root>` and is expected to match /^even_deny_root$/
+  ✔  SV-258056: RHEL 9 must automatically lock an account when three unsuccessful logon attempts occur during a 15-minute time period.
+     ✔  Parse Config File /etc/security/faillock.conf fail_interval is expected to cmp >= 900
+  ✔  SV-258057: RHEL 9 must maintain an account lock until the locked account is released by an administrator.
+     ✔  Parse Config File /etc/security/faillock.conf unlock_time is expected to cmp == 0
+  ✔  SV-258058: RHEL 9 must not have unauthorized accounts.
+     ✔  All users should have an explicit, authorized purpose (either a known user account or a required system account)
+  ✔  SV-258059: The root account must be the only account having unrestricted access to RHEL 9 system.
+     ✔  /etc/passwd with uid == 0 users is expected to cmp == "root"
+     ✔  /etc/passwd with uid == 0 entries.length is expected to eq 1
+  ✔  SV-258060: RHEL 9 must ensure account lockouts persist.
+     ✔  Parse Config File /etc/security/faillock.conf dir is expected to cmp == "/var/log/faillock"
+  ✔  SV-258061: RHEL 9 groups must have unique Group ID (GID).
+     ✔  All GIDs should be unique
+  ✔  SV-258062: Local RHEL 9 initialization files must not execute world-writable programs.
+     ✔  Interactive user initialization files should not invoke world-writeable programs
+  ✔  SV-258063: RHEL 9 must have the tmux package installed.
+     ✔  System Package tmux is expected to be installed
+  ×  SV-258064: RHEL 9 must ensure session control is automatically started at shell initialization.
+     ×  tmux should be running
+     tmux is not running
+  ×  SV-258065: RHEL 9 must enable a user session lock until that user re-establishes access using established identification and authentication procedures for command line sessions. (2 failed)
+     ×  tmux settings should set lock-command
+     expected "" to match /set -g lock-command vlock/
+     ×  tmux settings should bind a specific key to lock-session
+     expected "" to match /bind . lock-session/
+  ×  SV-258066: RHEL 9 must automatically lock command line user sessions after 15 minutes of inactivity.
+     ×  tmux settings should set lock-after-time
+     lock-after-time not set
+  ×  SV-258067: RHEL 9 must prevent users from disabling session control mechanisms.
+     ×  Command: `grep -i tmux /etc/shells` stdout.strip is expected to be empty
+     expected `"/usr/bin/tmux\n/bin/tmux".empty?` to be truthy, got false
+  ×  SV-258068: RHEL 9 must automatically exit interactive command shell user sessions after 15 minutes of inactivity.
+     ×  The system should set a TMOUT value
+     No TMOUT value set in /etc/profile or /etc/profile.d/*.sh
+  ✔  SV-258069: RHEL 9 must limit the number of concurrent sessions to ten for all accounts and/or account types.
+     ✔  Limits files should limit concurrent sessions to 10 by default
+     ✔  Limits files should not have any conflicting settings
+  ✔  SV-258070: RHEL 9 must log username information when unsuccessful logon attempts occur.
+     ✔  Parse Config File /etc/security/faillock.conf audit is expected not to be nil
+  ✔  SV-258071: RHEL 9 must enforce a delay of at least four seconds between logon prompts following a failed logon attempt.
+     ✔  login.defs FAIL_DELAY.to_i is expected to cmp >= 4
+  ×  SV-258072: RHEL 9 must define default permissions for the bash shell.
+     ×  UMASK should be set in /etc/bashrc is expected not to be nil
+     expected: not nil
+          got: nil
+  ×  SV-258073: RHEL 9 must define default permissions for the c shell.
+     ×  UMASK should be set in /etc/csh.cshrc is expected not to be nil
+     expected: not nil
+          got: nil
+  ✔  SV-258074: RHEL 9 must define default permissions for all authenticated users in such a way that the user can only read and modify their own files.
+     ✔  login.defs UMASK is expected to cmp == "077"
+  ×  SV-258075: RHEL 9 must define default permissions for the system default profile.
+     ×  UMASK should be set in /etc/profile is expected not to be nil
+     expected: not nil
+          got: nil
+  ✔  SV-258076: RHEL 9 must display the date and time of the last successful account logon upon logon.
+     ✔  PAM Config[/etc/pam.d/postlogin] lines is expected to include session .* pam_lastlog.so, all with args showfailed
+     ✔  PAM Config[/etc/pam.d/postlogin] lines is expected not to include session .* pam_lastlog.so, all without args silent
+  ×  SV-258077: RHEL 9 must terminate idle user sessions.
+     ×  Parse Config File /etc/systemd/logind.conf Login is expected to include {"StopIdleSessionSec" => "900"}
+     expected {} to include {"StopIdleSessionSec" => "900"}
+  ✔  SV-258078: RHEL 9 must use a Linux Security Module configured to enforce limits on system services.
+     ✔  SELinux is expected to be enforcing
+  ✔  SV-258079: RHEL 9 must enable the SELinux targeted policy.
+     ✔  SELinux is expected not to be disabled
+     ✔  SELinux is expected to be enforcing
+     ✔  SELinux policy is expected to eq "targeted"
+     ✔  Parse Config File /etc/selinux/config SELINUXTYPE is expected to eq "targeted"
+  ×  SV-258080: RHEL 9 must configure SELinux context type to allow the use of a nondefault faillock tally directory. (1 failed)
+     ✔  SELinux is expected to be installed
+     ✔  SELinux is expected to be enforcing
+     ✔  SELinux is expected not to be disabled
+     ✔  Parse Config File /etc/security/faillock.conf dir is expected to cmp == "/var/log/faillock"
+     ×  The selected non-default tally directory for PAM: /var/log/faillock selinux_label is expected to match /faillog_t/
+     expected "unconfined_u:object_r:var_log_t:s0" to match /faillog_t/
+  ✔  SV-258081: RHEL 9 must have policycoreutils package installed.
+     ✔  System Package policycoreutils is expected to be installed
+  ✔  SV-258082: RHEL 9 policycoreutils-python-utils package must be installed.
+     ✔  System Package policycoreutils-python-utils is expected to be installed
+  ✔  SV-258083: RHEL 9 must have the sudo package installed.
+     ✔  System Package sudo is expected to be installed
+  ×  SV-258084: RHEL 9 must require reauthentication when using the "sudo" command.
+     ×  Sudoers configuration should should set timestamp_timeout to a non-negative number, exactly once
+     timestamp_timeout not found inside sudoers config file(s)
+  ×  SV-258085: RHEL 9 must use the invoking user's password for privilege escalation when using "sudo". (3 failed)
+     ×  Sudoers file(s) settings should set !targetpw
+     Sudoers file(s) do not set !targetpw
+     ×  Sudoers file(s) settings should set !rootpw
+     Sudoers file(s) do not set !rootpw
+     ×  Sudoers file(s) settings should set !runaspw
+     Sudoers file(s) do not set !runaspw
+  ✔  SV-258086: RHEL 9 must require users to reauthenticate for privilege escalation.
+     ✔  sudoers settings.Defaults is expected not to include "!authenticate"
+  ✔  SV-258087: RHEL 9 must restrict privilege elevation to authorized personnel.
+     ✔  Sudoers file(s) should not contain any unrestricted sudo rules
+  ✔  SV-258088: RHEL 9 must restrict the use of the "su" command.
+     ✔  PAM Config[/etc/pam.d/su] lines is expected to include auth required pam_wheel.so, all with args use_uid
+  ×  SV-258089: RHEL 9 fapolicy module must be installed.
+     ×  System Package fapolicyd is expected to be installed
+     expected that `System Package fapolicyd` is installed
+  ×  SV-258090: RHEL 9 fapolicy module must be enabled. (2 failed)
+     ×  Service fapolicyd is expected to be enabled
+     expected that `Service fapolicyd` is enabled
+     ×  Service fapolicyd is expected to be running
+     expected that `Service fapolicyd` is running
+  ×  SV-258091: RHEL 9 must ensure the password complexity module in the system-auth file is configured for three retries or less.
+     ×  System pwquality setting retry is expected to cmp >= 3
+     
+     expected it to be >= 3
+          got: 
+     
+     (compared using `cmp` matcher)
+
+  ×  SV-258092: RHEL 9 must be configured in the password-auth file to prohibit password reuse for a minimum of five generations.
+     ×  PAM Config[/etc/pam.d/password-auth] lines is expected to include password (required|requisite|sufficient) pam_pwhistory.so, any with integer arg remember >= 5
+     expected "account required pam_unix.so\naccount sufficient pam_localuser.so\naccount sufficient pam_usertype.s...pam_systemd.so\nsession [success=1 default=ignore] pam_succeed_if.so service in crond quiet use_uid" to include password (required|requisite|sufficient) pam_pwhistory.so, any with integer arg remember >= 5
+  ×  SV-258093: RHEL 9 must be configured in the system-auth file to prohibit password reuse for a minimum of five generations.
+     ×  PAM Config[/etc/pam.d/system-auth] lines is expected to include password (required|requisite|sufficient) pam_pwhistory.so, any with integer arg remember >= 5
+     expected "account required pam_unix.so\naccount sufficient pam_localuser.so\naccount sufficient pam_usertype.s...pam_systemd.so\nsession [success=1 default=ignore] pam_succeed_if.so service in crond quiet use_uid" to include password (required|requisite|sufficient) pam_pwhistory.so, any with integer arg remember >= 5
+  ×  SV-258094: RHEL 9 must not allow blank or null passwords.
+     ×  The system should be configureed to not allow null passwords
+     The system is configured to allow null passwords. Please remove any instances of the `nullok` option from auth files: 
+        - /etc/pam.d/system-auth:auth        sufficient                                   pam_unix.so nullok
+        - /etc/pam.d/system-auth:password    sufficient                                   pam_unix.so sha512 shadow nullok use_authtok
+        - /etc/pam.d/password-auth:auth        sufficient                                   pam_unix.so nullok
+        - /etc/pam.d/password-auth:password    sufficient                                   pam_unix.so sha512 shadow nullok use_authtok
+  ×  SV-258095: RHEL 9 must configure the use of the pam_faillock.so module in the /etc/pam.d/system-auth file. (3 failed)
+     ×  PAM Config[/etc/pam.d/system-auth] lines is expected to include auth required pam_faillock.so preauth
+     expected "account required pam_unix.so\naccount sufficient pam_localuser.so\naccount sufficient pam_usertype.s...pam_systemd.so\nsession [success=1 default=ignore] pam_succeed_if.so service in crond quiet use_uid" to include auth required pam_faillock.so preauth
+     ×  PAM Config[/etc/pam.d/system-auth] lines is expected to include auth required pam_faillock.so authfail
+     expected "account required pam_unix.so\naccount sufficient pam_localuser.so\naccount sufficient pam_usertype.s...pam_systemd.so\nsession [success=1 default=ignore] pam_succeed_if.so service in crond quiet use_uid" to include auth required pam_faillock.so authfail
+     ×  PAM Config[/etc/pam.d/system-auth] lines is expected to include account required pam_faillock.so
+     expected "account required pam_unix.so\naccount sufficient pam_localuser.so\naccount sufficient pam_usertype.s...pam_systemd.so\nsession [success=1 default=ignore] pam_succeed_if.so service in crond quiet use_uid" to include account required pam_faillock.so
+  ×  SV-258096: RHEL 9 must configure the use of the pam_faillock.so module in the /etc/pam.d/password-auth file. (3 failed)
+     ×  PAM Config[/etc/pam.d/password-auth] lines is expected to include auth required pam_faillock.so preauth
+     expected "account required pam_unix.so\naccount sufficient pam_localuser.so\naccount sufficient pam_usertype.s...pam_systemd.so\nsession [success=1 default=ignore] pam_succeed_if.so service in crond quiet use_uid" to include auth required pam_faillock.so preauth
+     ×  PAM Config[/etc/pam.d/password-auth] lines is expected to include auth required pam_faillock.so authfail
+     expected "account required pam_unix.so\naccount sufficient pam_localuser.so\naccount sufficient pam_usertype.s...pam_systemd.so\nsession [success=1 default=ignore] pam_succeed_if.so service in crond quiet use_uid" to include auth required pam_faillock.so authfail
+     ×  PAM Config[/etc/pam.d/password-auth] lines is expected to include account required pam_faillock.so
+     expected "account required pam_unix.so\naccount sufficient pam_localuser.so\naccount sufficient pam_usertype.s...pam_systemd.so\nsession [success=1 default=ignore] pam_succeed_if.so service in crond quiet use_uid" to include account required pam_faillock.so
+  ✔  SV-258097: RHEL 9 must ensure the password complexity module is enabled in the password-auth file.
+     ✔  PAM Config[/etc/pam.d/password-auth] lines is expected to include password (required|requisite) pam_pwquality.so
+     ✔  PAM Config[/etc/pam.d/system-auth] lines is expected to include password (required|requisite) pam_pwquality.so
+  ✔  SV-258098: RHEL 9 must ensure the password complexity module is enabled in the system-auth file.
+     ✔  PAM Config[/etc/pam.d/password-auth] lines is expected to include .* .* pam_pwquality.so
+     ✔  PAM Config[/etc/pam.d/system-auth] lines is expected to include .* .* pam_pwquality.so
+  ×  SV-258099: RHEL 9 password-auth must be configured to use a sufficient number of hashing rounds.
+     ×  PAM Config[/etc/pam.d/password-auth] lines is expected to include password sufficient pam_unix.so sha512, any with integer arg rounds >= 5000
+     expected "password sufficient pam_unix.so sha512 shadow nullok use_authtok" to include password sufficient pam_unix.so sha512, any with integer arg rounds >= 5000
+  ×  SV-258100: RHEL 9 system-auth must be configured to use a sufficient number of hashing rounds.
+     ×  PAM Config[/etc/pam.d/system-auth] lines is expected to include password sufficient pam_unix.so sha512, any with integer arg rounds >= 5000
+     expected "password sufficient pam_unix.so sha512 shadow nullok use_authtok" to include password sufficient pam_unix.so sha512, any with integer arg rounds >= 5000
+  ✔  SV-258101: RHEL 9 must enforce password complexity rules for the root account.
+     ✔  The root account should enforce password complexity rules
+  ✔  SV-258102: RHEL 9 must enforce password complexity by requiring that at least one lowercase character be used.
+     ✔  pwquality.conf settings has `lcredit` set
+     ✔  pwquality.conf settings only sets `lcredit` once
+     ✔  pwquality.conf settings does not set `lcredit` to a positive value
+  ✔  SV-258103: RHEL 9 must enforce password complexity by requiring that at least one numeric character be used.
+     ✔  pwquality.conf settings has `dcredit` set
+     ✔  pwquality.conf settings only sets `dcredit` once
+     ✔  pwquality.conf settings does not set `dcredit` to a positive value
+  ✔  SV-258104: RHEL 9 passwords for new users or password changes must have a 24 hours minimum password lifetime restriction in /etc/login.defs.
+     ✔  /etc/login.defs does not have `PASS_MIN_DAYS` configured greater than 1 day
+  ×  SV-258105: RHEL 9 passwords must have a 24 hours minimum password lifetime restriction in /etc/shadow.
+     ×  Users should not be able to change their password more then once a 24 hour period
+     The following users can update their password more then once a day: nobody, ec2-user
+  ✔  SV-258106: RHEL 9 must require users to provide a password for privilege escalation.
+     ✔  Sudoers should not include any (non-exempt) users with NOPASSWD set
+  ✔  SV-258107: RHEL 9 passwords must be created with a minimum of 15 characters.
+     ✔  Parse Config File /etc/security/pwquality.conf minlen.to_i is expected to cmp >= 15
+  ✔  SV-258108: RHEL 9 passwords for new users must have a minimum of 15 characters.
+     ✔  /etc/login.defs does not have `PASS_MIN_LEN` configured greater than 15 day
+  ✔  SV-258109: RHEL 9 must enforce password complexity by requiring that at least one special character be used.
+     ✔  pwquality.conf settings has `ocredit` set
+     ✔  pwquality.conf settings only sets `ocredit` once
+     ✔  pwquality.conf settings does not set `ocredit` to a positive value
+  ✔  SV-258110: RHEL 9 must prevent the use of dictionary words for passwords.
+     ✔  Parse Config File /etc/security/pwquality.conf dictcheck is expected to eq "1"
+  ✔  SV-258111: RHEL 9 must enforce password complexity by requiring that at least one uppercase character be used.
+     ✔  pwquality.conf: has `ucredit` set
+     ✔  pwquality.conf: only sets `ucredit` once
+     ✔  pwquality.conf: does not set `ucredit` to a positive value
+  ✔  SV-258112: RHEL 9 must require the change of at least eight characters when passwords are changed.
+     ✔  Password settings for the root account should be set
+     ✔  Password settings for the root account should only be set once
+     ✔  Password settings for the root account should be set to be >= 8
+  ✔  SV-258113: RHEL 9 must require the maximum number of repeating characters of the same character class be limited to four when passwords are changed.
+     ✔  pwquality.conf settings has `maxclassrepeat` set
+     ✔  pwquality.conf settings only sets `maxclassrepeat` once
+     ✔  pwquality.conf settings does not set `maxclassrepeat` to more than 4
+  ✔  SV-258114: RHEL 9 must require the maximum number of repeating characters be limited to three when passwords are changed.
+     ✔  pwquality.conf settings has `maxrepeat` set
+     ✔  pwquality.conf settings only sets `maxrepeat` once
+     ✔  pwquality.conf settings does not set `maxrepeat` to more than 3
+  ✔  SV-258115: RHEL 9 must require the change of at least four character classes when passwords are changed.
+     ✔  pwquality.conf settings has `minclass` set
+     ✔  pwquality.conf settings only sets `minclass` once
+     ✔  pwquality.conf settings does not set `minclass` to more than 4
+  ✔  SV-258116: RHEL 9 must be configured so that user and group account administration utilities are configured to store only encrypted representations of passwords.
+     ✔  Parse Config File /etc/libuser.conf defaults.crypt_style is expected to cmp == "sha512"
+  ✔  SV-258117: RHEL 9 must be configured to use the shadow file to store only encrypted representations of passwords.
+     ✔  login.defs ENCRYPT_METHOD is expected to cmp == "SHA512"
+  ✔  SV-258118: RHEL 9 must not be configured to bypass password requirements for privilege escalation.
+     ✔  Parse Config File /etc/pam.d/sudo content is expected not to match /pam_succeed_if/
+  ✔  SV-258119: RHEL 9 shadow password suite must be configured to use a sufficient number of hashing rounds.
+     ✔  login.defs ENCRYPT_METHOD is expected to cmp == "SHA512"
+  ✔  SV-258120: RHEL 9 must not have accounts configured with blank or null passwords.
+     ✔  All users should have a password set
+  ↺  SV-258121: RHEL 9 must use the CAC smart card driver.
+     ↺  The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable.
+  ↺  SV-258122: RHEL 9 must enable certificate based smart card authentication.
+     ↺  Skipped control due to only_if condition: If the System Administrator demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.
+  ✔  SV-258123: RHEL 9 must implement certificate status checking for multifactor authentication.
+     ✔  SSSD should be installed and enabled
+  ↺  SV-258124: RHEL 9 must have the pcsc-lite package installed.
+     ↺  The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable.
+  ↺  SV-258125: The pcscd service on RHEL 9 must be active.
+     ↺  The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable.
+  ↺  SV-258126: RHEL 9 must have the opensc package installed.
+     ↺  The system is not using Smartcards / PIVs to fulfil the MFA requirement, this control is Not Applicable.
+  ↺  SV-258127: RHEL 9, for PKI-based authentication, must enforce authorized access to the corresponding private key.
+     ↺  No private key files were given in the input, this control is Not Applicable
+  ✔  SV-258128: RHEL 9 must require authentication to access emergency mode.
+     ✔  Service emergency params.ExecStart is expected to include "/usr/lib/systemd/systemd-sulogin-shell emergency"
+  ✔  SV-258129: RHEL 9 must require authentication to access single-user mode.
+     ✔  INI /usr/lib/systemd/system/rescue.service Service.ExecStart is expected to match /^-\/usr\/lib\/systemd\/systemd-sulogin-shell rescue$/
+  ✔  SV-258130: RHEL 9 must prevent system daemons from using Kerberos for authentication.
+     ✔  The system should not have keytab files for Kerberos
+  ×  SV-258131: RHEL 9, for PKI-based authentication, must validate certificates by constructing a certification path (which includes status information) to an accepted trust anchor.
+     ×  File /etc/sssd/pki/sssd_auth_ca_db.pem is expected to exist
+     expected File /etc/sssd/pki/sssd_auth_ca_db.pem to exist
+  ✔  SV-258132: RHEL 9 must map the authenticated identity to the user or group account for PKI-based authentication.
+     ✔  File /etc/sssd/sssd.conf is expected to exist
+     ✔  File /etc/sssd/sssd.conf content is expected to match /^\s*\[certmap.*\]\s*$/
+  ✔  SV-258133: RHEL 9 must prohibit the use of cached authenticators after one day.
+     ✔  Cache credentials enabled is expected not to match /cache_credentials\s*=\s*true/
+  ×  SV-258134: RHEL 9 must have the AIDE package installed. (1 failed)
+     ×  Command: `/usr/sbin/aide --check` stdout is expected not to include "Couldn't open file"
+     expected "Couldn't open file /var/lib/aide/aide.db.gz for reading\n" not to include "Couldn't open file"
+     ✔  System Package aide is expected to be installed
+  ✔  SV-258135: RHEL 9 must routinely check the baseline configuration for unauthorized changes and notify the system administrator when anomalies in the operation of any security functions are discovered.
+     ✔  System Package aide is expected to be installed
+     ✔  File /etc/cron.daily/aide content is expected to match /\/bin\/mail/
+  ✔  SV-258136: RHEL 9 must use a file integrity tool that is configured to use FIPS 140-3-approved cryptographic hashes for validating file contents and directories.
+     ✔  Parse Config File /etc/aide.conf All is expected to match /sha512/
+  ×  SV-258137: RHEL 9 must use cryptographic mechanisms to protect the integrity of audit tools. (10 failed)
+     ✔  selection_line: /usr/sbin/auditctl rules.flatten is expected to include "p"
+     ✔  selection_line: /usr/sbin/auditctl rules.flatten is expected to include "i"
+     ✔  selection_line: /usr/sbin/auditctl rules.flatten is expected to include "n"
+     ✔  selection_line: /usr/sbin/auditctl rules.flatten is expected to include "u"
+     ✔  selection_line: /usr/sbin/auditctl rules.flatten is expected to include "g"
+     ✔  selection_line: /usr/sbin/auditctl rules.flatten is expected to include "s"
+     ✔  selection_line: /usr/sbin/auditctl rules.flatten is expected to include "b"
+     ✔  selection_line: /usr/sbin/auditctl rules.flatten is expected to include "acl"
+     ✔  selection_line: /usr/sbin/auditctl rules.flatten is expected to include "xattrs"
+     ✔  selection_line: /usr/sbin/auditctl rules.flatten is expected to include "sha512"
+     ✔  selection_line: /usr/sbin/auditd rules.flatten is expected to include "p"
+     ✔  selection_line: /usr/sbin/auditd rules.flatten is expected to include "i"
+     ✔  selection_line: /usr/sbin/auditd rules.flatten is expected to include "n"
+     ✔  selection_line: /usr/sbin/auditd rules.flatten is expected to include "u"
+     ✔  selection_line: /usr/sbin/auditd rules.flatten is expected to include "g"
+     ✔  selection_line: /usr/sbin/auditd rules.flatten is expected to include "s"
+     ✔  selection_line: /usr/sbin/auditd rules.flatten is expected to include "b"
+     ✔  selection_line: /usr/sbin/auditd rules.flatten is expected to include "acl"
+     ✔  selection_line: /usr/sbin/auditd rules.flatten is expected to include "xattrs"
+     ✔  selection_line: /usr/sbin/auditd rules.flatten is expected to include "sha512"
+     ✔  selection_line: /usr/sbin/ausearch rules.flatten is expected to include "p"
+     ✔  selection_line: /usr/sbin/ausearch rules.flatten is expected to include "i"
+     ✔  selection_line: /usr/sbin/ausearch rules.flatten is expected to include "n"
+     ✔  selection_line: /usr/sbin/ausearch rules.flatten is expected to include "u"
+     ✔  selection_line: /usr/sbin/ausearch rules.flatten is expected to include "g"
+     ✔  selection_line: /usr/sbin/ausearch rules.flatten is expected to include "s"
+     ✔  selection_line: /usr/sbin/ausearch rules.flatten is expected to include "b"
+     ✔  selection_line: /usr/sbin/ausearch rules.flatten is expected to include "acl"
+     ✔  selection_line: /usr/sbin/ausearch rules.flatten is expected to include "xattrs"
+     ✔  selection_line: /usr/sbin/ausearch rules.flatten is expected to include "sha512"
+     ✔  selection_line: /usr/sbin/aureport rules.flatten is expected to include "p"
+     ✔  selection_line: /usr/sbin/aureport rules.flatten is expected to include "i"
+     ✔  selection_line: /usr/sbin/aureport rules.flatten is expected to include "n"
+     ✔  selection_line: /usr/sbin/aureport rules.flatten is expected to include "u"
+     ✔  selection_line: /usr/sbin/aureport rules.flatten is expected to include "g"
+     ✔  selection_line: /usr/sbin/aureport rules.flatten is expected to include "s"
+     ✔  selection_line: /usr/sbin/aureport rules.flatten is expected to include "b"
+     ✔  selection_line: /usr/sbin/aureport rules.flatten is expected to include "acl"
+     ✔  selection_line: /usr/sbin/aureport rules.flatten is expected to include "xattrs"
+     ✔  selection_line: /usr/sbin/aureport rules.flatten is expected to include "sha512"
+     ✔  selection_line: /usr/sbin/autrace rules.flatten is expected to include "p"
+     ✔  selection_line: /usr/sbin/autrace rules.flatten is expected to include "i"
+     ✔  selection_line: /usr/sbin/autrace rules.flatten is expected to include "n"
+     ✔  selection_line: /usr/sbin/autrace rules.flatten is expected to include "u"
+     ✔  selection_line: /usr/sbin/autrace rules.flatten is expected to include "g"
+     ✔  selection_line: /usr/sbin/autrace rules.flatten is expected to include "s"
+     ✔  selection_line: /usr/sbin/autrace rules.flatten is expected to include "b"
+     ✔  selection_line: /usr/sbin/autrace rules.flatten is expected to include "acl"
+     ✔  selection_line: /usr/sbin/autrace rules.flatten is expected to include "xattrs"
+     ✔  selection_line: /usr/sbin/autrace rules.flatten is expected to include "sha512"
+     ×  selection_line: /usr/sbin/rsyslogd rules.flatten is expected to include "p"
+     expected [] to include "p"
+     ×  selection_line: /usr/sbin/rsyslogd rules.flatten is expected to include "i"
+     expected [] to include "i"
+     ×  selection_line: /usr/sbin/rsyslogd rules.flatten is expected to include "n"
+     expected [] to include "n"
+     ×  selection_line: /usr/sbin/rsyslogd rules.flatten is expected to include "u"
+     expected [] to include "u"
+     ×  selection_line: /usr/sbin/rsyslogd rules.flatten is expected to include "g"
+     expected [] to include "g"
+     ×  selection_line: /usr/sbin/rsyslogd rules.flatten is expected to include "s"
+     expected [] to include "s"
+     ×  selection_line: /usr/sbin/rsyslogd rules.flatten is expected to include "b"
+     expected [] to include "b"
+     ×  selection_line: /usr/sbin/rsyslogd rules.flatten is expected to include "acl"
+     expected [] to include "acl"
+     ×  selection_line: /usr/sbin/rsyslogd rules.flatten is expected to include "xattrs"
+     expected [] to include "xattrs"
+     ×  selection_line: /usr/sbin/rsyslogd rules.flatten is expected to include "sha512"
+     expected [] to include "sha512"
+     ✔  selection_line: /usr/sbin/augenrules rules.flatten is expected to include "p"
+     ✔  selection_line: /usr/sbin/augenrules rules.flatten is expected to include "i"
+     ✔  selection_line: /usr/sbin/augenrules rules.flatten is expected to include "n"
+     ✔  selection_line: /usr/sbin/augenrules rules.flatten is expected to include "u"
+     ✔  selection_line: /usr/sbin/augenrules rules.flatten is expected to include "g"
+     ✔  selection_line: /usr/sbin/augenrules rules.flatten is expected to include "s"
+     ✔  selection_line: /usr/sbin/augenrules rules.flatten is expected to include "b"
+     ✔  selection_line: /usr/sbin/augenrules rules.flatten is expected to include "acl"
+     ✔  selection_line: /usr/sbin/augenrules rules.flatten is expected to include "xattrs"
+     ✔  selection_line: /usr/sbin/augenrules rules.flatten is expected to include "sha512"
+  ×  SV-258138: RHEL 9 must be configured so that the file integrity tool verifies Access Control Lists (ACLs). (1 failed)
+     ✔  System Package aide is expected to be installed
+     ×  List of monitored files/directories without 'acl' rule is expected to be empty
+     expected `["/opt", "/etc/at.allow$", "/etc/at.deny$", "/var/spool/cron/root"].empty?` to be truthy, got false
+  ×  SV-258139: RHEL 9 must be configured so that the file integrity tool verifies extended attributes. (1 failed)
+     ✔  System Package aide is expected to be installed
+     ×  List of monitored files/directories without 'xattrs' rule is expected to be empty
+     expected `["/opt", "/etc/at.allow$", "/etc/at.deny$", "/var/spool/cron/root"].empty?` to be truthy, got false
+  ✔  SV-258140: RHEL 9 must have the rsyslog package installed.
+     ✔  System Package rsyslog is expected to be installed
+  ✔  SV-258141: RHEL 9 must have the packages required for encrypting offloaded audit logs installed.
+     ✔  System Package rsyslog-gnutls is expected to be installed
+  ✔  SV-258142: The rsyslog service on RHEL 9 must be active.
+     ✔  Service rsyslog is expected to be enabled
+     ✔  Service rsyslog is expected to be running
+  ↺  SV-258143: RHEL 9 must be configured so that the rsyslog daemon does not accept log messages from other servers unless the server is being used for log aggregation.
+     ↺  This control is NA because the system is a log aggregation server.
+  ✔  SV-258144: All RHEL 9 remote access methods must be monitored.
+     ✔  File /etc/rsyslog.conf is expected to exist
+     ✔  Logged remote access methods should include auth.*
+     ✔  Logged remote access methods should include authpriv.*
+     ✔  Logged remote access methods should include daemon.*
+  ✔  SV-258145: RHEL 9 must be configured to offload audit records onto a different system from the system being audited via syslog.
+     ✔  Parse Config File /etc/audit/plugins.d/syslog.conf active is expected to cmp == "yes"
+  ✔  SV-258146: RHEL 9 must authenticate the remote logging server for offloading audit logs via rsyslog.
+     ✔  rsyslog configuration is expected to match /\$ActionSendStreamDriverAuthMode\s+x509\/name/
+  ✔  SV-258147: RHEL 9 must encrypt the transfer of audit records offloaded onto a different system or media from the system being audited via rsyslog.
+     ✔  rsyslog configuration is expected to match /\$DefaultNetstreamDriver\s+gtls/
+     ✔  rsyslog configuration is expected to match /\$ActionSendStreamDriverMode\s+1/
+  ✔  SV-258148: RHEL 9 must encrypt via the gtls driver the transfer of audit records offloaded onto a different system or media from the system being audited via rsyslog.
+     ✔  Rsyslogd DefaultNetstreamDriver should only be set once
+     ✔  Rsyslogd DefaultNetstreamDriver should be set to 'gtls'
+  ×  SV-258149: RHEL 9 must be configured to forward audit records via TCP to a different system or media from the system being audited via rsyslog.
+     ×  Command: `grep @@ /etc/rsyslog.conf /etc/rsyslog.d/*.conf` stdout is expected to match /^[^#]*:\*\.\*\s*@@[a-z.0-9]*:?[0-9]*?/
+     expected "/etc/rsyslog.conf:TCP *.* @@localhost:22\n" to match /^[^#]*:\*\.\*\s*@@[a-z.0-9]*:?[0-9]*?/
+  ✔  SV-258150: RHEL 9 must use cron logging.
+     ✔  Command: `grep  -hsv "^#" /etc/rsyslog.conf /etc/rsyslog.d/*.conf | grep ^cron` stdout is expected to match /cron\.\*\s*\/var\/log\/cron/
+     ✔  Command: `grep  -hsv "^#" /etc/rsyslog.conf /etc/rsyslog.d/*.conf | grep /var/log/messages` stdout is expected to match /\*.info;mail.none;authpriv.none;cron.none\s*\/var\/log\/messages/
+  ✔  SV-258151: RHEL 9 audit package must be installed.
+     ✔  System Package audit is expected to be installed
+  ✔  SV-258152: RHEL 9 audit service must be enabled.
+     ✔  Service auditd is expected to be enabled
+     ✔  Service auditd is expected to be running
+  ✔  SV-258153: RHEL 9 audit system must take appropriate action when an error writing to the audit storage volume occurs.
+     ✔  Audit Daemon Config disk_error_action.upcase is expected to be in "SYSLOG", "SINGLE", and "HALT"
+  ✔  SV-258154: RHEL 9 audit system must take appropriate action when the audit storage volume is full.
+     ✔  Audit Daemon Config disk_full_action.upcase is expected to be in "SYSLOG", "SINGLE", and "HALT"
+  ✔  SV-258155: RHEL 9 must allocate audit record storage capacity to store at least one week's worth of audit records.
+     ✔  File /var/log/audit is expected to exist
+     ✔  File /var/log/audit is expected to be directory
+     ✔  auditd_conf's space_left threshold should be under the amount of space currently available (in 1K blocks) for the audit log directory
+  ✔  SV-258156: RHEL 9 must take action when allocated audit record storage volume reaches 75 percent of the repository maximum audit record storage capacity.
+     ✔  Audit Daemon Config space_left.to_i is expected to cmp >= 25
+  ✔  SV-258157: RHEL 9 must notify the system administrator (SA) and information system security officer (ISSO) (at a minimum) when allocated audit record storage volume 75 percent utilization.
+     ✔  Audit Daemon Config space_left_action.downcase is expected to cmp == "email"
+  ✔  SV-258158: RHEL 9 must take action when allocated audit record storage volume reaches 95 percent of the audit record storage capacity.
+     ✔  Audit Daemon Config admin_space_left is expected to cmp == "5%"
+  ✔  SV-258159: RHEL 9 must take action when allocated audit record storage volume reaches 95 percent of the repository maximum audit record storage capacity.
+     ✔  Audit Daemon Config admin_space_left_action.upcase is expected to cmp == "SINGLE"
+  ✔  SV-258160: RHEL 9 audit system must take appropriate action when the audit files have reached maximum size.
+     ✔  Audit Daemon Config max_log_file_action.upcase is expected to cmp == "ROTATE"
+  ✔  SV-258161: RHEL 9 must label all offloaded audit logs before sending them to the central log server.
+     ✔  Parse Config File /etc/audit/auditd.conf name_format is expected to match /^hostname$|^fqd$|^numeric$/i
+  ✔  SV-258162: RHEL 9 must take appropriate action when the internal event queue is full.
+     ✔  Parse Config File /etc/audit/auditd.conf overflow_action is expected to match /syslog$|single$|halt$/i
+  ✔  SV-258163: RHEL 9 System Administrator (SA) and/or information system security officer (ISSO) (at a minimum) must be alerted of an audit processing failure event.
+     ✔  Audit Daemon Config action_mail_acct is expected to cmp == "root"
+  ✔  SV-258164: RHEL 9 audit system must audit local events.
+     ✔  Parse Config File /etc/audit/auditd.conf local_events is expected to eq "yes"
+  ✔  SV-258165: RHEL 9 audit logs must be group-owned by root or by a restricted logging group to prevent unauthorized read access.
+     ✔  File /var/log/audit/audit.log group is expected to be in "root"
+  ✔  SV-258166: RHEL 9 audit log directory must be owned by root to prevent unauthorized read access.
+     ✔  Directory /var/log/audit owner is expected to eq "root"
+  ✔  SV-258167: RHEL 9 audit logs file must have mode 0600 or less permissive to prevent unauthorized access to the audit log.
+     ✔  File /var/log/audit/audit.log is expected not to be more permissive than "0600"
+  ✔  SV-258168: RHEL 9 must periodically flush audit records to disk to prevent the loss of audit records.
+     ✔  Audit Daemon Config freq.to_i is expected to cmp >= 100
+  ✔  SV-258169: RHEL 9 must produce audit records containing information to establish the identity of any individual or process associated with the event.
+     ✔  Parse Config File /etc/audit/auditd.conf log_format is expected to eq "ENRICHED"
+  ✔  SV-258170: RHEL 9 must write audit records to disk.
+     ✔  Audit Daemon Config write_logs.upcase is expected to cmp == "YES"
+  ↺  SV-258171: RHEL 9 must allow only the information system security manager (ISSM) (or individuals or roles appointed by the ISSM) to select which auditable events are to be audited. (1 failed) (1 skipped)
+     ↺  audit_conf_mode
+     ×  Audit configuration files should be no more permissive than '#<RSpec::Core::Example "audit_conf_mode">'
+     Failing files:
+        - /etc/audit/rules.d/99-stig.rules
+  ✔  SV-258172: RHEL 9 /etc/audit/auditd.conf file must have 0640 or less permissive to prevent unauthorized access.
+     ✔  File /etc/audit/auditd.conf is expected not to be more permissive than "0640"
+  ✔  SV-258173: RHEL 9 must allocate an audit_backlog_limit of sufficient size to capture processes that start prior to the audit daemon.
+     ✔  Audit backlog limit should be set
+     ✔  Audit backlog limit should be at least 8192
+  ✔  SV-258174: RHEL 9 must have mail aliases to notify the information system security officer (ISSO) and system administrator (SA) (at a minimum) in the event of an audit processing failure.
+     ✔  Command: `grep "postmaster:\s*root$" /etc/aliases` stdout.strip is expected to match /postmaster:\s*root/
+  ✔  SV-258175: RHEL 9 audispd-plugins package must be installed.
+     ✔  System Package audispd-plugins is expected to be installed
+  ↺  SV-258176: RHEL 9 must audit uses of the "execve" system call.
+     ↺  Skipped control due to waiver condition: RHEL 9 must audit uses of the "execve" system call.
+  ↺  SV-258177: RHEL 9 must audit all uses of the chmod, fchmod, and fchmodat system calls.
+     ↺  Skipped control due to waiver condition: RHEL 9 must audit all uses of the chmod, fchmod, and fchmodat system calls. (3 failed)
+  ↺  SV-258178: RHEL 9 must audit all uses of the chown, fchown, fchownat, and lchown system calls.
+     ↺  Skipped control due to waiver condition: RHEL 9 must audit all uses of the chown, fchown, fchownat, and lchown system calls.
+  ↺  SV-258179: RHEL 9 must audit all uses of the setxattr, fsetxattr, lsetxattr, removexattr, fremovexattr, and lremovexattr system calls.
+     ↺  Skipped control due to waiver condition: RHEL 9 must audit all uses of the setxattr, fsetxattr, lsetxattr, removexattr, fremovexattr, and lremovexattr system calls. (6 failed)
+  ✔  SV-258180: RHEL 9 must audit all uses of umount system calls.
+     ✔  Command /usr/bin/umount is audited properly
+  ✔  SV-258181: RHEL 9 must audit all uses of the chacl command.
+     ✔  Command /usr/bin/chacl is audited properly
+  ✔  SV-258182: RHEL 9 must audit all uses of the setfacl command.
+     ✔  Command /usr/bin/setfacl is audited properly
+  ✔  SV-258183: RHEL 9 must audit all uses of the chcon command.
+     ✔  Command /usr/bin/chcon is audited properly
+  ✔  SV-258184: RHEL 9 must audit all uses of the semanage command.
+     ✔  Command /usr/sbin/semanage is audited properly
+  ✔  SV-258185: RHEL 9 must audit all uses of the setfiles command.
+     ✔  Command /usr/sbin/setfiles is audited properly
+  ✔  SV-258186: RHEL 9 must audit all uses of the setsebool command.
+     ✔  Command /usr/sbin/setsebool is audited properly
+  ↺  SV-258187: RHEL 9 must audit all uses of the rename, unlink, rmdir, renameat, and unlinkat system calls.
+     ↺  Skipped control due to waiver condition: RHEL 9 must audit all uses of the rename, unlink, rmdir, renameat, and unlinkat system calls. (5 failed)
+  ↺  SV-258188: RHEL 9 must audit all uses of the truncate, ftruncate, creat, open, openat, and open_by_handle_at system calls.
+     ↺  Skipped control due to waiver condition: RHEL 9 must audit all uses of the truncate, ftruncate, creat, open, openat, and open_by_handle_at system calls. (6 failed)
+  ↺  SV-258189: RHEL 9 must audit all uses of the delete_module system call.
+     ↺  Skipped control due to waiver condition: RHEL 9 must audit all uses of the delete_module system call.
+  ↺  SV-258190: RHEL 9 must audit all uses of the init_module and finit_module system calls.
+     ↺  Skipped control due to waiver condition: RHEL 9 must audit all uses of the init_module and finit_module system calls. (2 failed)
+  ✔  SV-258191: RHEL 9 must audit all uses of the chage command.
+     ✔  Command /usr/bin/chage is audited properly
+  ✔  SV-258192: RHEL 9 must audit all uses of the chsh command.
+     ✔  Command /usr/bin/chsh is audited properly
+  ✔  SV-258193: RHEL 9 must audit all uses of the crontab command.
+     ✔  Command /usr/bin/crontab is audited properly
+  ✔  SV-258194: RHEL 9 must audit all uses of the gpasswd command.
+     ✔  Command /usr/bin/gpasswd is audited properly
+  ✔  SV-258195: RHEL 9 must audit all uses of the kmod command.
+     ✔  Command /usr/bin/kmod is audited properly
+  ✔  SV-258196: RHEL 9 must audit all uses of the newgrp command.
+     ✔  Command /usr/bin/newgrp is audited properly
+  ✔  SV-258197: RHEL 9 must audit all uses of the pam_timestamp_check command.
+     ✔  Command /usr/sbin/pam_timestamp_check is audited properly
+  ✔  SV-258198: RHEL 9 must audit all uses of the passwd command.
+     ✔  Command /usr/bin/passwd is audited properly
+  ✔  SV-258199: RHEL 9 must audit all uses of the postdrop command.
+     ✔  Command /usr/sbin/postdrop is audited properly
+  ✔  SV-258200: RHEL 9 must audit all uses of the postqueue command.
+     ✔  Command /usr/sbin/postqueue is audited properly
+  ✔  SV-258201: RHEL 9 must audit all uses of the ssh-agent command.
+     ✔  Command /usr/bin/ssh-agent is audited properly
+  ✔  SV-258202: RHEL 9 must audit all uses of the ssh-keysign command.
+     ✔  Command /usr/libexec/openssh/ssh-keysign is audited properly
+  ✔  SV-258203: RHEL 9 must audit all uses of the su command.
+     ✔  Command /usr/bin/su is audited properly
+  ✔  SV-258204: RHEL 9 must audit all uses of the sudo command.
+     ✔  Command /usr/bin/sudo is audited properly
+  ✔  SV-258205: RHEL 9 must audit all uses of the sudoedit command.
+     ✔  Command /usr/bin/sudoedit is audited properly
+  ✔  SV-258206: RHEL 9 must audit all uses of the unix_chkpwd command.
+     ✔  Command /usr/sbin/unix_chkpwd is audited properly
+  ✔  SV-258207: RHEL 9 must audit all uses of the unix_update command.
+     ✔  Command /usr/sbin/unix_update is audited properly
+  ✔  SV-258208: RHEL 9 must audit all uses of the userhelper command.
+     ✔  Command /usr/sbin/userhelper is audited properly
+  ✔  SV-258209: RHEL 9 must audit all uses of the usermod command.
+     ✔  Command /usr/sbin/usermod is audited properly
+  ✔  SV-258210: RHEL 9 must audit all uses of the mount command.
+     ✔  Command /usr/bin/mount is audited properly
+  ✔  SV-258211: Successful/unsuccessful uses of the init command in RHEL 9 must generate an audit record.
+     ✔  Command /usr/sbin/init is audited properly
+  ✔  SV-258212: Successful/unsuccessful uses of the poweroff command in RHEL 9 must generate an audit record.
+     ✔  Command /usr/sbin/poweroff is audited properly
+  ✔  SV-258213: Successful/unsuccessful uses of the reboot command in RHEL 9 must generate an audit record.
+     ✔  Command /usr/sbin/reboot is audited properly
+  ✔  SV-258214: Successful/unsuccessful uses of the shutdown command in RHEL 9 must generate an audit record.
+     ✔  Command /usr/sbin/shutdown is audited properly
+  ✔  SV-258215: Successful/unsuccessful uses of the umount system call in RHEL 9 must generate an audit record.
+     ✔  Syscall umount is audited properly
+  ↺  SV-258216: Successful/unsuccessful uses of the umount2 system call in RHEL 9 must generate an audit record.
+     ↺  Skipped control due to waiver condition: Successful/unsuccessful uses of the umount2 system call in RHEL 9 must generate an audit record.
+  ✔  SV-258217: RHEL 9 must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/sudoers.
+     ✔  Command /etc/sudoers is audited properly
+  ✔  SV-258218: RHEL 9 must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/sudoers.d/ directory.
+     ✔  Command /etc/sudoers.d is audited properly
+  ✔  SV-258219: RHEL 9 must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/group.
+     ✔  Command /etc/group is audited properly
+  ✔  SV-258220: RHEL 9 must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/gshadow.
+     ✔  Command /etc/gshadow is audited properly
+  ✔  SV-258221: RHEL 9 must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/opasswd.
+     ✔  Command /etc/security/opasswd is audited properly
+  ✔  SV-258222: RHEL 9 must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/passwd.
+     ✔  Command /etc/passwd is audited properly
+  ✔  SV-258223: RHEL 9 must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/shadow.
+     ✔  Command /etc/shadow is audited properly
+  ✔  SV-258224: RHEL 9 must generate audit records for all account creations, modifications, disabling, and termination events that affect /var/log/faillock.
+     ✔  Command /var/log/faillock is audited properly
+  ✔  SV-258225: RHEL 9 must generate audit records for all account creations, modifications, disabling, and termination events that affect /var/log/lastlog.
+     ✔  Command /var/log/lastlog is audited properly
+  ↺  SV-258226: RHEL 9 must generate audit records for all account creations, modifications, disabling, and termination events that affect /var/log/tallylog.
+     ↺  Skipped control due to waiver condition: Not Working - RHEL 9 must generate audit records for all account creations, modifications, disabling, and termination events that affect /var/log/tallylog.
+  ✔  SV-258227: RHEL 9 must take appropriate action when a critical audit processing failure occurs.
+     ✔  The audit service  is expected to panic on a critical error
+  ✔  SV-258228: RHEL 9 audit system must protect logon UIDs from unauthorized change.
+     ✔  Command: `grep -i immutable /etc/audit/audit.rules` stdout.strip is expected to cmp == "--loginuid-immutable"
+  ↺  SV-258229: RHEL 9 audit system must protect auditing rules from unauthorized change.
+     ↺  Skipped control due to waiver condition: Do this last, requires reboot - RHEL 9 audit system must protect auditing rules from unauthorized change.
+  ↺  SV-258230: RHEL 9 must enable FIPS mode.
+     ↺  Skipped control due to waiver condition: Reboot Required - RHEL 9 must enable FIPS mode.
+  ✔  SV-258231: RHEL 9 must employ FIPS 140-3 approved cryptographic hashing algorithms for all stored passwords.
+     ✔  All stored passwords should only be hashed with the SHA512 algorithm
+  ✔  SV-258232: RHEL 9 IP tunnels must use FIPS 140-2/140-3 approved cryptographic algorithms.
+     ✔  RHEL9 IPsec config should include the conf file '/etc/crypto-policies/back-ends/libreswan.config'
+  ✔  SV-258233: RHEL 9 pam_unix.so module must be configured in the password-auth file to use a FIPS 140-3 approved cryptographic hashing algorithm for system authentication.
+     ✔  PAM Config[/etc/pam.d/system-auth] lines is expected to include password sufficient pam_unix.so sha512
+  ✔  SV-258234: RHEL 9 must have the crypto-policies package installed.
+     ✔  System Package crypto-policies is expected to be installed
+  ✔  SV-258235: RHEL 9 crypto policy files must match files shipped with the operating system.
+     ✔  Command: `rpm -V crypto-policies` stdout is expected to be empty
+  ✔  SV-258236: RHEL 9 crypto policy must not be overridden.
+     ✔  Crypto policies should link to the correct libriries
+  ✔  SV-258237: RHEL 9 must use mechanisms meeting the requirements of applicable federal laws, executive orders, directives, policies, regulations, standards, and guidance for authentication to a cryptographic module.
+     ✔  File /etc/crypto-policies/back-ends/krb5.config link_path is expected to match /\/usr\/share\/crypto-policies\/FIPS/
+  ✔  SV-258238: RHEL 9 must implement DOD-approved TLS encryption in the GnuTLS package.
+     ✔  GnuTLS should disable unapproved SSL/TLS versions
+  ✔  SV-258239: RHEL 9 must implement DOD-approved encryption in the OpenSSL package.
+     ✔  A line in the OpenSSL config file is expected to match /^\.include.*opensslcnf.config$/
+  ✔  SV-258240: RHEL 9 must implement DOD-approved TLS encryption in the OpenSSL package.
+     ✔  Parse Config File /etc/crypto-policies/back-ends/opensslcnf.config ["TLS.MinProtocol"] is expected to be in "TLSv1.2" and "TLSv1.3"
+     ✔  Parse Config File /etc/crypto-policies/back-ends/opensslcnf.config ["DTLS.MinProtocol"] is expected to be in "DTLSv1.2" and "DTLSv1.3"
+  ✔  SV-258241: RHEL 9 must implement a system-wide encryption policy.
+     ✔  Command: `update-crypto-policies --show` stdout is expected to match /FIPS/
+  ↺  SV-258242: RHEL 9 must implement DOD-approved encryption in the bind package.
+     ↺  Skipped control due to only_if condition: This control is Not Applicable since bind is not installed

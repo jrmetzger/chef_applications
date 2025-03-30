@@ -8,9 +8,10 @@
 
 package 'sssd'
 
-service 'sssd' do
-  action [:enable, :start]
-end
+# TODO
+# service 'sssd' do
+#  action [:enable, :start]
+# end
 
 node['cookbook']['harden']['controls']['sssd'].each do |name, control|
   next unless control['managed']

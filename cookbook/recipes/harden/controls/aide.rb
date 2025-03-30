@@ -11,16 +11,18 @@ node['cookbook']['harden']['controls']['aide'].each do |name, control|
 
   # Packages
   case name
-  when 'aide'
-    package name
+  when 'package'
+    package 'aide'
     execute 'Initialize AIDE Database' do
       command 'aide --init'
       not_if { ::File.exist?('/var/lib/aide/aide.db.gz ') }
     end
-  when 'notify'
-    append_if_no_line control['title'] do
-      path '/etc/cron.daily/aide'
-      line control['value']
+  else
+    control['values'].each do |value|
+      append_if_no_line control['title'] do
+        path control['path'] || '/etc/aide.conf'
+        line value
+      end
     end
   end
 end

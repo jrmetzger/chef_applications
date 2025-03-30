@@ -22,7 +22,7 @@ node['cookbook']['harden']['controls']['audit'].each do |name, control|
   pattern = "^#{name} = .*"
   line = "#{name} = #{control['value']}"
   replace_or_add control['title'] do
-    path control['path']
+    path control['path'] || '/etc/audit/auditd.conf'
     pattern pattern
     line line
   end

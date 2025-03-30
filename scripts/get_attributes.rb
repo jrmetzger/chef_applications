@@ -38,17 +38,67 @@ def colorize_managed(managed, value)
   end
 end
 
+
+
+
+#### Inspecinspec json . | jq '.controls[]'
+
+
+profiles = {
+  'rhel-9': 'redhat-enterprise-linux-9-stig-baseline',
+  'amazon-2023': 'amazon-linux-2-stig-ready-baseline',
+  'ubuntu-22': 'canonical-ubuntu-22.04-lts-stig-baseline'
+}
+
+parsed_controls = {}
+suites.each do |suite|
+  profile = profiles[:"#{suite}"]
+  file_path = "cookbook/compliance/profiles/#{profile}.json"
+
+  if File.exist?(file_path)
+    puts "[INFO] Profile Parsed: #{suite}, skipping..."
+  else
+    puts "[INFO] Parsing Profile: #{suite}"
+    system("inspec json ./cookbook/compliance/profiles/#{profile}/ > #{file_path}")
+  end
+
+  profile_hash = JSON.parse(File.read(file_path)) # Correctly parse JSON
+  controls = profile_hash['controls']
+
+  parsed_controls[suite] = {}
+  controls.each do |control|
+    id = control['id']
+    title = control['title']
+    parsed_controls[suite][id] = title
+  end
+end
+
+#### Harden
+
 data = {}
 valid_suites = []
 suites.each do |suite|
+
   file_path = "#{script_dir}/../cookbook/spec/results/default-#{suite}/default-#{suite}_attributes.json" # Replace with your actual file path
-  next unless File.exist?(file_path)
+  #puts "[INFO] Preserving Attributes"
+  #system("bash kitchen.sh exec #{suite} -c 'sudo cat /tmp/kitchen/nodes/#{suite}.json' > /tmp/#{suite}_attributes.json")
+  #system("echo '}' >> /tmp/#{suite}_attributes.json")
+  #system("sed '1d' /tmp/#{suite}_attributes.json | jq > #{file_path}")
+  #system("rm -f /tmp/#{suite}}_attributes.json")
+  if File.exist?(file_path)
+    puts "[INFO] Found Attributes for: #{suite}"
+  else
+    puts "[WARN] Cannot find Attributes for: #{suite}, skipping..."
+    next
+  end
 
-  puts "Searching OS #{suite}"
+  ruby_hash = JSON.parse(File.read(file_path))
+  if ruby_hash['default'].nil?
+    puts "[WARN]: Converge Failed, No Attributes Found, skipping..."
+    next
+  end
+
   valid_suites << suite
-  file_content = File.read(file_path)
-  ruby_hash = JSON.parse(file_content)
-
   ruby_hash['default']['cookbook']['harden']['controls'].each do |group, controls|
     controls.each do |name, control|
 
@@ -65,6 +115,14 @@ suites.each do |suite|
         title = full_title
       end
       group_control = "#{group}_#{name}"
+
+
+      profile_title = parsed_controls[suite][id]
+
+      #if profile_title != title.lstrip()
+      #  puts "[WARN] Harden Profile (#{title}) not equal to Compliance Profile (#{profile_title})"
+      #end
+
 
       data[group_control] ||= {
         'Group' => group,

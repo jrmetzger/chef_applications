@@ -1,0 +1,26 @@
+E, [2025-03-30T12:56:28.311742 #32482] ERROR -- Kitchen: ------Exception-------
+E, [2025-03-30T12:56:28.311783 #32482] ERROR -- Kitchen: Class: Kitchen::UserError
+E, [2025-03-30T12:56:28.311793 #32482] ERROR -- Kitchen: Message: Kitchen YAML file /Users/jonathanmetzger/Library/Mobile Documents/com~apple~CloudDocs/Documents/Coding/chef_applications/kitchen.yml does not exist.
+E, [2025-03-30T12:56:28.311802 #32482] ERROR -- Kitchen: ----------------------
+E, [2025-03-30T12:56:28.311808 #32482] ERROR -- Kitchen: ------Backtrace-------
+E, [2025-03-30T12:56:28.311814 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/test-kitchen-3.6.0/lib/kitchen/loader/yaml.rb:65:in `read'
+E, [2025-03-30T12:56:28.311821 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/test-kitchen-3.6.0/lib/kitchen/config.rb:153:in `data'
+E, [2025-03-30T12:56:28.311827 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/test-kitchen-3.6.0/lib/kitchen/config.rb:131:in `suites'
+E, [2025-03-30T12:56:28.311834 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/test-kitchen-3.6.0/lib/kitchen/config.rb:183:in `filter_instances'
+E, [2025-03-30T12:56:28.311839 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/test-kitchen-3.6.0/lib/kitchen/config.rb:142:in `build_instances'
+E, [2025-03-30T12:56:28.311943 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/test-kitchen-3.6.0/lib/kitchen/config.rb:116:in `instances'
+E, [2025-03-30T12:56:28.311965 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/test-kitchen-3.6.0/lib/kitchen/command.rb:109:in `filtered_instances'
+E, [2025-03-30T12:56:28.311974 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/test-kitchen-3.6.0/lib/kitchen/command.rb:139:in `parse_subcommand'
+E, [2025-03-30T12:56:28.311983 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/test-kitchen-3.6.0/lib/kitchen/command/exec.rb:28:in `call'
+E, [2025-03-30T12:56:28.311992 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/test-kitchen-3.6.0/lib/kitchen/cli.rb:52:in `perform'
+E, [2025-03-30T12:56:28.311999 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/test-kitchen-3.6.0/lib/kitchen/cli.rb:285:in `exec'
+E, [2025-03-30T12:56:28.312005 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/command.rb:27:in `run'
+E, [2025-03-30T12:56:28.312013 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/invocation.rb:127:in `invoke_command'
+E, [2025-03-30T12:56:28.312019 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor.rb:392:in `dispatch'
+E, [2025-03-30T12:56:28.312025 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/thor-1.2.2/lib/thor/base.rb:485:in `start'
+E, [2025-03-30T12:56:28.312034 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/test-kitchen-3.6.0/bin/kitchen:11:in `block in <top (required)>'
+E, [2025-03-30T12:56:28.312039 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/test-kitchen-3.6.0/lib/kitchen/errors.rb:183:in `with_friendly_errors'
+E, [2025-03-30T12:56:28.312044 #32482] ERROR -- Kitchen: /opt/cinc-workstation/embedded/lib/ruby/gems/3.1.0/gems/test-kitchen-3.6.0/bin/kitchen:11:in `<top (required)>'
+E, [2025-03-30T12:56:28.312053 #32482] ERROR -- Kitchen: /usr/local/bin/kitchen:439:in `load'
+E, [2025-03-30T12:56:28.312059 #32482] ERROR -- Kitchen: /usr/local/bin/kitchen:439:in `<main>'
+E, [2025-03-30T12:56:28.312064 #32482] ERROR -- Kitchen: ----End Backtrace-----

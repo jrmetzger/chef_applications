@@ -2,3 +2,37 @@
  # SV-257780
 linux_threat_prevention_package: clamav
 linux_threat_prevention_service: mfetpd
+
+# SV-258058
+known_system_accounts:
+# SAF
+- adm
+- bin
+- chrony
+- daemon
+- dbus
+- halt
+- lp
+- mail
+- nobody
+- ntp
+- operator
+- polkitd
+- postfix
+- root
+- shutdown
+- sshd
+- sssd
+- sync
+- systemd-bus-proxy
+- systemd-network
+# Additional
+- games
+- ftp
+- systemd-coredump
+- hacluster
+- tss
+- rpc
+- rpcuser
+- unbound
+- ec2-user

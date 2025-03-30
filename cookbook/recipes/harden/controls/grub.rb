@@ -7,7 +7,7 @@
 # Copyright:: 2025, The Authors, All Rights Reserved.
 
 execute 'update-grub' do
-  command 'grub2-mkconfig -o /boot/grub2/grub.cfg'
+  command 'grub2-mkconfig -o /boot/grub2/grub.cfg' # Ubuntu: update-grub
   action :nothing
 end
 
@@ -60,7 +60,7 @@ node['cookbook']['harden']['controls']['grub'].each do |name, control|
   add_to_list control['title'] do
     path '/etc/default/grub'
     pattern 'GRUB_CMDLINE_LINUX="'
-    delim [',']
+    delim [' ']
     entry entry
     ends_with '"'
   end

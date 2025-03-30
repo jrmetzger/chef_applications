@@ -60,92 +60,88 @@ platforms:
       - name: rhel9
         git: https://github.com/mitre/redhat-enterprise-linux-9-stig-baseline.git
       controls:
-      # - SV-257779 #RHEL 9 must display the Standard Mandatory DOD Notice and Consent Banner before granting local or remote access to the system via a command line user logon. (1 failed)
-      # - SV-257780 #RHEL 9 must implement the Endpoint Security for Linux Threat Prevention tool. (2 failed)
-      # - SV-257789 #RHEL 9 must require a unique superusers name upon booting into single-user and maintenance modes. (1 failed)
-      # - SV-257803 #RHEL 9 must disable the kernel.core_pattern. (1 failed)
-      # - SV-257814 #RHEL 9 must disable core dumps for all users. (1 failed)
-      # - SV-257818 #The kdump service on RHEL 9 must be disabled. (3 failed)
-      # - SV-257843 #A separate RHEL 9 file system must be used for user home directories (such as /home or an equivalent). (1 failed)
-      # - SV-257848 #RHEL 9 must use a separate file system for /var/tmp. (2 failed)
-      # - SV-257850 #RHEL 9 must prevent device files from being interpreted on file systems that contain user home directories. (1 failed)
-      # - SV-257851 #RHEL 9 must prevent files with the setuid and setgid bit set from being executed on file systems that contain user home directories. (1 failed)
-      # - SV-257852 #RHEL 9 must prevent code from being executed on file systems that contain user home directories. (1 failed)
-      # - SV-257857 #RHEL 9 must prevent code from being executed on file systems that are used with removable media.
-      # - SV-257858 #RHEL 9 must prevent special devices on file systems that are used with removable media.
-      # - SV-257859 #RHEL 9 must prevent files with the setuid and setgid bit set from being executed on file systems that are used with removable media.
-      # - SV-257862 #RHEL 9 must prevent files with the setuid and setgid bit set from being executed on the /boot/efi directory. (1 failed)
-      # - SV-257866 #RHEL 9 must mount /tmp with the nodev option. (1 failed)
-      # - SV-257869 #RHEL 9 must mount /var with the nodev option. (1 failed)
-      # - SV-257876 #RHEL 9 must mount /var/tmp with the nodev option. (2 failed)
-      # - SV-257877 #RHEL 9 must mount /var/tmp with the noexec option. (2 failed)
-      # - SV-257878 #RHEL 9 must mount /var/tmp with the nosuid option. (2 failed)
-      # - SV-257879 #RHEL 9 local disk partitions must implement cryptographic mechanisms to prevent unauthorized disclosure or modification of all information that requires at rest protection. (4 failed)
-      # - SV-257880 #RHEL 9 must disable mounting of cramfs. (2 failed)
-      # - SV-257881 #RHEL 9 must prevent special devices on non-root local partitions.
-      # - SV-257888 #RHEL 9 cron configuration directories must have a mode of 0700 or less permissive.
-      # - SV-257889 #All RHEL 9 local initialization files must have mode 0740 or less permissive.
-      # - SV-257919 #RHEL 9 system commands must be group-owned by root or a system account.
-      # - SV-257921 #RHEL 9 library files must be group-owned by root or a system account.
-      # - SV-257933 #RHEL 9 /etc/crontab file must have mode 0600. (1 failed)
-      # - SV-257942 #RHEL 9 must enable hardening for the Berkeley Packet Filter just-in-time compiler. (2 failed)
-      # - SV-257945 #RHEL 9 must securely compare internal information system clocks at least every 24 hours. (1 failed)
-      # - SV-257946 #RHEL 9 must disable the chrony daemon from acting as a server.
-      # - SV-257947 #RHEL 9 must disable network management of the chrony daemon.
-      # - SV-257948 #RHEL 9 systems using Domain Name Servers (DNS) resolution must have at least two name servers configured. (1 failed)
-      # - SV-257949 #RHEL 9 must configure a DNS processing mode set be Network Manager.
-      # - SV-257957 #RHEL 9 must be configured to use TCP syncookies. (1 failed)
-      # - SV-257959 #RHEL 9 must not forward Internet Protocol version 4 (IPv4) source-routed packets. (2 failed)
-      # - SV-257962 #RHEL 9 must use reverse path filtering on all IPv4 interfaces. (3 failed)
-      # - SV-257975 #RHEL 9 must not accept router advertisements on all IPv6 interfaces by default. (2 failed)
-      # - SV-257981 #RHEL 9 must display the Standard Mandatory DOD Notice and Consent Banner before granting local or remote access to the system via a SSH logon.
-      # - SV-257988 #RHEL 9 must implement DOD-approved encryption ciphers to protect the confidentiality of SSH client connections. (1 failed)
-      # - SV-257990 #RHEL 9 SSH client must be configured to use only Message Authentication Codes (MACs) employing FIPS 140-3 validated cryptographic hash algorithms.
-      # - SV-257991 #RHEL 9 SSH server must be configured to use only Message Authentication Codes (MACs) employing FIPS 140-3 validated cryptographic hash algorithms.
-      # - SV-257996 #RHEL 9 must be configured so that all network connections associated with SSH traffic are terminated after 10 minutes of becoming unresponsive.
-      # - SV-258034 #RHEL 9 must be configured to disable USB mass storage. (2 failed)
-      # - SV-258038 #RHEL 9 must block unauthorized peripherals before establishing a connection. (2 failed)
-      # - SV-258049 #RHEL 9 must disable account identifiers (individuals, groups, roles, and devices) after 35 days of inactivity. (2 failed)
-      # - SV-258058 #RHEL 9 must not have unauthorized accounts.
-      # - SV-258064 #RHEL 9 must ensure session control is automatically started at shell initialization.
-      # - SV-258065 #RHEL 9 must enable a user session lock until that user re-establishes access using established identification and authentication procedures for command line sessions. (2 failed)
-      # - SV-258066 #RHEL 9 must automatically lock command line user sessions after 15 minutes of inactivity.
-      # - SV-258068 #RHEL 9 must automatically exit interactive command shell user sessions after 15 minutes of inactivity.
-      # - SV-258072 #RHEL 9 must define default permissions for the bash shell.
-      # - SV-258073 #RHEL 9 must define default permissions for the c shell.
-      # - SV-258075 #RHEL 9 must define default permissions for the system default profile.
-      # - SV-258077 #RHEL 9 must terminate idle user sessions.
-      # - SV-258084 #RHEL 9 must require reauthentication when using the "sudo" command.
-      # - SV-258085 #RHEL 9 must use the invoking user's password for privilege escalation when using "sudo". (3 failed)
-      # - SV-258091 #RHEL 9 must ensure the password complexity module in the system-auth file is configured for three retries or less.
-      # - SV-258092 #RHEL 9 must be configured in the password-auth file to prohibit password reuse for a minimum of five generations.
-      # - SV-258093 #RHEL 9 must be configured in the system-auth file to prohibit password reuse for a minimum of five generations.
-      # - SV-258094 #RHEL 9 must not allow blank or null passwords.
-      # - SV-258095 #RHEL 9 must configure the use of the pam_faillock.so module in the /etc/pam.d/system-auth file. (3 failed)
-      # - SV-258096 #RHEL 9 must configure the use of the pam_faillock.so module in the /etc/pam.d/password-auth file. (3 failed)
-      # - SV-258099 #RHEL 9 password-auth must be configured to use a sufficient number of hashing rounds.
-      # - SV-258100 #RHEL 9 system-auth must be configured to use a sufficient number of hashing rounds.
-      # - SV-258105 #RHEL 9 passwords must have a 24 hours minimum password lifetime restriction in /etc/shadow.
-      # - SV-258123 #RHEL 9 must implement certificate status checking for multifactor authentication.
-      # - SV-258131 #RHEL 9, for PKI-based authentication, must validate certificates by constructing a certification path (which includes status information) to an accepted trust anchor.
-      # - SV-258132 #RHEL 9 must map the authenticated identity to the user or group account for PKI-based authentication. (2 failed)
-      # - SV-258134 #RHEL 9 must have the AIDE package installed. (1 failed)
-      # - SV-258138 #RHEL 9 must be configured so that the file integrity tool verifies Access Control Lists (ACLs). (1 failed)
-      # - SV-258139 #RHEL 9 must be configured so that the file integrity tool verifies extended attributes. (1 failed)
-      # - SV-258146 #RHEL 9 must authenticate the remote logging server for offloading audit logs via rsyslog.
-      # - SV-258147 #RHEL 9 must encrypt the transfer of audit records offloaded onto a different system or media from the system being audited via rsyslog. (2 failed)
-      # - SV-258149 #RHEL 9 must be configured to forward audit records via TCP to a different system or media from the system being audited via rsyslog.
-      # - SV-258176 #RHEL 9 must audit uses of the "execve" system call.
-      # - SV-258177 #RHEL 9 must audit all uses of the chmod, fchmod, and fchmodat system calls. (3 failed)
-      # - SV-258178 #RHEL 9 must audit all uses of the chown, fchown, fchownat, and lchown system calls.
-      # - SV-258179 #RHEL 9 must audit all uses of the setxattr, fsetxattr, lsetxattr, removexattr, fremovexattr, and lremovexattr system calls. (6 failed)
-      # - SV-258187 #RHEL 9 must audit all uses of the rename, unlink, rmdir, renameat, and unlinkat system calls. (5 failed)
-      # - SV-258188 #RHEL 9 must audit all uses of the truncate, ftruncate, creat, open, openat, and open_by_handle_at system calls. (6 failed)
-      # - SV-258189 #RHEL 9 must audit all uses of the delete_module system call.
-      # - SV-258190 #RHEL 9 must audit all uses of the init_module and finit_module system calls. (2 failed)
-      # - SV-258216 #Successful/unsuccessful uses of the umount2 system call in RHEL 9 must generate an audit record.
-      # - SV-258226 #RHEL 9 must generate audit records for all account creations, modifications, disabling, and termination events that affect /var/log/tallylog.
-      # - SV-258229 #RHEL 9 audit system must protect auditing rules from unauthorized change.
+        - SV-257779 # RHEL 9 must display the Standard Mandatory DOD Notice and Consent Banner before granting local or remote access to the system via a command line user logon. (1 failed)
+        - SV-257780 # RHEL 9 must implement the Endpoint Security for Linux Threat Prevention tool. (2 failed)
+        - SV-257784 # The systemd Ctrl-Alt-Delete burst key sequence in RHEL 9 must be disabled.
+        - SV-257789 # RHEL 9 must require a unique superusers name upon booting into single-user and maintenance modes. (1 failed)
+        - SV-257803 # RHEL 9 must disable the kernel.core_pattern. (3 failed)
+        - SV-257811 # RHEL 9 must restrict usage of ptrace to descendant processes. (1 failed)
+        - SV-257814 # RHEL 9 must disable core dumps for all users. (1 failed)
+        - SV-257818 # The kdump service on RHEL 9 must be disabled. (3 failed)
+        - SV-257843 # A separate RHEL 9 file system must be used for user home directories (such as /home or an equivalent). (1 failed)
+        - SV-257850 # RHEL 9 must prevent device files from being interpreted on file systems that contain user home directories. (1 failed)
+        - SV-257851 # RHEL 9 must prevent files with the setuid and setgid bit set from being executed on file systems that contain user home directories. (1 failed)
+        - SV-257852 # RHEL 9 must prevent code from being executed on file systems that contain user home directories. (1 failed)
+        - SV-257857 # RHEL 9 must prevent code from being executed on file systems that are used with removable media.
+        - SV-257858 # RHEL 9 must prevent special devices on file systems that are used with removable media.
+        - SV-257859 # RHEL 9 must prevent files with the setuid and setgid bit set from being executed on file systems that are used with removable media.
+        - SV-257860 # RHEL 9 must mount /boot with the nodev option. (1 failed)
+        - SV-257861 # RHEL 9 must prevent files with the setuid and setgid bit set from being executed on the /boot directory. (1 failed)
+        - SV-257866 # RHEL 9 must mount /tmp with the nodev option. (2 failed)
+        - SV-257869 # RHEL 9 must mount /var with the nodev option. (2 failed)
+        - SV-257879 # RHEL 9 local disk partitions must implement cryptographic mechanisms to prevent unauthorized disclosure or modification of all information that requires at rest protection. (10 failed)
+        - SV-257880 # RHEL 9 must disable mounting of cramfs. (2 failed)
+        - SV-257881 # RHEL 9 must prevent special devices on non-root local partitions.
+        - SV-257888 # RHEL 9 cron configuration directories must have a mode of 0700 or less permissive.
+        - SV-257889 # All RHEL 9 local initialization files must have mode 0740 or less permissive.
+        - SV-257919 # RHEL 9 system commands must be group-owned by root or a system account.
+        - SV-257921 # RHEL 9 library files must be group-owned by root or a system account.
+        - SV-257933 # RHEL 9 /etc/crontab file must have mode 0600. (1 failed)
+        - SV-257935 # RHEL 9 must have the firewalld package installed.
+        - SV-257936 # The firewalld service on RHEL 9 must be active. (3 failed)
+        - SV-257937 # A RHEL 9 firewall must employ a deny-all, allow-by-exception policy for allowing connections to other systems. (1 failed)
+        - SV-257938 # RHEL 9 must control remote access methods. (3 failed)
+        - SV-257940 # RHEL 9 must be configured to prohibit or restrict the use of functions, ports, protocols, and/or services, as defined in the Ports, Protocols, and Services Management (PPSM) Category Assignments List (CAL) and vulnerability assessments. (4 failed)
+        - SV-257945 # RHEL 9 must securely compare internal information system clocks at least every 24 hours. (1 failed)
+        - SV-257948 # RHEL 9 systems using Domain Name Servers (DNS) resolution must have at least two name servers configured. (1 failed)
+        - SV-257949 # RHEL 9 must configure a DNS processing mode set be Network Manager.
+        - SV-257957 # RHEL 9 must be configured to use TCP syncookies. (1 failed)
+        - SV-257958 # RHEL 9 must ignore Internet Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP) redirect messages. (1 failed)
+        - SV-257959 # RHEL 9 must not forward Internet Protocol version 4 (IPv4) source-routed packets. (2 failed)
+        - SV-257962 # RHEL 9 must use reverse path filtering on all IPv4 interfaces. (1 failed)
+        - SV-257965 # RHEL 9 must use a reverse-path filter for IPv4 network traffic when possible by default. (1 failed)
+        - SV-257975 # RHEL 9 must not accept router advertisements on all IPv6 interfaces by default. (3 failed)
+        - SV-257978 # All RHEL 9 networked systems must have SSH installed.
+        - SV-257981 # RHEL 9 must display the Standard Mandatory DOD Notice and Consent Banner before granting local or remote access to the system via a SSH logon.
+        - SV-257987 # RHEL 9 SSH daemon must be configured to use system-wide crypto policies.
+        - SV-257988 # RHEL 9 must implement DOD-approved encryption ciphers to protect the confidentiality of SSH client connections. (1 failed)
+        - SV-257989 # RHEL 9 must implement DOD-approved encryption ciphers to protect the confidentiality of SSH server connections.
+        - SV-257990 # RHEL 9 SSH client must be configured to use only Message Authentication Codes (MACs) employing FIPS 140-3 validated cryptographic hash algorithms.
+        - SV-257991 # RHEL 9 SSH server must be configured to use only Message Authentication Codes (MACs) employing FIPS 140-3 validated cryptographic hash algorithms.
+        - SV-257996 # RHEL 9 must be configured so that all network connections associated with SSH traffic are terminated after 10 minutes of becoming unresponsive.
+        - SV-258034 # RHEL 9 must be configured to disable USB mass storage. (2 failed)
+        - SV-258036 # RHEL 9 must have the USBGuard package enabled. (2 failed)
+        - SV-258037 # RHEL 9 must enable Linux audit logging for the USBGuard daemon.
+        - SV-258038 # RHEL 9 must block unauthorized peripherals before establishing a connection. (2 failed)
+        - SV-258064 # RHEL 9 must ensure session control is automatically started at shell initialization.
+        - SV-258065 # RHEL 9 must enable a user session lock until that user re-establishes access using established identification and authentication procedures for command line sessions. (2 failed)
+        - SV-258066 # RHEL 9 must automatically lock command line user sessions after 15 minutes of inactivity.
+        - SV-258067 # RHEL 9 must prevent users from disabling session control mechanisms.
+        - SV-258068 # RHEL 9 must automatically exit interactive command shell user sessions after 15 minutes of inactivity.
+        - SV-258072 # RHEL 9 must define default permissions for the bash shell.
+        - SV-258073 # RHEL 9 must define default permissions for the c shell.
+        - SV-258075 # RHEL 9 must define default permissions for the system default profile.
+        - SV-258077 # RHEL 9 must terminate idle user sessions.
+        - SV-258080 # RHEL 9 must configure SELinux context type to allow the use of a nondefault faillock tally directory. (1 failed)
+        - SV-258084 # RHEL 9 must require reauthentication when using the "sudo" command.
+        - SV-258085 # RHEL 9 must use the invoking user's password for privilege escalation when using "sudo". (3 failed)
+        - SV-258089 # RHEL 9 fapolicy module must be installed.
+        - SV-258090 # RHEL 9 fapolicy module must be enabled. (2 failed)
+        - SV-258091 # RHEL 9 must ensure the password complexity module in the system-auth file is configured for three retries or less.
+        - SV-258092 # RHEL 9 must be configured in the password-auth file to prohibit password reuse for a minimum of five generations.
+        - SV-258093 # RHEL 9 must be configured in the system-auth file to prohibit password reuse for a minimum of five generations.
+        - SV-258094 # RHEL 9 must not allow blank or null passwords.
+        - SV-258095 # RHEL 9 must configure the use of the pam_faillock.so module in the /etc/pam.d/system-auth file. (3 failed)
+        - SV-258096 # RHEL 9 must configure the use of the pam_faillock.so module in the /etc/pam.d/password-auth file. (3 failed)
+        - SV-258099 # RHEL 9 password-auth must be configured to use a sufficient number of hashing rounds.
+        - SV-258100 # RHEL 9 system-auth must be configured to use a sufficient number of hashing rounds.
+        - SV-258105 # RHEL 9 passwords must have a 24 hours minimum password lifetime restriction in /etc/shadow.
+        - SV-258131 # RHEL 9, for PKI-based authentication, must validate certificates by constructing a certification path (which includes status information) to an accepted trust anchor.
+        - SV-258134 # RHEL 9 must have the AIDE package installed. (1 failed)
+        - SV-258137 # RHEL 9 must use cryptographic mechanisms to protect the integrity of audit tools. (10 failed)
+        - SV-258138 # RHEL 9 must be configured so that the file integrity tool verifies Access Control Lists (ACLs). (1 failed)
+        - SV-258139 # RHEL 9 must be configured so that the file integrity tool verifies extended attributes. (1 failed)
+        - SV-258149 # RHEL 9 must be configured to forward audit records via TCP to a different system or media from the system being audited via rsyslog.
   - name: ubuntu-22
     driver:
       image_id: <%= ENV['IMAGE_ID_UBUNTU22'] %>

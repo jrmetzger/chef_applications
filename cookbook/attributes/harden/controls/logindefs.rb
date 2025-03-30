@@ -11,6 +11,11 @@ default['cookbook']['harden']['controls']['logindefs'].tap do |control|
     configuration['title'] = 'SV-258041: RHEL 9 user account passwords for new users or password changes must have a 60-day maximum password lifetime restriction in /etc/login.defs.'
     configuration['value'] = '60'
   end
+  control['INACTIVE'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-258049: RHEL 9 must disable account identifiers (individuals, groups, roles, and devices) after 35 days of inactivity.'
+    configuration['value'] = '35'
+  end
   control['FAIL_DELAY'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-258071: RHEL 9 must enforce a delay of at least four seconds between logon prompts following a failed logon attempt.'

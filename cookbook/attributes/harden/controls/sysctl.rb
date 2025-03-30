@@ -56,6 +56,11 @@ default['cookbook']['harden']['controls']['sysctl'].tap do |control|
     configuration['title'] = 'SV-257816: RHEL 9 must disable the use of user namespaces.'
     configuration['value'] = '0'
   end
+  control['net.core.bpf_jit_harden'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257942: RHEL 9 must enable hardening for the Berkeley Packet Filter just-in-time compiler.'
+    configuration['value'] = '2'
+  end
   control['net.ipv4.conf.all.log_martians'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-257960: RHEL 9 must log IPv4 packets with impossible addresses.'

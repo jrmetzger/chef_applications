@@ -1,5 +1,5 @@
 keys/*
-spec/*
+cookbook/spec/*
 scripts/heimdall-lite.sh
 scripts/zabbix-server.sh
 cookbook/spec/results

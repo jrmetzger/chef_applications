@@ -18,10 +18,13 @@ node['cookbook']['harden']['controls']['rsyslog'].each do |name, control|
       line control['value']
     end
   else
-    replace_or_add control['title'] do
-      path '/etc/rsyslog.conf'
-      pattern /"#{name}"/
-      line "#{name} #{control['value']}"
+    values = name == '$ModLoad' ? control['values'] : [control['value']]
+    values.each do |value|
+      replace_or_add control['title'] do
+        path '/etc/rsyslog.conf'
+        pattern /"#{name}"/
+        line "#{name} #{value}"
+      end
     end
   end
 end

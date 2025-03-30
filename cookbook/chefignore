@@ -113,3 +113,7 @@ UPGRADING*
 ###########
 .vagrant
 Vagrantfile
+
+# Compliance profiles
+###########
+compliance/profiles/*
