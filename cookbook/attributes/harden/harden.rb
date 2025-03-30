@@ -1,6 +1,7 @@
 
 default['cookbook']['harden']['standard'] = 'stig'
 # default['cookbook']['harden']['override_control_groups'] = %w(
+#  packages
 # )
 
 default['cookbook']['harden']['mount_settings'].tap do |mount_settings|
