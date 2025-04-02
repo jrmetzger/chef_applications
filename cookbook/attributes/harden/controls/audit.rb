@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-supported_arches = %w(32) # 64)
+supported_arches = %w(32 64)
 default['cookbook']['harden']['controls']['audit'].tap do |control|
   control['active'].tap do |configuration|
     configuration['managed'] = true
@@ -290,6 +290,7 @@ default['cookbook']['harden']['controls']['audit'].tap do |control|
     configuration['title'] = 'SV-258215: Successful/unsuccessful uses of the umount system call in RHEL 9 must generate an audit record.'
     configuration['rules'] = []
     supported_arches.each do |arch|
+      next if arch == '64'
       configuration['rules'] << "-a always,exit -F arch=b#{arch} -S umount -F auid>=1000 -F auid!=unset -k privileged-umount"
     end
   end
