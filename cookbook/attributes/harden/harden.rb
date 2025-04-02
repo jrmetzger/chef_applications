@@ -5,8 +5,8 @@ default['cookbook']['harden']['standard'] = 'stig'
 # )
 
 default['cookbook']['harden']['mount_settings'].tap do |mount_settings|
-  mount_settings['pv_name'] = '/dev/xvdf'
-  mount_settings['lv_name'] = 'rhel' # vgdisplay
+  mount_settings['pv_name'] = '/dev/mapper'
+  mount_settings['lv_name'] = 'root' # vgdisplay
   mount_settings['lv_size'] = '1G' # Must be greater than 10M
 end
 

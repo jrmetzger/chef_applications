@@ -1,258 +1,65 @@
 ---
-driver:
-  name: ec2
-  region: <%= ENV['REGION'] %>
-  instance_type: <%= ENV['INSTANCE_TYPE'] %>
-  associate_public_ip: true
-  # https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#KeyPairs:
-  aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_NAME'] %>
-  # https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#SecurityGroups:
-  security_group_ids: ["<%= ENV['SECURITY_GROUP_ID'] %>"]
-  # https://us-east-1.console.aws.amazon.com/vpcconsole/home?region=us-east-1#subnets:
-  subnet_id: <%= ENV['SUBNET_ID'] %>
-  block_device_mappings:
-    - device_name: /dev/xvdf
-      ebs:
-        volume_size: 10  # Size in GB
-        volume_type: gp3
-        delete_on_termination: true
-
-provisioner:
-  name: chef_zero
-  product_name: cinc
-  product_version: latest
+#driver:
+#  name: vagrant
 
 verifier:
   name: inspec
   sudo: true
   reporter:
     - cli
-    - json:spec/results/%{suite}-%{platform}/%{suite}-%{platform}_inspec.json
-    - html:spec/results/%{suite}-%{platform}/%{suite}-%{platform}_inspec.html
-  waiver_files:
-  - compliance/waivers/stig.yml
-  - compliance/waivers/stig_reboot.yml
-  input_files:
-  - compliance/inputs/stig.yml
+    - json:spec/results/%{platform}_%{suite}.json
+  inspec_tests:
+    - name: rhel9
+      git: https://github.com/mitre/redhat-enterprise-linux-9-stig-baseline.git
 
-transport:
-  ssh_key:
-  - ../keys/<%= ENV['AWS_SSH_KEY_NAME'] %>.pem # Amazon PEM
-  - ../keys/fips_key # FIPS Key
-  username: ec2-user
+# provisioner:
+#   name: chef_zero
+#   product_name: cinc
+#   product_version: latest
+# 
+# platforms:
+# # https://portal.cloud.hashicorp.com/vagrant/discover
+#   - name: rhel-9
+#     driver:
+#     # 32 arch
+#       box: "generic/rhel9"
+#       provider: qemu
+#       architecture: arm64
+#     # TODO: Heimdall ec2...
+#     driver_config:
+#       network:
+#       - [
+#           "forwarded_port", {
+#             guest: 12345, # May Need to Change This
+#             host: 12345 # DO NOT CHANGE THIS. MUST MATCH WHAT IS IN ATTRIBUTES
+#           }
+#         ]
 
-# https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#AMICatalog:
-platforms:
-  - name: amazon-2023
-    driver:
-      image_id: <%= ENV['IMAGE_ID_AMAZON2023'] %>
-    verifier:
-      inspec_tests:
-      - name: amazon-2-2018
-        git: https://github.com/mitre/amazon-linux-2-stig-ready-baseline # Rhel7
-        # git: https://github.com/mitre/amazon-linux-2023-stig-ready-baseline.git # Rhel8
-      controls:
-  - name: rhel-9
-    driver:
-      image_id: <%= ENV['IMAGE_ID_REDHAT9'] %>
-    verifier:
-      inspec_tests:
-      - name: rhel9
-        git: https://github.com/mitre/redhat-enterprise-linux-9-stig-baseline.git
-      controls:
-        - SV-257779 # RHEL 9 must display the Standard Mandatory DOD Notice and Consent Banner before granting local or remote access to the system via a command line user logon. (1 failed)
-        - SV-257780 # RHEL 9 must implement the Endpoint Security for Linux Threat Prevention tool. (2 failed)
-        - SV-257784 # The systemd Ctrl-Alt-Delete burst key sequence in RHEL 9 must be disabled.
-        - SV-257789 # RHEL 9 must require a unique superusers name upon booting into single-user and maintenance modes. (1 failed)
-        - SV-257803 # RHEL 9 must disable the kernel.core_pattern. (3 failed)
-        - SV-257811 # RHEL 9 must restrict usage of ptrace to descendant processes. (1 failed)
-        - SV-257814 # RHEL 9 must disable core dumps for all users. (1 failed)
-        - SV-257818 # The kdump service on RHEL 9 must be disabled. (3 failed)
-        - SV-257843 # A separate RHEL 9 file system must be used for user home directories (such as /home or an equivalent). (1 failed)
-        - SV-257850 # RHEL 9 must prevent device files from being interpreted on file systems that contain user home directories. (1 failed)
-        - SV-257851 # RHEL 9 must prevent files with the setuid and setgid bit set from being executed on file systems that contain user home directories. (1 failed)
-        - SV-257852 # RHEL 9 must prevent code from being executed on file systems that contain user home directories. (1 failed)
-        - SV-257857 # RHEL 9 must prevent code from being executed on file systems that are used with removable media.
-        - SV-257858 # RHEL 9 must prevent special devices on file systems that are used with removable media.
-        - SV-257859 # RHEL 9 must prevent files with the setuid and setgid bit set from being executed on file systems that are used with removable media.
-        - SV-257860 # RHEL 9 must mount /boot with the nodev option. (1 failed)
-        - SV-257861 # RHEL 9 must prevent files with the setuid and setgid bit set from being executed on the /boot directory. (1 failed)
-        - SV-257866 # RHEL 9 must mount /tmp with the nodev option. (2 failed)
-        - SV-257869 # RHEL 9 must mount /var with the nodev option. (2 failed)
-        - SV-257879 # RHEL 9 local disk partitions must implement cryptographic mechanisms to prevent unauthorized disclosure or modification of all information that requires at rest protection. (10 failed)
-        - SV-257880 # RHEL 9 must disable mounting of cramfs. (2 failed)
-        - SV-257881 # RHEL 9 must prevent special devices on non-root local partitions.
-        - SV-257888 # RHEL 9 cron configuration directories must have a mode of 0700 or less permissive.
-        - SV-257889 # All RHEL 9 local initialization files must have mode 0740 or less permissive.
-        - SV-257919 # RHEL 9 system commands must be group-owned by root or a system account.
-        - SV-257921 # RHEL 9 library files must be group-owned by root or a system account.
-        - SV-257933 # RHEL 9 /etc/crontab file must have mode 0600. (1 failed)
-        - SV-257935 # RHEL 9 must have the firewalld package installed.
-        - SV-257936 # The firewalld service on RHEL 9 must be active. (3 failed)
-        - SV-257937 # A RHEL 9 firewall must employ a deny-all, allow-by-exception policy for allowing connections to other systems. (1 failed)
-        - SV-257938 # RHEL 9 must control remote access methods. (3 failed)
-        - SV-257940 # RHEL 9 must be configured to prohibit or restrict the use of functions, ports, protocols, and/or services, as defined in the Ports, Protocols, and Services Management (PPSM) Category Assignments List (CAL) and vulnerability assessments. (4 failed)
-        - SV-257945 # RHEL 9 must securely compare internal information system clocks at least every 24 hours. (1 failed)
-        - SV-257948 # RHEL 9 systems using Domain Name Servers (DNS) resolution must have at least two name servers configured. (1 failed)
-        - SV-257949 # RHEL 9 must configure a DNS processing mode set be Network Manager.
-        - SV-257957 # RHEL 9 must be configured to use TCP syncookies. (1 failed)
-        - SV-257958 # RHEL 9 must ignore Internet Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP) redirect messages. (1 failed)
-        - SV-257959 # RHEL 9 must not forward Internet Protocol version 4 (IPv4) source-routed packets. (2 failed)
-        - SV-257962 # RHEL 9 must use reverse path filtering on all IPv4 interfaces. (1 failed)
-        - SV-257965 # RHEL 9 must use a reverse-path filter for IPv4 network traffic when possible by default. (1 failed)
-        - SV-257975 # RHEL 9 must not accept router advertisements on all IPv6 interfaces by default. (3 failed)
-        - SV-257978 # All RHEL 9 networked systems must have SSH installed.
-        - SV-257981 # RHEL 9 must display the Standard Mandatory DOD Notice and Consent Banner before granting local or remote access to the system via a SSH logon.
-        - SV-257987 # RHEL 9 SSH daemon must be configured to use system-wide crypto policies.
-        - SV-257988 # RHEL 9 must implement DOD-approved encryption ciphers to protect the confidentiality of SSH client connections. (1 failed)
-        - SV-257989 # RHEL 9 must implement DOD-approved encryption ciphers to protect the confidentiality of SSH server connections.
-        - SV-257990 # RHEL 9 SSH client must be configured to use only Message Authentication Codes (MACs) employing FIPS 140-3 validated cryptographic hash algorithms.
-        - SV-257991 # RHEL 9 SSH server must be configured to use only Message Authentication Codes (MACs) employing FIPS 140-3 validated cryptographic hash algorithms.
-        - SV-257996 # RHEL 9 must be configured so that all network connections associated with SSH traffic are terminated after 10 minutes of becoming unresponsive.
-        - SV-258034 # RHEL 9 must be configured to disable USB mass storage. (2 failed)
-        - SV-258036 # RHEL 9 must have the USBGuard package enabled. (2 failed)
-        - SV-258037 # RHEL 9 must enable Linux audit logging for the USBGuard daemon.
-        - SV-258038 # RHEL 9 must block unauthorized peripherals before establishing a connection. (2 failed)
-        - SV-258064 # RHEL 9 must ensure session control is automatically started at shell initialization.
-        - SV-258065 # RHEL 9 must enable a user session lock until that user re-establishes access using established identification and authentication procedures for command line sessions. (2 failed)
-        - SV-258066 # RHEL 9 must automatically lock command line user sessions after 15 minutes of inactivity.
-        - SV-258067 # RHEL 9 must prevent users from disabling session control mechanisms.
-        - SV-258068 # RHEL 9 must automatically exit interactive command shell user sessions after 15 minutes of inactivity.
-        - SV-258072 # RHEL 9 must define default permissions for the bash shell.
-        - SV-258073 # RHEL 9 must define default permissions for the c shell.
-        - SV-258075 # RHEL 9 must define default permissions for the system default profile.
-        - SV-258077 # RHEL 9 must terminate idle user sessions.
-        - SV-258080 # RHEL 9 must configure SELinux context type to allow the use of a nondefault faillock tally directory. (1 failed)
-        - SV-258084 # RHEL 9 must require reauthentication when using the "sudo" command.
-        - SV-258085 # RHEL 9 must use the invoking user's password for privilege escalation when using "sudo". (3 failed)
-        - SV-258089 # RHEL 9 fapolicy module must be installed.
-        - SV-258090 # RHEL 9 fapolicy module must be enabled. (2 failed)
-        - SV-258091 # RHEL 9 must ensure the password complexity module in the system-auth file is configured for three retries or less.
-        - SV-258092 # RHEL 9 must be configured in the password-auth file to prohibit password reuse for a minimum of five generations.
-        - SV-258093 # RHEL 9 must be configured in the system-auth file to prohibit password reuse for a minimum of five generations.
-        - SV-258094 # RHEL 9 must not allow blank or null passwords.
-        - SV-258095 # RHEL 9 must configure the use of the pam_faillock.so module in the /etc/pam.d/system-auth file. (3 failed)
-        - SV-258096 # RHEL 9 must configure the use of the pam_faillock.so module in the /etc/pam.d/password-auth file. (3 failed)
-        - SV-258099 # RHEL 9 password-auth must be configured to use a sufficient number of hashing rounds.
-        - SV-258100 # RHEL 9 system-auth must be configured to use a sufficient number of hashing rounds.
-        - SV-258105 # RHEL 9 passwords must have a 24 hours minimum password lifetime restriction in /etc/shadow.
-        - SV-258131 # RHEL 9, for PKI-based authentication, must validate certificates by constructing a certification path (which includes status information) to an accepted trust anchor.
-        - SV-258134 # RHEL 9 must have the AIDE package installed. (1 failed)
-        - SV-258137 # RHEL 9 must use cryptographic mechanisms to protect the integrity of audit tools. (10 failed)
-        - SV-258138 # RHEL 9 must be configured so that the file integrity tool verifies Access Control Lists (ACLs). (1 failed)
-        - SV-258139 # RHEL 9 must be configured so that the file integrity tool verifies extended attributes. (1 failed)
-        - SV-258149 # RHEL 9 must be configured to forward audit records via TCP to a different system or media from the system being audited via rsyslog.
-  - name: ubuntu-22
-    driver:
-      image_id: <%= ENV['IMAGE_ID_UBUNTU22'] %>
-    verifier:
-      inspec_tests:
-      - name: ubuntu-22
-        git: https://github.com/mitre/canonical-ubuntu-22.04-lts-stig-baseline.git
-      controls:
-
-# https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#Home:
 suites:
   - name: default
+    includes:
+    - rhel9
+    - amazonlinux-2023
+    - ubuntu-22.04
 
-lifecycle:
-  pre_create:
-    - local: |
-        # Removing the heimdall-lite.sh file if exists
-        echo '[INFO] Removing Existing Heimdall Lite File'
-        rm -f ../scripts/heimdall-lite.sh
-        echo '[INFO] Refreshing Logs'
-        rm -rf spec/results/${KITCHEN_INSTANCE_NAME}
-
-        # Allow Port 12345 for AWS
-        if ! aws ec2 describe-security-groups --region us-east-1 --group-ids sg-07a2d1eb0e54c34c5 --query "SecurityGroups[0].IpPermissions" --output=text | grep -q 12345; then
-          echo "[INFO] Opening AWS Port 12345"
-          aws ec2 authorize-security-group-ingress --region us-east-1 --group-id sg-07a2d1eb0e54c34c5 --protocol tcp --port 12345 --cidr 0.0.0.0/0
-          aws ec2 authorize-security-group-ingress --region us-east-1 --group-id sg-07a2d1eb0e54c34c5 --protocol tcp --port 80 --cidr 0.0.0.0/0
-          aws ec2 authorize-security-group-ingress --region us-east-1 --group-id sg-07a2d1eb0e54c34c5 --protocol tcp --port 443 --cidr 0.0.0.0/0
-        fi
-  pre_converge:
-  - local: |
-      # Generating FIPS Keys
-      KEY_PATH="../keys/fips_key"
-      PUB_KEY_PATH="${KEY_PATH}.pub"
-
-      # Check if the SSH key exists; if not, generate a new one
-      if [ ! -f "$KEY_PATH" ]; then
-        echo "[INFO] SSH key does not exist. Generating new SSH key."
-        ssh-keygen -t rsa -f "$KEY_PATH" -b 2048 -o -a 100 -N ""
-      else
-        echo "[INFO] SSH key already exists."
-      fi
-
-      echo "[INFO] Importing Public Key to SSH Authorized Keys"
-      kitchen exec ${KITCHEN_INSTANCE_NAME} -c "
-        if ! grep -qxF '$(cat $PUB_KEY_PATH)' ~/.ssh/authorized_keys; then
-          echo '[INFO] Public key not found, adding it.'
-          echo '$(cat $PUB_KEY_PATH)' >> ~/.ssh/authorized_keys
-        else
-          echo '[INFO] Public key already present in authorized_keys.'
-        fi"
-      echo "[INFO] SSH key generated and public key loaded."
-  - remote: |
-      if grep -qiE 'redhat|rhel' /etc/os-release; then
-        echo "[INFO] Attempting Red Hat subscription registration..."
-        sudo -i subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[WARN] Registration failed"
-      fi
-  finally_converge:
-    - local: |
-        # Preserving Converge Logs
-        echo "[INFO] Preserving Converge Logs"
-        mkdir -p spec/results/${KITCHEN_INSTANCE_NAME}
-        cp .kitchen/logs/${KITCHEN_INSTANCE_NAME}.log spec/results/${KITCHEN_INSTANCE_NAME}/${KITCHEN_INSTANCE_NAME}_converge.log
-
-        # Preserving Node attributes
-        echo "[INFO] Preserving Attributes"
-        kitchen exec ${KITCHEN_INSTANCE_NAME} -c "sudo cat /tmp/kitchen/nodes/${KITCHEN_INSTANCE_NAME}.json" > /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
-        echo "}" >> /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
-        sed '1d' /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json | jq > spec/results/${KITCHEN_INSTANCE_NAME}/${KITCHEN_INSTANCE_NAME}_attributes.json
-        rm -f /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
-
-        # Copy Heimdall Start Script
-        echo "[INFO] Writing Heimdall Lite Script"
-        kitchen exec ${KITCHEN_INSTANCE_NAME} -c '[ -f /tmp/heimdall-lite.sh ] && less -FX /tmp/heimdall-lite.sh || echo "echo DNE"' > ../scripts/heimdall-lite.sh
-
-        # Copy Zabbix Start Script
-        echo "[INFO] Writing Zabbix Script"
-        kitchen exec ${KITCHEN_INSTANCE_NAME} -c '[ -f /tmp/zabbix-server.sh ] && less -FX /tmp/zabbix-server.sh || echo "echo DNE"' > ../scripts/zabbix-server.sh
-  finally_verify:
-    - local: |
-        # Preserving Verify Logs
-        echo "[INFO] Preserving Verify Logs"
-        mkdir -p spec/results/${KITCHEN_INSTANCE_NAME}
-        cp .kitchen/logs/${KITCHEN_INSTANCE_NAME}.log spec/results/${KITCHEN_INSTANCE_NAME}/${KITCHEN_INSTANCE_NAME}_verify.log
-
-
-# https://kitchen.ci/docs/reference/lifecycle-hooks/
-# lifecycle:
-#   pre_create:
-#   - local: |
-#       rm -f spec/results/${KITCHEN_INSTANCE_NAME}/heimdall-lite.sh
-#   post_create:
-#   - remote: |
-#       echo [INFO] Operating System: $(sed -n 's/^PRETTY_NAME="\([^"]*\)"/\1/p' /etc/os-release)
-#   finally_converge:
-#   - local: |
-#       echo [INFO] Preserving Attributes
-#       kitchen exec ${KITCHEN_INSTANCE_NAME} -c "sudo cat /tmp/kitchen/nodes/${KITCHEN_INSTANCE_NAME}.json" > /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
-#       echo "}" >> /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
-#       sed '1d' /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json | jq > ../cookbook/spec/results/${KITCHEN_INSTANCE_NAME}/${KITCHEN_INSTANCE_NAME}_attributes.json
-#       rm -f /tmp/${KITCHEN_INSTANCE_NAME}_attributes.json
-#
-#       echo [INFO] Preserving Converge Logs
-#       mkdir -p spec/results/${KITCHEN_INSTANCE_NAME}
-#       cp .kitchen/logs/${KITCHEN_INSTANCE_NAME}.log spec/results/${KITCHEN_INSTANCE_NAME}/${KITCHEN_INSTANCE_NAME}_converge.log
-#   finally_verify:
-#   - local: |
-#       echo [INFO] Preserving Verify Logs
-#       mkdir -p spec/results/${KITCHEN_INSTANCE_NAME}
-#       cp .kitchen/logs/${KITCHEN_INSTANCE_NAME}.log spec/results/${KITCHEN_INSTANCE_NAME}/${KITCHEN_INSTANCE_NAME}_verify.log
-#
-  #post_converge:
-  #- local: |
-  #    curl -# -s -F data=@spec/results/${KITCHEN_INSTANCE_NAME}/rhel-9_default.json -F "filename=rhel-9_default.json" -F "public=true" -F "evaluationTags=8438b61,mitre/redhat-enterprise-linux-8-stig-baseline,#DISA Hardened EC2 Testing Matrix,'Supplemental Automation Content v1r12'" -H "Authorization: Api-Key 96d836e4f661fdae4aed5da854af5cc44df77d31401e8554e8b52ea45575cdf05a" "https://heimdall-demo.mitre.org/evaluations"
+#lifecycle:
+#  post_destroy:
+#  - local: |
+#      echo "[INFO] Closing Port 12345"
+#      kill -9 $(lsof -i :12345 -t)
+#  post_create:
+#  - local: |
+#      echo "[INFO] Generating FIPS Key"
+#      mkdir -m 700 -p keys
+#      ssh-keygen -t ed25519 -f keys/fips_key -o -a 100 -N ""
+#      #chmod g-rwx,o-rwx keys/*
+#      #yq eval '.ssh_key = "keys/fips_key"' -i .kitchen/default-rhel-9.yml
+#      export PUB_KEY=$(cat keys/fips_key.pub)
+#  - remote: |
+#      echo "[INFO] Importing Public Key to SSH Authorized Keys"
+#      echo "<%= ENV['PUB_KEY'] %>" >> ~/.ssh/authorized_keys
+#      echo "[INFO] Attempting Red Hat subscription registration..."
+#      sudo -i subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[WARN] Registration failed"
+#      echo "[INFO] Updating Packages..."
+#      sudo -i yum -y update || echo "[WARN] Failed to update packages"
+#      #dnf -y update --quiet --progressbar=plain #tty
