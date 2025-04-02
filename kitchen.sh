@@ -3,21 +3,21 @@
 # Prerequisites
 
 # https://cinc.sh/start/client/
-if [ ! -d /opt/cinc ]; then
+if [ ! -d /opt/cinc || ! -d /opt/chef ]; then
   curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -v 18 | sudo bash
 else
   echo "CINC Client already exists, skipping installation."
 fi
 
 # https://cinc.sh/start/auditor/
-if [ ! -d /opt/cinc-auditor ]; then
+if [ ! -d /opt/cinc-auditor || ! -f /opt/chef-workstation/bin/inspec ]; then
   curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-auditor -v 6
 else
   echo "CINC Auditor already exists, skipping installation."
 fi
 
 # https://cinc.sh/start/workstation/
-if [ ! -d /opt/cinc-workstation ]; then
+if [ ! -d /opt/cinc-workstation || ! -d /opt/chef-workstation ]; then
   curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-workstation -v 24
 else
   echo "CINC Workstation already exists, skipping installation."
