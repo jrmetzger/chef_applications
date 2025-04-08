@@ -6,7 +6,7 @@
 #
 # Copyright:: 2025, The Authors, All Rights Reserved.
 
-pv_name = node['cookbook']['harden']['mount_settings']['pv_name']
+# pv_name = node['cookbook']['harden']['mount_settings']['pv_name']
 lv_name = node['cookbook']['harden']['mount_settings']['lv_name']
 lv_size = node['cookbook']['harden']['mount_settings']['lv_size']
 
@@ -53,16 +53,16 @@ node['cookbook']['harden']['controls']['mount'].each do |name, control|
 end
 
 # Execute 'pvcreate' for the specified volume group, only if the physical volume isn't already created
-#execute "pvcreate #{pv_name}" do
+# execute "pvcreate #{pv_name}" do
 #  command "pvcreate #{pv_name}"
 #  not_if "pvscan | grep -q '#{pv_name}'" # Prevent running if the physical volume already exists
-#end
+# end
 
 # Execute 'vgcreate' for the specified logical volume name and volume group, only if the volume group doesn't already exist
-#execute "vgcreate #{lv_name} #{pv_name}" do
+# execute "vgcreate #{lv_name} #{pv_name}" do
 #  command "vgcreate #{lv_name} #{pv_name}"
 #  not_if "vgs | grep -q '#{lv_name}'" # Prevent running if the volume group already exists
-#end
+# end
 
 # Iterate over each mount point and create logical volumes, backup, and mount
 mount_points.each do |name, control|

@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-supported_arches = %w(32 64)
+supported_arches = %w(32) # 64)
 default['cookbook']['harden']['controls']['audit'].tap do |control|
   control['active'].tap do |configuration|
     configuration['managed'] = true

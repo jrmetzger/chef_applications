@@ -1,6 +1,15 @@
 ---
-#driver:
-#  name: vagrant
+driver:
+  name: vagrant
+
+#driver_config:
+#  network:
+#  - [
+#      "forwarded_port", {
+#        guest: 12345, # May Need to Change This
+#        host: 12345 # DO NOT CHANGE THIS. MUST MATCH WHAT IS IN ATTRIBUTES
+#      }
+#    ]
 
 verifier:
   name: inspec
@@ -8,58 +17,76 @@ verifier:
   reporter:
     - cli
     - json:spec/results/%{platform}_%{suite}.json
-  inspec_tests:
-    - name: rhel9
-      git: https://github.com/mitre/redhat-enterprise-linux-9-stig-baseline.git
 
-# provisioner:
-#   name: chef_zero
-#   product_name: cinc
-#   product_version: latest
-# 
-# platforms:
-# # https://portal.cloud.hashicorp.com/vagrant/discover
-#   - name: rhel-9
-#     driver:
-#     # 32 arch
-#       box: "generic/rhel9"
-#       provider: qemu
-#       architecture: arm64
-#     # TODO: Heimdall ec2...
-#     driver_config:
-#       network:
-#       - [
-#           "forwarded_port", {
-#             guest: 12345, # May Need to Change This
-#             host: 12345 # DO NOT CHANGE THIS. MUST MATCH WHAT IS IN ATTRIBUTES
-#           }
-#         ]
+provisioner:
+  name: chef_zero
+  product_name: cinc
+  product_version: latest
+
+# https://portal.cloud.hashicorp.com/vagrant/discover
+platforms:
+  - name: rhel-8
+    driver:
+      box: generic/rhel8
+    verifier:
+      inspec_tests:
+      - name: rhel8
+        git: https://github.com/mitre/redhat-enterprise-linux-8-stig-baseline.git
+  - name: rhel-9
+    driver:
+      box: generic/rhel9
+    verifier:
+      inspec_tests:
+      - name: rhel9
+        git: https://github.com/mitre/redhat-enterprise-linux-9-stig-baseline.git
+      input_files:
+      - compliance/inputs/rhel-9_stig.yml
+      waiver_files:
+      - compliance/waivers/rhel-9_stig.yml
+  - name: bduguid/amazonlinux-2
+  - name: amazonlinux-2023
+    driver:
+      box: bduguid/amazonlinux-2023
+  - name: ubuntu20
+    driver:
+      box:  bento/ubuntu-20.04
+  - name: ubuntu22
+    driver:
+      box: bento/ubuntu-22.04
+  #- name:bento/ubuntu-24.04
 
 suites:
   - name: default
     includes:
-    - rhel9
+    - rhel-8
+    - rhel-9
     - amazonlinux-2023
     - ubuntu-22.04
 
-#lifecycle:
-#  post_destroy:
-#  - local: |
-#      echo "[INFO] Closing Port 12345"
-#      kill -9 $(lsof -i :12345 -t)
-#  post_create:
-#  - local: |
-#      echo "[INFO] Generating FIPS Key"
-#      mkdir -m 700 -p keys
-#      ssh-keygen -t ed25519 -f keys/fips_key -o -a 100 -N ""
-#      #chmod g-rwx,o-rwx keys/*
-#      #yq eval '.ssh_key = "keys/fips_key"' -i .kitchen/default-rhel-9.yml
-#      export PUB_KEY=$(cat keys/fips_key.pub)
-#  - remote: |
-#      echo "[INFO] Importing Public Key to SSH Authorized Keys"
-#      echo "<%= ENV['PUB_KEY'] %>" >> ~/.ssh/authorized_keys
-#      echo "[INFO] Attempting Red Hat subscription registration..."
-#      sudo -i subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[WARN] Registration failed"
-#      echo "[INFO] Updating Packages..."
-#      sudo -i yum -y update || echo "[WARN] Failed to update packages"
-#      #dnf -y update --quiet --progressbar=plain #tty
+lifecycle:
+  # pre_destroy:
+  # - local: |
+  # for i in $(vagrant global-status | awk '{print $1}' | grep ${KITCHEN_INSTANCE_NAME}); do vagrant destroy -f $i 2>/dev/null; done
+  # for i in $(vagrant global-status | awk '{print $1}'); do vagrant destroy -f $i 2>/dev/null; done
+  post_destroy:
+  - local: |
+      echo "[INFO] Closing Port 12345"
+      #kill -9 $(lsof -i :12345 -t)
+  post_create:
+  - local: |
+      echo [INFO] Setting up Keys Area...
+      mkdir -m 700 -p .keys
+      rm -f .keys/${KITCHEN_INSTANCE_NAME}_fips_key
+      echo "[INFO] Generating FIPS Key..."
+      ssh-keygen -t rsa -b 4096 -f .keys/${KITCHEN_INSTANCE_NAME}_fips_key -o -a 100 -N "" -C "stig_test_kitchen" >/dev/null 2>&1
+      chmod g-rwx,o-rwx .keys/*
+      echo "[INFO] Updating Pub Key to use FIPS Key Authorization..."
+      kitchen exec ${KITCHEN_INSTANCE_NAME} -c "echo $(cat .keys/${KITCHEN_INSTANCE_NAME}_fips_key.pub) >> ~/.ssh/authorized_keys"
+      echo "[INFO] Updating Priv Key to use FIPS Key Credentials..."
+      #yq eval '.ssh_key = ".keys/${KITCHEN_INSTANCE_NAME}_fips_key"' -i .kitchen/${KITCHEN_INSTANCE_NAME}.yml
+  - remote: |
+      echo "[INFO] Attempting Red Hat subscription registration..."
+      sudo -i subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[CRIT] Registration failed"
+      echo "[INFO] Updating Packages..."
+      #sudo -i yum -y update || echo "[WARN] Failed to update packages"
+      #dnf -y update --quiet --progressbar=plain #tty
