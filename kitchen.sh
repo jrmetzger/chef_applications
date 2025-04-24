@@ -9,21 +9,24 @@ chef_default_provider='qemu'
 # Prerequisites
 
 # https://cinc.sh/start/client/
-if [[ ! (-d /opt/cinc || -d /opt/chef) ]]; then
-  echo "[INFO] Installing Chef"
-  sudo curl -L https://omnitruck.cinc.sh/install.sh | bash -s -- -v $chef_client_version
+if [[ ! -d /opt/cinc || ! -d /opt/chef ]]; then
+  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -v 18
+else
+  echo "CINC Client already exists, skipping installation."
 fi
 
 # https://cinc.sh/start/auditor/
-if [[ ! (-d /opt/cinc-auditor || -f /opt/chef-workstation/bin/inspec) ]]; then
-  echo "[INFO] Installing Chef Auditor"
-  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-auditor -v $chef_auditor_version
+if [[ ! -d /opt/cinc-auditor || ! -f /opt/chef-workstation/bin/inspec ]]; then
+  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-auditor -v 6
+else
+  echo "CINC Auditor already exists, skipping installation."
 fi
 
 # https://cinc.sh/start/workstation/
-if [[ ! (-d /opt/cinc-workstation || -d /opt/chef-workstation) ]]; then
-  echo "[INFO] Installing Chef Workstation"
-  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-workstation -v $chef_workstation_version
+if [[ ! -d /opt/cinc-workstation || ! -d /opt/chef-workstation ]]; then
+  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-workstation -v 24
+else
+  echo "CINC Workstation already exists, skipping installation."
 fi
 
 # https://cinc.sh/start/server/
@@ -36,9 +39,17 @@ fi
 # Install VMware Fusion
 
 # PATH
+export VAGRANT_DEFAULT_PROVIDER=$chef_default_provider
+# brew list --cask | grep -q awscli || { echo "AWS Cli not found, installing..."; brew install awscli; }
+
+# GEMS
+# test -f "cookbook/Gemfile.lock" || { echo "Gemfile Lock not found, installing..."; (cd cookbook && bundle install); }
+
+# PATH
+# export PATH="/opt/chef-workstation/bin:~/.chef/gem/ruby/3.1.0/bin:/opt/cinc-auditor/bin:/opt/cinc-workstation/bin:/opt/cinc-workstation/embedded/bin:$PATH"
 export PATH="/opt/homebrew/opt/ruby@3.4/bin/:/opt/cinc-auditor/bin:/opt/cinc-workstation/bin:/opt/cinc-workstation/embedded/bin:$PATH"
 # export PATH="/opt/chef-workstation/bin:/opt/chef-workstation/embedded/bin:$PATH"
-export VAGRANT_DEFAULT_PROVIDER=$chef_default_provider
+#export PATH="/opt/cinc-auditor/bin:/opt/cinc-workstation/bin:/opt/cinc-workstation/embedded/bin:$PATH"
 
 # GEMS
 #test -f "cookbook/Gemfile.lock" || { echo "Gemfile Lock not found, installing..."; (cd cookbook && bundle install); }
@@ -71,6 +82,12 @@ run_kitchen() {
 }
 
 run_cookstyle() {
+  #(cd cookbook && bundle exec kitchen "$@" --concurrency=2) # -l debug)
+  (cd cookbook && kitchen "$@") #--concurrency=2) # -l debug)
+}
+
+run_cookstyle() {
+  #(cd cookbook && bundle exec cookstyle -a)
   (cd cookbook && cookstyle -a)
 }
 

@@ -1,5 +1,1 @@
 # applications
-
-# Redhat
-
-# Amazon AWS
