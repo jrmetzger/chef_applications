@@ -61,6 +61,21 @@ default['cookbook']['harden']['controls']['sysctl'].tap do |control|
     configuration['title'] = 'SV-257942: RHEL 9 must enable hardening for the Berkeley Packet Filter just-in-time compiler.'
     configuration['value'] = '2'
   end
+  control['net.ipv4.tcp_syncookies'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257957: RHEL 9 must be configured to use TCP syncookies.'
+    configuration['value'] = '0'
+  end
+  control['net.ipv4.conf.all.accept_redirects'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257958: RHEL 9 must ignore Internet Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP) redirect messages.'
+    configuration['value'] = '0'
+  end
+  control['net.ipv4.conf.all.accept_source_route'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257959: RHEL 9 must not forward Internet Protocol version 4 (IPv4) source-routed packets.'
+    configuration['value'] = '0'
+  end
   control['net.ipv4.conf.all.log_martians'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-257960: RHEL 9 must log IPv4 packets with impossible addresses.'
@@ -134,7 +149,7 @@ default['cookbook']['harden']['controls']['sysctl'].tap do |control|
   control['net.ipv6.conf.default.accept_ra'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] = 'SV-257975: RHEL 9 must not accept router advertisements on all IPv6 interfaces by default.'
-    configuration['value'] = '1'
+    configuration['value'] = '0'
   end
   control['net.ipv6.conf.default.accept_redirects'].tap do |configuration|
     configuration['managed'] = true
