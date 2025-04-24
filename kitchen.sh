@@ -4,7 +4,7 @@
 
 # https://cinc.sh/start/client/
 if [ ! -d /opt/cinc || ! -d /opt/chef ]; then
-  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -v 18 | sudo bash
+  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -v 18
 else
   echo "CINC Client already exists, skipping installation."
 fi
