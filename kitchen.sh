@@ -87,7 +87,7 @@ run_kitchen() {
 run_cookstyle() {
   #(cd cookbook && bundle exec kitchen "$@" --concurrency=2) # -l debug)
   (cd cookbook && kitchen "$@") #--concurrency=2) # -l debug)
-  #(cd cookbook && kitchen "$@" | grep -v '(up to date)' | grep -v '(skipped due to .*)'  #--concurrency=2) # -l debug)
+  #(cd cookbook && kitchen "$@" | grep -v '(up to date)' | grep -v '(skipped due to .*)'  c#--concurrency=2) # -l debug)
 }
 
 run_cookstyle() {
