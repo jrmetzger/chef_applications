@@ -4,27 +4,33 @@
 default['cookbook']['harden']['controls']['mount'].tap do |control|
   control['autofs'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257850: RHEL 9 must prevent device files from being interpreted on file systems that contain user home directories.'
+    configuration['title'] =
+      'SV-257850: RHEL 9 must prevent device files from being interpreted on file systems that contain user home directories.'
   end
   control['/home-nodev'].tap do |configuration|
     configuration['managed'] = false
-    configuration['title'] = 'SV-257850: RHEL 9 must prevent device files from being interpreted on file systems that contain user home directories.'
+    configuration['title'] =
+      'SV-257850: RHEL 9 must prevent device files from being interpreted on file systems that contain user home directories.'
   end
   control['/home-nosuid'].tap do |configuration|
     configuration['managed'] = false
-    configuration['title'] = 'SV-257851: RHEL 9 must prevent files with the setuid and setgid bit set from being executed on file systems that contain user home directories.'
+    configuration['title'] =
+      'SV-257851: RHEL 9 must prevent files with the setuid and setgid bit set from being executed on file systems that contain user home directories.'
   end
   control['/home-noexec'].tap do |configuration|
     configuration['managed'] = false
-    configuration['title'] = 'SV-257852: RHEL 9 must prevent code from being executed on file systems that contain user home directories.'
+    configuration['title'] =
+      'SV-257852: RHEL 9 must prevent code from being executed on file systems that contain user home directories.'
   end
   control['/boot-suid'].tap do |configuration|
     configuration['managed'] = false
-    configuration['title'] = 'SV-257861: RHEL 9 must prevent files with the setuid and setgid bit set from being executed on the /boot directory.'
+    configuration['title'] =
+      'SV-257861: RHEL 9 must prevent files with the setuid and setgid bit set from being executed on the /boot directory.'
   end
   control['/boot/efi-suid'].tap do |configuration|
     configuration['managed'] = false
-    configuration['title'] = 'SV-257862: RHEL 9 must prevent files with the setuid and setgid bit set from being executed on the /boot/efi directory.'
+    configuration['title'] =
+      'SV-257862: RHEL 9 must prevent files with the setuid and setgid bit set from being executed on the /boot/efi directory.'
   end
   control['/dev/shm-nodev'].tap do |configuration|
     configuration['managed'] = true

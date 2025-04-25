@@ -11,7 +11,7 @@ node['cookbook']['harden']['controls']['chrony'].each do |name, control|
 
   replace_or_add control['title'] do
     path '/etc/chrony.conf'
-    pattern /"^#{name}"/
+    pattern(/"^#{name}"/)
     line "#{name} #{control['value']}"
   end
 end

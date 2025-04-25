@@ -22,7 +22,7 @@ node['cookbook']['harden']['controls']['rsyslog'].each do |name, control|
     values.each do |value|
       replace_or_add control['title'] do
         path '/etc/rsyslog.conf'
-        pattern /"#{name}"/
+        pattern(/"#{name}"/)
         line "#{name} #{value}"
       end
     end

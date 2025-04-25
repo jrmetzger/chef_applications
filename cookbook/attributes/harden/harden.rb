@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 default['cookbook']['harden']['standard'] = 'stig'
 # default['cookbook']['harden']['override_control_groups'] = %w(

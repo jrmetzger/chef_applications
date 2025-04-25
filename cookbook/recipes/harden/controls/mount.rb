@@ -96,7 +96,8 @@ mount_points.each do |name, control|
       command "lvcreate -L #{lv_size} -n #{lv_title} #{lv_name}"
       not_if "lvdisplay #{lv_name}/#{lv_title}"
       notifies :run, "execute[Backup Mount Point #{name}]", :before
-      notifies :run, "execute[Create File System: #{control['fstype']} for '/dev/mapper/#{lv_name}-#{lv_title}']", :immediately
+      notifies :run, "execute[Create File System: #{control['fstype']} for '/dev/mapper/#{lv_name}-#{lv_title}']",
+               :immediately
       notifies :mount, "mount[#{control['title']}]", :immediately
       notifies :enable, "mount[#{control['title']}]", :immediately
       notifies :run, "execute[Restore Mount Point #{name}]", :immediately
@@ -144,6 +145,6 @@ mount_points.each do |name, control|
     pass 0
     options "defaults,#{control['options'].join(',')}"
     supports(remount: true)
-    action [:remount, :enable]
+    action %i(remount enable)
   end
 end

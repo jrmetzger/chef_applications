@@ -25,14 +25,14 @@ provisioner:
 
 # https://portal.cloud.hashicorp.com/vagrant/discover
 platforms:
-  - name: rhel-8
+  - name: rhel8
     driver:
       box: generic/rhel8
     verifier:
       inspec_tests:
       - name: rhel8
         git: https://github.com/mitre/redhat-enterprise-linux-8-stig-baseline.git
-  - name: rhel-9
+  - name: rhel9
     driver:
       box: generic/rhel9
     verifier:
@@ -43,6 +43,7 @@ platforms:
       - compliance/inputs/rhel-9_stig.yml
       waiver_files:
       - compliance/waivers/rhel-9_stig.yml
+      - compliance/waivers/stig_reboot.yml
   - name: bduguid/amazonlinux-2
   - name: amazonlinux-2023
     driver:
@@ -58,8 +59,8 @@ platforms:
 suites:
   - name: default
     includes:
-    - rhel-8
-    - rhel-9
+    - rhel8
+    - rhel9
     - amazonlinux-2023
     - ubuntu-22.04
 
@@ -72,6 +73,12 @@ lifecycle:
   - local: |
       echo "[INFO] Closing Port 12345"
       #kill -9 $(lsof -i :12345 -t)
+      echo "[INFO] Killing Virtual Box VM"
+      VBoxManage unregistervm "$(VBoxManage list vms | grep ${KITCHEN_INSTANCE_NAME} | awk -F'[{}]' '{print $2}')" --delete
+      echo "[INFO] Pruning Vagrant"
+      vagrant global-status --prune
+      #vagrant reload
+      # vagrant destroy -f
   post_create:
   - local: |
       echo [INFO] Setting up Keys Area...
@@ -83,10 +90,12 @@ lifecycle:
       echo "[INFO] Updating Pub Key to use FIPS Key Authorization..."
       kitchen exec ${KITCHEN_INSTANCE_NAME} -c "echo $(cat .keys/${KITCHEN_INSTANCE_NAME}_fips_key.pub) >> ~/.ssh/authorized_keys"
       echo "[INFO] Updating Priv Key to use FIPS Key Credentials..."
-      #yq eval '.ssh_key = ".keys/${KITCHEN_INSTANCE_NAME}_fips_key"' -i .kitchen/${KITCHEN_INSTANCE_NAME}.yml
+      yq eval ".ssh_key = \".keys/${KITCHEN_INSTANCE_NAME}_fips_key\"" -i .kitchen/${KITCHEN_INSTANCE_NAME}.yml
   - remote: |
       echo "[INFO] Attempting Red Hat subscription registration..."
       sudo -i subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[CRIT] Registration failed"
       echo "[INFO] Updating Packages..."
       #sudo -i yum -y update || echo "[WARN] Failed to update packages"
       #dnf -y update --quiet --progressbar=plain #tty
+      echo "[INFO] Stopping Insights Client"
+      sudo systemctl stop insights-client

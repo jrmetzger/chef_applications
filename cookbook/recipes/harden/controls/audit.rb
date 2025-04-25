@@ -19,6 +19,7 @@ node['cookbook']['harden']['controls']['audit'].each do |name, control|
 
   # Configuration
   next unless control['value']
+
   pattern = "^#{name} = .*"
   line = "#{name} = #{control['value']}"
   replace_or_add control['title'] do

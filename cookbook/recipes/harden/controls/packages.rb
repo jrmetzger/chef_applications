@@ -29,12 +29,12 @@ node['cookbook']['harden']['controls']['packages'].each do |name, control|
     line = "#{key}=#{control['value']}"
     replace_or_add control['title'] do
       path '/etc/dnf/dnf.conf'
-      pattern /^#{key}/
+      pattern(/^#{key}/)
       line line
     end
     next
 
-  when 'usbguard', 'fapolicyd'
+  when 'usbguard', 'fapolicyd', 'rsyslog'
     service_name = name
     package_name = name
   when 'EndpointSecurity'

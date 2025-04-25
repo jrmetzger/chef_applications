@@ -9,22 +9,25 @@ chef_default_provider='qemu'
 # Prerequisites
 
 # https://cinc.sh/start/client/
-if [[ ! -d /opt/cinc || ! -d /opt/chef ]]; then
-  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -v 18
+if [[ ! (-d /opt/cinc || -d /opt/chef) ]]; then
+  echo "Installing CINC Client..."
+  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -v ${chef_client_version}
 else
   echo "CINC Client already exists, skipping installation."
 fi
 
 # https://cinc.sh/start/auditor/
-if [[ ! -d /opt/cinc-auditor || ! -f /opt/chef-workstation/bin/inspec ]]; then
-  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-auditor -v 6
+if [[ ! (-d /opt/cinc-auditor || -f /opt/chef-workstation/bin/inspec) ]]; then
+  echo "Installing CINC Auditor..."
+  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-auditor -v ${chef_auditor_version}
 else
   echo "CINC Auditor already exists, skipping installation."
 fi
 
 # https://cinc.sh/start/workstation/
-if [[ ! -d /opt/cinc-workstation || ! -d /opt/chef-workstation ]]; then
-  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-workstation -v 24
+if [[ ! (-d /opt/cinc-workstation || -d /opt/chef-workstation) ]]; then
+  echo "Installing CINC Workstation..."
+  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-workstation -v ${chef_workstation_version}
 else
   echo "CINC Workstation already exists, skipping installation."
 fi

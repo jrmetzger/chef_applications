@@ -8,6 +8,7 @@
 
 node['cookbook']['harden']['controls']['systemd'].each do |name, control|
   next unless control['managed']
+
   stanza, key = name.split('.')
 
   case stanza
@@ -28,7 +29,7 @@ node['cookbook']['harden']['controls']['systemd'].each do |name, control|
     line = "#{key}=#{control['value']}"
     replace_or_add control['title'] do
       path "/etc/systemd/#{fname}.conf"
-      pattern /(^|#)#{key}/
+      pattern(/(^|#)#{key}/)
       line line
     end
   else
