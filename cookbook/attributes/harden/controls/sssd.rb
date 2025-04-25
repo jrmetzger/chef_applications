@@ -8,7 +8,7 @@ default['cookbook']['harden']['controls']['sssd'].tap do |control|
     configuration['source'] = 'https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip'
   end
   control['pki_authentication'].tap do |configuration|
-    configuration['managed'] = false
+    configuration['managed'] = true
     configuration['title'] =
       'SV-258132: RHEL 9 must map the authenticated identity to the user or group account for PKI-based authentication.'
     configuration['domain'] = 'testing.test'

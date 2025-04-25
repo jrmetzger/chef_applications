@@ -40,6 +40,7 @@ node['cookbook']['harden']['controls']['sssd'].each do |name, control|
       mode '0600'
       variables(domain: control['domain'])
     end
+    # sudo rm -rf /var/lib/sss/db/*
     service 'sssd' do
       action :restart
     end
