@@ -1,5 +1,9 @@
 #!/bin/bash
 
+install_script='https://omnitruck.chef.io/install.sh'
+install_script='https://omnitruck.cinc.sh/install.sh'
+
+
 chef_client_version=18
 chef_auditor_version=6
 chef_workstation_version=24
