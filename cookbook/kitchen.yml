@@ -37,6 +37,11 @@ platforms:
 
   # Redhat 9
   - name: rhel9
+    attributes:
+      cookbook:
+        harden:
+          override_control_groups:
+          #- sshd
     driver:
       box: generic/rhel9
     verifier:

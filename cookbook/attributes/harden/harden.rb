@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 default['cookbook']['harden']['standard'] = 'stig'
-# default['cookbook']['harden']['override_control_groups'] = %w(
-#  packages
-# )
+default['cookbook']['harden']['override_control_groups'] = %w()
 
 default['cookbook']['harden']['mount_settings'].tap do |mount_settings|
   mount_settings['pv_name'] = '/dev/mapper'
@@ -20,6 +18,7 @@ default['cookbook']['harden']['control_groups'].tap do |control_groups|
   control_groups['mount'] = true
   control_groups['packages'] = true
   control_groups['pamd'] = true
+  control_groups['permissions'] = true
   control_groups['rsyslog'] = true
   control_groups['security'] = true
   control_groups['selinux'] = true
