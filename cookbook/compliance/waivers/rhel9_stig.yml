@@ -29,6 +29,3 @@ SV-258189:
 SV-258226:
   run: false
   justification: Not Working - RHEL 9 must generate audit records for all account creations, modifications, disabling, and termination events that affect /var/log/tallylog.
-SV-258229:
-  run: false
-  justification: Do this last, requires reboot - RHEL 9 audit system must protect auditing rules from unauthorized change.

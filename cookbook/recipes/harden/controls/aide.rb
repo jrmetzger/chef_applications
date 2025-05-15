@@ -24,12 +24,6 @@ node['cookbook']['harden']['controls']['aide'].each do |name, control|
       delim ['']
       entry "+#{name}"
     end
-    add_to_list 'add entry to a list' do
-      path '/some/file'
-      pattern 'People to call: '
-      delim [',']
-      entry 'Bobby'
-    end
   else
     control['values'].each do |value|
       append_if_no_line control['title'] do

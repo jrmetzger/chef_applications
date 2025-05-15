@@ -1,5 +1,9 @@
 # frozen_string_literal: false
 
+# Must be commented out!
+# /etc/pam.d/sshd
+# #account    required     pam_nologin.so
+
 default['cookbook']['harden']['controls']['pamd'].tap do |control|
   control[''].tap do |configuration|
     configuration['managed'] = false

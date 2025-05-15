@@ -11,6 +11,11 @@ default['cookbook']['harden']['controls']['audit'].tap do |control|
     configuration['path'] = '/etc/audit/plugins.d/syslog.conf'
     configuration['value'] = 'yes'
   end
+  control['auditd'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] =
+      'SV-258152: RHEL 9 audit service must be enabled.'
+  end
   control['disk_error_action'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] =

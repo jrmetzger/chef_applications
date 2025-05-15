@@ -12,6 +12,11 @@ node['cookbook']['harden']['controls']['rsyslog'].each do |name, control|
   case name
   when 'rsyslog-gnutls'
     package name
+  when 'rsyslog'
+    service control['title'] do
+      service_name 'rsyslog'
+      action [:enable, :start]
+    end
   when 'monitored', 'Forward_Audit_Records'
     append_if_no_line control['title'] do
       path '/etc/rsyslog.conf'

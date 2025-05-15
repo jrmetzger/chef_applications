@@ -6,6 +6,11 @@ default['cookbook']['harden']['controls']['rsyslog'].tap do |control|
     configuration['title'] =
       'SV-258141: RHEL 9 must have the packages required for encrypting offloaded audit logs installed.'
   end
+  control['rsyslog'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] =
+      'SV-258142: The rsyslog service on RHEL 9 must be active.'
+  end
   control['$ModLoad'].tap do |configuration|
     configuration['managed'] = true
     configuration['title'] =
