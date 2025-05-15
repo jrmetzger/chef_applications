@@ -23,12 +23,14 @@ default['cookbook']['harden']['controls']['sysctl'].tap do |control|
   end
   control['fs.protected_hardlinks'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257801: RHEL 9 must enable kernel parameters to enforce discretionary access control on hardlinks.'
+    configuration['title'] =
+      'SV-257801: RHEL 9 must enable kernel parameters to enforce discretionary access control on hardlinks.'
     configuration['value'] = '1'
   end
   control['fs.protected_symlinks'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257802: RHEL 9 must enable kernel parameters to enforce discretionary access control on symlinks.'
+    configuration['title'] =
+      'SV-257802: RHEL 9 must enable kernel parameters to enforce discretionary access control on symlinks.'
     configuration['value'] = '1'
   end
   control['kernel.core_pattern'].tap do |configuration|
@@ -38,12 +40,14 @@ default['cookbook']['harden']['controls']['sysctl'].tap do |control|
   end
   control['kernel.randomize_va_space'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257809: RHEL 9 must implement address space layout randomization (ASLR) to protect its memory from unauthorized code execution.'
+    configuration['title'] =
+      'SV-257809: RHEL 9 must implement address space layout randomization (ASLR) to protect its memory from unauthorized code execution.'
     configuration['value'] = '2'
   end
   control['kernel.unprivileged_bpf_disabled'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257810: RHEL 9 must disable access to network bpf system call from nonprivileged processes.'
+    configuration['title'] =
+      'SV-257810: RHEL 9 must disable access to network bpf system call from nonprivileged processes.'
     configuration['value'] = '1'
   end
   control['kernel.yama.ptrace_scope'].tap do |configuration|
@@ -58,8 +62,26 @@ default['cookbook']['harden']['controls']['sysctl'].tap do |control|
   end
   control['net.core.bpf_jit_harden'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257942: RHEL 9 must enable hardening for the Berkeley Packet Filter just-in-time compiler.'
+    configuration['title'] =
+      'SV-257942: RHEL 9 must enable hardening for the Berkeley Packet Filter just-in-time compiler.'
     configuration['value'] = '2'
+  end
+  control['net.ipv4.tcp_syncookies'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'SV-257957: RHEL 9 must be configured to use TCP syncookies.'
+    configuration['value'] = '0'
+  end
+  control['net.ipv4.conf.all.accept_redirects'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] =
+      'SV-257958: RHEL 9 must ignore Internet Protocol version 4 (IPv4) Internet Control Message Protocol (ICMP) redirect messages.'
+    configuration['value'] = '0'
+  end
+  control['net.ipv4.conf.all.accept_source_route'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] =
+      'SV-257959: RHEL 9 must not forward Internet Protocol version 4 (IPv4) source-routed packets.'
+    configuration['value'] = '0'
   end
   control['net.ipv4.conf.all.log_martians'].tap do |configuration|
     configuration['managed'] = true
@@ -78,22 +100,26 @@ default['cookbook']['harden']['controls']['sysctl'].tap do |control|
   end
   control['net.ipv4.conf.default.accept_redirects'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257963: RHEL 9 must prevent IPv4 Internet Control Message Protocol (ICMP) redirect messages from being accepted.'
+    configuration['title'] =
+      'SV-257963: RHEL 9 must prevent IPv4 Internet Control Message Protocol (ICMP) redirect messages from being accepted.'
     configuration['value'] = '0'
   end
   control['net.ipv4.conf.default.rp_filter'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257965: RHEL 9 must use a reverse-path filter for IPv4 network traffic when possible by default.'
+    configuration['title'] =
+      'SV-257965: RHEL 9 must use a reverse-path filter for IPv4 network traffic when possible by default.'
     configuration['value'] = '1'
   end
   control['net.ipv4.icmp_echo_ignore_broadcasts'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257966: RHEL 9 must not respond to Internet Control Message Protocol (ICMP) echoes sent to a broadcast address.'
+    configuration['title'] =
+      'SV-257966: RHEL 9 must not respond to Internet Control Message Protocol (ICMP) echoes sent to a broadcast address.'
     configuration['value'] = '1'
   end
   control['net.ipv4.icmp_ignore_bogus_error_responses'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257967: RHEL 9 must limit the number of bogus Internet Control Message Protocol (ICMP) response errors logs.'
+    configuration['title'] =
+      'SV-257967: RHEL 9 must limit the number of bogus Internet Control Message Protocol (ICMP) response errors logs.'
     configuration['value'] = '1'
   end
   control['net.ipv4.conf.all.send_redirects'].tap do |configuration|
@@ -103,7 +129,8 @@ default['cookbook']['harden']['controls']['sysctl'].tap do |control|
   end
   control['net.ipv4.conf.default.send_redirects'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257969: RHEL 9 must not allow interfaces to perform Internet Control Message Protocol (ICMP) redirects by default.'
+    configuration['title'] =
+      'SV-257969: RHEL 9 must not allow interfaces to perform Internet Control Message Protocol (ICMP) redirects by default.'
     configuration['value'] = '0'
   end
   control['net.ipv4.conf.all.forwarding'].tap do |configuration|
@@ -118,7 +145,8 @@ default['cookbook']['harden']['controls']['sysctl'].tap do |control|
   end
   control['net.ipv6.conf.all.accept_redirects'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257972: RHEL 9 must ignore IPv6 Internet Control Message Protocol (ICMP) redirect messages.'
+    configuration['title'] =
+      'SV-257972: RHEL 9 must ignore IPv6 Internet Control Message Protocol (ICMP) redirect messages.'
     configuration['value'] = '0'
   end
   control['net.ipv6.conf.all.accept_source_route'].tap do |configuration|
@@ -133,12 +161,14 @@ default['cookbook']['harden']['controls']['sysctl'].tap do |control|
   end
   control['net.ipv6.conf.default.accept_ra'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257975: RHEL 9 must not accept router advertisements on all IPv6 interfaces by default.'
-    configuration['value'] = '1'
+    configuration['title'] =
+      'SV-257975: RHEL 9 must not accept router advertisements on all IPv6 interfaces by default.'
+    configuration['value'] = '0'
   end
   control['net.ipv6.conf.default.accept_redirects'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257976: RHEL 9 must prevent IPv6 Internet Control Message Protocol (ICMP) redirect messages from being accepted.'
+    configuration['title'] =
+      'SV-257976: RHEL 9 must prevent IPv6 Internet Control Message Protocol (ICMP) redirect messages from being accepted.'
     configuration['value'] = '0'
   end
   control['net.ipv6.conf.default.accept_source_route'].tap do |configuration|

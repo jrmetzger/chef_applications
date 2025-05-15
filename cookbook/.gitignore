@@ -22,3 +22,6 @@ Berksfile.lock
 Policyfile.lock.json
 
 .idea/
+
+## Keys
+cookbook/.keys/**

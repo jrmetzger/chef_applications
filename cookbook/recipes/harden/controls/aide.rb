@@ -15,7 +15,14 @@ node['cookbook']['harden']['controls']['aide'].each do |name, control|
     package 'aide'
     execute 'Initialize AIDE Database' do
       command 'aide --init'
-      not_if { ::File.exist?('/var/lib/aide/aide.db.gz ') }
+      not_if { ::File.exist?('/var/lib/aide/aide.db.gz') }
+    end
+  when 'acl', 'xattrs'
+    add_to_list control['title'] do
+      path '/etc/aide.conf'
+      pattern '.*CONTENT$'
+      delim ['']
+      entry "+#{name}"
     end
   else
     control['values'].each do |value|

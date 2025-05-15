@@ -10,7 +10,8 @@ node.override['cookbook']['harden']['controls'].each do |_group, controls|
   controls['audit'].tap do |control|
     control['active'].tap do |configuration|
       configuration['managed'] = true
-      configuration['title'] = 'SV-258145: RHEL 9 must be configured to offload audit records onto a different system from the system being audited via syslog.'
+      configuration['title'] =
+        'SV-258145: RHEL 9 must be configured to offload audit records onto a different system from the system being audited via syslog.'
     end
   end
 
@@ -24,7 +25,8 @@ node.override['cookbook']['harden']['controls'].each do |_group, controls|
   controls['rsyslog'].tap do |control|
     control['rsyslog-gnutls'].tap do |configuration|
       configuration['managed'] = true
-      configuration['title'] = 'SV-258141: RHEL 9 must have the packages required for encrypting offloaded audit logs installed.'
+      configuration['title'] =
+        'SV-258141: RHEL 9 must have the packages required for encrypting offloaded audit logs installed.'
     end
   end
 

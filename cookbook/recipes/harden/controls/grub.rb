@@ -34,11 +34,11 @@ node['cookbook']['harden']['controls']['grub'].each do |name, control|
 
   when 'boot_loader_superuser_name'
     filter_lines configuration['title'] do
-      path'/etc/grub2.cfg'
+      path '/etc/grub2.cfg'
       filters([
-       { substitute: [/set superusers/, /root/, control['value']] },
-       { substitute: [/password_pbkdf2.*${GRUB2_PASSWORD}/, /root/, control['value']] },
-       ])
+                { substitute: [/set superusers/, /root/, control['value']] },
+                { substitute: [/password_pbkdf2.*${GRUB2_PASSWORD}/, /root/, control['value']] },
+              ])
       notifies :run, 'execute[update-grub]', :delayed
     end
     next

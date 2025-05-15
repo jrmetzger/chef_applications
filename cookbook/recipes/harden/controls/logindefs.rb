@@ -20,7 +20,7 @@ node['cookbook']['harden']['controls']['logindefs'].each do |name, control|
     line = control['value'].empty? ? name : "#{name} #{control['value']}"
     replace_or_add control['title'] do
       path '/etc/login.defs'
-      pattern /(^|#)#{name}/
+      pattern(/(^|#)#{name}/)
       line line
     end
   end

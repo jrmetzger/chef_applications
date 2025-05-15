@@ -19,12 +19,21 @@ node['cookbook']['harden']['controls']['audit'].each do |name, control|
 
   # Configuration
   next unless control['value']
-  pattern = "^#{name} = .*"
-  line = "#{name} = #{control['value']}"
-  replace_or_add control['title'] do
-    path control['path'] || '/etc/audit/auditd.conf'
-    pattern pattern
-    line line
+
+  case name
+  when 'auditd'
+    service configuration['title'] do
+      service_name 'auditd'
+      action [:enable, :start]
+    end
+  else
+    pattern = "^#{name} = .*"
+    line = "#{name} = #{control['value']}"
+    replace_or_add control['title'] do
+      path control['path'] || '/etc/audit/auditd.conf'
+      pattern pattern
+      line line
+    end
   end
 end
 
@@ -32,6 +41,7 @@ end
 file '/etc/audit/rules.d/audit.rules' do
   action :delete
 end
+
 template 'Implement Audit Controls' do
   path '/etc/audit/rules.d/99-stig.rules'
   source 'audit.rules.erb'
@@ -41,6 +51,7 @@ template 'Implement Audit Controls' do
   notifies :run, 'execute[Reload Auditctl]', :immediately
   variables(rules: node['cookbook']['harden']['controls']['audit'])
 end
+
 execute 'Reload Auditctl' do
   command 'augenrules --load'
   # command 'auditctl -R /etc/audit/rules.d/99-stig.rules'

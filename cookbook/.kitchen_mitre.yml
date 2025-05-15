@@ -1,0 +1,38 @@
+---
+verifier:
+  name: inspec
+  sudo: true
+  reporter:
+    - cli
+    - json:spec/results/%{platform}_%{suite}.json
+  inspec_tests:
+    - name: rhel9
+
+suites:
+  - name: default
+    includes:
+    - rhel9
+    - amazonlinux-2023
+    - ubuntu-22.04
+
+#lifecycle:
+#  post_destroy:
+#  - local: |
+#      echo "[INFO] Closing Port 12345"
+#      kill -9 $(lsof -i :12345 -t)
+#  post_create:
+#  - local: |
+#      echo "[INFO] Generating FIPS Key"
+#      mkdir -m 700 -p keys
+#      ssh-keygen -t ed25519 -f keys/fips_key -o -a 100 -N ""
+#      #chmod g-rwx,o-rwx keys/*
+#      #yq eval '.ssh_key = "keys/fips_key"' -i .kitchen/default-rhel-9.yml
+#      export PUB_KEY=$(cat keys/fips_key.pub)
+#  - remote: |
+#      echo "[INFO] Importing Public Key to SSH Authorized Keys"
+#      echo "<%= ENV['PUB_KEY'] %>" >> ~/.ssh/authorized_keys
+#      echo "[INFO] Attempting Red Hat subscription registration..."
+#      sudo -i subscription-manager register --username "<%= ENV['REDHAT_USERNAME'] %>" --password "<%= ENV['REDHAT_PASSWORD'] %>" --force || echo "[WARN] Registration failed"
+#      echo "[INFO] Updating Packages..."
+#      sudo -i yum -y update || echo "[WARN] Failed to update packages"
+#      #dnf -y update --quiet --progressbar=plain #tty

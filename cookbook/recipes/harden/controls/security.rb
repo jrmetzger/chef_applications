@@ -40,7 +40,7 @@ node['cookbook']['harden']['controls']['security'].each do |name, control|
   line = control['value'].empty? ? name : "#{name} = #{control['value']}"
   replace_or_add control['title'] do
     path path
-    pattern /(^|# )#{name}/
+    pattern(/(^|# )#{name}/)
     line line
     replace_only true
   end

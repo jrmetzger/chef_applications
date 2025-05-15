@@ -6,7 +6,7 @@
 #
 # Copyright:: 2025, The Authors, All Rights Reserved.
 
-pv_name = node['cookbook']['harden']['mount_settings']['pv_name']
+# pv_name = node['cookbook']['harden']['mount_settings']['pv_name']
 lv_name = node['cookbook']['harden']['mount_settings']['lv_name']
 lv_size = node['cookbook']['harden']['mount_settings']['lv_size']
 
@@ -53,16 +53,16 @@ node['cookbook']['harden']['controls']['mount'].each do |name, control|
 end
 
 # Execute 'pvcreate' for the specified volume group, only if the physical volume isn't already created
-execute "pvcreate #{pv_name}" do
-  command "pvcreate #{pv_name}"
-  not_if "pvscan | grep -q '#{pv_name}'" # Prevent running if the physical volume already exists
-end
+# execute "pvcreate #{pv_name}" do
+#  command "pvcreate #{pv_name}"
+#  not_if "pvscan | grep -q '#{pv_name}'" # Prevent running if the physical volume already exists
+# end
 
 # Execute 'vgcreate' for the specified logical volume name and volume group, only if the volume group doesn't already exist
-execute "vgcreate #{lv_name} #{pv_name}" do
-  command "vgcreate #{lv_name} #{pv_name}"
-  not_if "vgs | grep -q '#{lv_name}'" # Prevent running if the volume group already exists
-end
+# execute "vgcreate #{lv_name} #{pv_name}" do
+#  command "vgcreate #{lv_name} #{pv_name}"
+#  not_if "vgs | grep -q '#{lv_name}'" # Prevent running if the volume group already exists
+# end
 
 # Iterate over each mount point and create logical volumes, backup, and mount
 mount_points.each do |name, control|
@@ -96,7 +96,8 @@ mount_points.each do |name, control|
       command "lvcreate -L #{lv_size} -n #{lv_title} #{lv_name}"
       not_if "lvdisplay #{lv_name}/#{lv_title}"
       notifies :run, "execute[Backup Mount Point #{name}]", :before
-      notifies :run, "execute[Create File System: #{control['fstype']} for '/dev/mapper/#{lv_name}-#{lv_title}']", :immediately
+      notifies :run, "execute[Create File System: #{control['fstype']} for '/dev/mapper/#{lv_name}-#{lv_title}']",
+               :immediately
       notifies :mount, "mount[#{control['title']}]", :immediately
       notifies :enable, "mount[#{control['title']}]", :immediately
       notifies :run, "execute[Restore Mount Point #{name}]", :immediately
@@ -144,6 +145,6 @@ mount_points.each do |name, control|
     pass 0
     options "defaults,#{control['options'].join(',')}"
     supports(remount: true)
-    action [:remount, :enable]
+    action %i(remount enable)
   end
 end

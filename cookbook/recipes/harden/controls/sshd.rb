@@ -21,7 +21,7 @@ node['cookbook']['harden']['controls']['sshd'].each do |name, control|
     line = "#{name} #{control['value']}"
     replace_or_add control['title'] do
       path path
-      pattern /(^|#)#{name}/
+      pattern(/(^|#)#{name}/)
       line line
       notifies :restart, 'service[sshd]', :delayed
     end

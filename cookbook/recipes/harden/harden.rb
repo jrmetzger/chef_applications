@@ -22,6 +22,7 @@ node['cookbook']['harden']['controls'].each do |group, controls|
   controls.each do |name, control|
     control['title'] = control[os_name] if control.key?(os_name)
     next unless control['managed']
+
     # id, title = control['title'].split(':')
     puts "-----> | #{group} | #{name} | #{control['title']} | "
   end

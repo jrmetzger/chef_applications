@@ -1,4 +1,7 @@
 ---
 SV-258230:
-  justification: Reboot Required - RHEL 9 must enable FIPS mode.
+  justification: FIPS Requires Reboot - RHEL 9 must enable FIPS mode.
   run: false
+SV-258229:
+  run: false
+  justification: Audit Requires Reboot - RHEL 9 audit system must protect auditing rules from unauthorized change.

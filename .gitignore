@@ -1,4 +1,4 @@
-keys/*
+cookbook/.keys/**
 cookbook/spec/*
 scripts/heimdall-lite.sh
 scripts/zabbix-server.sh

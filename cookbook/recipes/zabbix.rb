@@ -14,7 +14,8 @@ remote_file 'zabbix-repo.rpm' do
 end
 package 'zabbix-repo.rpm'
 
-package %w(zabbix-server-pgsql zabbix-web-pgsql zabbix-apache-conf zabbix-sql-scripts zabbix-selinux-policy zabbix-agent)
+package %w(zabbix-server-pgsql zabbix-web-pgsql zabbix-apache-conf zabbix-sql-scripts zabbix-selinux-policy
+           zabbix-agent)
 
 # Postgres
 package %w(postgresql-server postgresql-contrib)
@@ -31,7 +32,7 @@ execute 'zcat /usr/share/zabbix/sql-scripts/postgresql/server.sql.gz | sudo -u z
 
 replace_or_add 'Update DBPassword' do
   path '/etc/zabbix/zabbix_server.conf'
-  pattern /"(^|# )DBPassword=.*"/
+  pattern(/"(^|# )DBPassword=.*"/)
   line 'DBPassword=postgres'
 end
 # StartConnectors=5
@@ -39,7 +40,7 @@ end
 # NOTE: remove all
 replace_or_add 'Update Authentication Method' do
   path '/var/lib/pgsql/data/pg_hba.conf'
-  pattern /"^local.*all.*all.*$"/
+  pattern(/"^local.*all.*all.*$"/)
   line 'local   all             all                                     md5'
   notifies :reload, 'service[postgresql]', :immediately
 end
@@ -51,7 +52,7 @@ end
 
 %w(zabbix-server zabbix-agent httpd php-fpm).each do |service|
   service service do
-    action [:restart, :enable]
+    action %i(restart enable)
   end
 end
 
@@ -59,9 +60,9 @@ end
 public_ip = `curl -fsS http://169.254.169.254/latest/meta-data/public-ipv4`
 file 'Script to Open Zabbix' do
   path '/tmp/zabbix_server.sh'
-  content <<-EOF
-#!/bin/bash
-open http://#{public_ip}/zabbix}
+  content <<~EOF
+    #!/bin/bash
+    open http://#{public_ip}/zabbix}
   EOF
 end
 

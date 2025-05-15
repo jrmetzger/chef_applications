@@ -11,7 +11,8 @@ default['cookbook']['harden']['controls']['grub'].tap do |control|
   end
   control['boot_loader_superusers_name'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257789: RHEL 9 must require a unique superusers name upon booting into single-user and maintenance modes.'
+    configuration['title'] =
+      'SV-257789: RHEL 9 must require a unique superusers name upon booting into single-user and maintenance modes.'
     configuration['value'] = 'superuser'
   end
 
@@ -42,11 +43,12 @@ default['cookbook']['harden']['controls']['grub'].tap do |control|
   end
   control['audit_backlog_limit'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-258173: RHEL 9 must allocate an audit_backlog_limit of sufficient size to capture processes that start prior to the audit daemon.'
+    configuration['title'] =
+      'SV-258173: RHEL 9 must allocate an audit_backlog_limit of sufficient size to capture processes that start prior to the audit daemon.'
     configuration['value'] = '8192'
   end
   control['fips'].tap do |configuration|
-    configuration['managed'] = true
+    configuration['managed'] = false # SSH breaks?
     configuration['title'] = 'SV-258241: RHEL 9 must implement a system-wide encryption policy.'
     configuration['value'] = '1'
     configuration['mode'] = 'enable'

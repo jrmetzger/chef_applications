@@ -19,7 +19,8 @@ default['cookbook']['harden']['controls']['packages'].tap do |control|
   end
   control['main.localpkg_gpgcheck'].tap do |configuration|
     configuration['managed'] = true
-    configuration['title'] = 'SV-257821: RHEL 9 must check the GPG signature of locally installed software packages before installation.'
+    configuration['title'] =
+      'SV-257821: RHEL 9 must check the GPG signature of locally installed software packages before installation.'
     configuration['value'] = 'yes'
   end
   control['s-nail'].tap do |configuration|
@@ -40,8 +41,12 @@ default['cookbook']['harden']['controls']['packages'].tap do |control|
     configuration['managed'] = true
     configuration['title'] = 'SV-258035: RHEL 9 must have the USBGuard package installed.'
   end
+  control['rsyslog'].tap do |configuration|
+    configuration['managed'] = true
+    configuration['title'] = 'The rsyslog service on RHEL 9 must be active.'
+  end
   control['fapolicyd'].tap do |configuration|
-    configuration['managed'] = false
+    configuration['managed'] = true
     configuration['title'] = 'Linux fapolicy module must be installed.'
   end
 end
