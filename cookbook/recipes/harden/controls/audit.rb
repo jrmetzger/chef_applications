@@ -11,6 +11,11 @@
 #  not_if 'test $(cat /proc/sys/crypto/fips_enabled) -eq 1'  # Skip if already in FIPS mode
 # end
 
+service 'auditd' do
+  service_name 'auditd'
+  action [:enable, :start]
+end
+
 node['cookbook']['harden']['controls']['audit'].each do |name, control|
   next unless control['managed']
 
@@ -20,20 +25,12 @@ node['cookbook']['harden']['controls']['audit'].each do |name, control|
   # Configuration
   next unless control['value']
 
-  case name
-  when 'auditd'
-    service configuration['title'] do
-      service_name 'auditd'
-      action [:enable, :start]
-    end
-  else
-    pattern = "^#{name} = .*"
-    line = "#{name} = #{control['value']}"
-    replace_or_add control['title'] do
-      path control['path'] || '/etc/audit/auditd.conf'
-      pattern pattern
-      line line
-    end
+  pattern = "^#{name} = .*"
+  line = "#{name} = #{control['value']}"
+  replace_or_add control['title'] do
+    path control['path'] || '/etc/audit/auditd.conf'
+    pattern pattern
+    line line
   end
 end
 
@@ -56,6 +53,11 @@ execute 'Reload Auditctl' do
   command 'augenrules --load'
   # command 'auditctl -R /etc/audit/rules.d/99-stig.rules'
   # reboot
+  action :nothing
+  notify :restart, 'service[auditd]', :delayed
+end
+
+service 'auditd' do
   action :nothing
 end
 
