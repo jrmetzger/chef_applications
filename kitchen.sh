@@ -3,7 +3,6 @@
 install_script='https://omnitruck.chef.io/install.sh'
 install_script='https://omnitruck.cinc.sh/install.sh'
 
-
 chef_client_version=18
 chef_auditor_version=6
 chef_workstation_version=24
@@ -78,6 +77,19 @@ REQUIRED_VARS=(
 #"SECURITY_GROUP_ID"
 #"REGION"
   )
+
+# Prompt for values only if the target variables are empty
+if [ -z "$(env | grep REDHAT_USERNAME)" ]; then
+  read -p "Enter username: " USERNAME
+  export "${REDHAT_USERNAME}=$USERNAME"
+fi
+
+if [ -z "$(env | grep REDHAT_PASSWORD)" ]; then
+  read -s -p "Enter password: " PASSWORD
+  echo
+  export "${REDHAT_PASSWORD}=$PASSWORD"
+fi
+
 for var in "${REQUIRED_VARS[@]}"; do
   [ -z "${!var}" ] && echo "ERROR: $var is not set." && missing=true
 done
