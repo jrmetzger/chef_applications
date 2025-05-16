@@ -81,13 +81,13 @@ REQUIRED_VARS=(
 # Prompt for values only if the target variables are empty
 if [ -z "$(env | grep REDHAT_USERNAME)" ]; then
   read -p "Enter username: " USERNAME
-  export "${REDHAT_USERNAME}=$USERNAME"
+  export REDHAT_USERNAME=$USERNAME
 fi
 
 if [ -z "$(env | grep REDHAT_PASSWORD)" ]; then
   read -s -p "Enter password: " PASSWORD
   echo
-  export "${REDHAT_PASSWORD}=$PASSWORD"
+  export REDHAT_PASSWORD=$PASSWORD
 fi
 
 for var in "${REQUIRED_VARS[@]}"; do
