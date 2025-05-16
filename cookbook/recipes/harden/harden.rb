@@ -21,7 +21,7 @@ include_recipe "cookbook::#{os_name}"
 
 puts '-----> | Group | Control | Title |'
 node['cookbook']['harden']['controls'].each do |group, controls|
-  next unless node['cookbook']['harden']['override_control_groups']&.include?(group)
+  # next unless node['cookbook']['harden']['override_control_groups']&.include?(group)
 
   controls.each do |name, control|
     control['title'] = control[os_name] if control.key?(os_name)
