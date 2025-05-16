@@ -28,13 +28,12 @@ else
 fi
 
 # https://cinc.sh/start/workstation/
-# NOTE: Not for rhel9?
-#if [[ ! (-d /opt/cinc-workstation || -d /opt/chef-workstation) ]]; then
-#  echo "Installing CINC Workstation..."
-#  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-workstation -v ${chef_workstation_version}
-#else
-#  echo "CINC Workstation already exists, skipping installation."
-#fi
+if [[ ! (-d /opt/cinc-workstation || -d /opt/chef-workstation) ]]; then
+  echo "Installing CINC Workstation..."
+  curl -L https://omnitruck.cinc.sh/install.sh | sudo bash -s -- -P cinc-workstation -v ${chef_workstation_version}
+else
+  echo "CINC Workstation already exists, skipping installation."
+fi
 
 # https://cinc.sh/start/server/
 # NOT SUPPORT ON MAC
